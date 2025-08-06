@@ -74,6 +74,13 @@
       color: #666;
       text-decoration: none;
     }
+      header .logo-top-left {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      max-width: 150px;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
@@ -81,32 +88,28 @@
   <header>
     <img src="header.jpg" alt="LKW auf Autobahn bei Sonnenuntergang" class="bg" />
     <div class="overlay">
-      <img src="Logo.png" alt="TruckTire24 Logo" class="logo" />
+      
       <h1>TruckTire24</h1>
       <p>Ihr mobiler 24/7‑LKW‑Pannenservice</p>
       <p>Schnell – Zuverlässig – Direkt vor Ort</p>
     </div>
+  <img src="Logo.png" alt="TruckTire24 Logo" class="logo-top-left" />
   </header>
 
   <section>
-    <h2>Unsere Leistungen</h2>
-    <p class="lead">Wir sind spezialisiert auf mobilen LKW-Reifenservice rund um die Uhr:</p>
-    <div class="services">
-      <ul>
-        <li>Reifenmontage direkt am Einsatzort</li>
-        <li>Notfallservice bei Pannen – 24 Stunden täglich</li>
-        <li>Individuelle Betreuung für Speditionen & Flottenkunden</li>
-      </ul>
-    </div>
-
-    <div class="region">
-      <h2>Regionale Verfügbarkeit</h2>
-      <p>Wir sind besonders schnell vor Ort in Hessen – direkt an den Autobahnen:</p>
-      <ul>
-        <li>A7 – Fulda, Kirchheim, Bad Hersfeld</li>
-        <li>A5 – Alsfeld, Hattenbach</li>
-        <li>A49 – Schwalmstadt, Neuental</li>
-      </ul>
+    <div style="display: flex; justify-content: space-around; align-items: flex-start; margin-bottom: 40px;">
+      <div style="text-align: center; max-width: 250px;">
+        <h3>⚡ 24/7-Notdienst</h3>
+        <p>Text hier anpassen.</p>
+      </div>
+      <div style="text-align: center; max-width: 250px;">
+        <h3>⚡ Vor-Ort-Service</h3>
+        <p>Text hier anpassen.</p>
+      </div>
+      <div style="text-align: center; max-width: 250px;">
+        <h3>⚡ Für Speditionen & Flotten</h3>
+        <p>Text hier anpassen.</p>
+      </div>
     </div>
   </section>
 
