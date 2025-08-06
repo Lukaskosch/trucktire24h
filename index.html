@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TruckTire24 – Mobiler LKW-Reifendienst</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #222;
+    }
+    header {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+    header img.bg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    header .overlay {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      background-color: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    header .overlay img.logo {
+      max-width: 140px;
+      margin-bottom: 15px;
+    }
+    header .overlay h1 {
+      margin: 10px 0 5px;
+      font-size: 32px;
+    }
+    header .overlay p {
+      font-size: 18px;
+      margin: 5px 0;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      color: #d32f2f;
+      font-size: 24px;
+    }
+    .services, .region {
+      margin-top: 30px;
+    }
+    .services ul, .region ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .services li::before, .region li::before {
+      content: "⚡ ";
+      color: #d32f2f;
+    }
+    footer {
+      background: #eee;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+    a.footer-link {
+      color: #666;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="header.jpg" alt="LKW auf Autobahn bei Sonnenuntergang" class="bg" />
+    <div class="overlay">
+      <img src="logo.png" alt="TruckTire24 Logo" class="logo" />
+      <h1>TruckTire24</h1>
+      <p>Ihr mobiler 24/7‑LKW‑Pannenservice</p>
+      <p>Schnell – Zuverlässig – Direkt vor Ort</p>
+    </div>
+  </header>
+
+  <section>
+    <h2>Unsere Leistungen</h2>
+    <p class="lead">Wir sind spezialisiert auf mobilen LKW-Reifenservice rund um die Uhr:</p>
+    <div class="services">
+      <ul>
+        <li>Reifenmontage direkt am Einsatzort</li>
+        <li>Notfallservice bei Pannen – 24 Stunden täglich</li>
+        <li>Individuelle Betreuung für Speditionen & Flottenkunden</li>
+      </ul>
+    </div>
+
+    <div class="region">
+      <h2>Regionale Verfügbarkeit</h2>
+      <p>Wir sind besonders schnell vor Ort in Hessen – direkt an den Autobahnen:</p>
+      <ul>
+        <li>A7 – Fulda, Kirchheim, Bad Hersfeld</li>
+        <li>A5 – Alsfeld, Hattenbach</li>
+        <li>A49 – Schwalmstadt, Neuental</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
+  </footer>
+
+</body>
+</html>
