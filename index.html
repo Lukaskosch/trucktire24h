@@ -24,8 +24,8 @@
     /* Suche */
     .search-wrap { margin:18px 0 6px; display:flex; gap:10px; align-items:center; }
     .search-wrap input[type="search"]{ flex:1; padding:10px 12px; border:1px solid #ddd; border-radius:8px; font-size:16px; }
+    .search-wrap button{ padding:10px 14px; border:1px solid #ddd; border-radius:8px; background:#fff; cursor:pointer; }
     .search-meta { font-size:12px; color:#666; margin:2px 0 0; }
-    .hidden { display:none !important; }
   </style>
 </head>
 <body>
@@ -57,10 +57,11 @@
     <iframe id="map-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde" allowfullscreen loading="lazy"></iframe>
   </div>
 
-  <!-- Suche unter der Karte -->
+  <!-- Suche unter der Karte: Datalist + Button (Listen bleiben sichtbar) -->
   <div class="search-wrap">
-    <input id="parking-search" type="search" placeholder="Parkplatz suchen … z. B. 'Rimberg', 'A7', 'Hasselberg'" aria-label="Parkplätze durchsuchen">
-    <div id="match-count" class="search-meta"></div>
+    <input id="parking-search" list="parking-suggestions" type="search" placeholder="Parkplatz suchen … z. B. 'Rimberg', 'A7', 'Hasselberg'" aria-label="Parkplätze durchsuchen">
+    <button id="parking-go" type="button">Anzeigen</button>
+    <datalist id="parking-suggestions"></datalist>
   </div>
 
   <!-- A5 -->
@@ -149,7 +150,7 @@
 </footer>
 
 <script>
-  // Karte fokussieren
+  // Karte fokussieren (ohne Scrollen)
   function focusMap(event, place) {
     if (event) event.preventDefault();
     const iframe = document.getElementById('map-iframe');
@@ -222,32 +223,42 @@
     return false;
   }
 
-  // Live-Suche (filtert alle Listen; blendet Überschriften ohne Treffer aus)
-  const searchInput = document.getElementById('parking-search');
-  const matchCount = document.getElementById('match-count');
-  if (searchInput) {
-    searchInput.addEventListener('input', () => {
-      const q = searchInput.value.trim().toLowerCase();
-      let matches = 0;
-      document.querySelectorAll('ul.parking-list').forEach(ul => {
-        let sectionMatches = 0;
-        ul.querySelectorAll('li').forEach(li => {
-          const text = li.textContent.toLowerCase();
-          const show = !q || text.includes(q);
-          li.classList.toggle('hidden', !show);
-          if (show) sectionMatches++;
-        });
-        // Überschrift zu diesem UL ermitteln (vorheriges H2)
-        const h2 = ul.previousElementSibling;
-        if (h2 && h2.tagName === 'H2') {
-          h2.classList.toggle('hidden', sectionMatches === 0);
-        }
-        ul.classList.toggle('hidden', sectionMatches === 0);
-        matches += sectionMatches;
-      });
-      matchCount.textContent = q ? `${matches} Treffer` : '';
+  // Autocomplete-Suche: Listen bleiben sichtbar; Auswahl springt zur Karte
+  (function initSearch(){
+    const input = document.getElementById('parking-search');
+    const goBtn = document.getElementById('parking-go');
+    const datalist = document.getElementById('parking-suggestions');
+    if (!input || !datalist) return;
+
+    // Aus Links (Listen) automatisch Vorschläge generieren
+    const labelToSlug = new Map();
+    const links = document.querySelectorAll('ul.parking-list a');
+    links.forEach(a => {
+      const label = a.textContent.trim();
+      const onclk = a.getAttribute('onclick') || '';
+      const m = onclk.match(/focusMap\(event,'([^']+)'\)/);
+      if (m && label && !labelToSlug.has(label)) {
+        labelToSlug.set(label, m[1]);
+        const opt = document.createElement('option');
+        opt.value = label; // datalist speichert nur value
+        datalist.appendChild(opt);
+      }
     });
-  }
+
+    function selectFromInput(){
+      const val = (input.value || '').trim();
+      if (!val) return;
+      // exakte Übereinstimmung bevorzugen
+      if (labelToSlug.has(val)) { focusMap(null, labelToSlug.get(val)); return; }
+      // sonst erste partielle Übereinstimmung nehmen
+      const match = Array.from(labelToSlug.keys()).find(k => k.toLowerCase().includes(val.toLowerCase()));
+      if (match) focusMap(null, labelToSlug.get(match));
+    }
+
+    input.addEventListener('change', selectFromInput);
+    input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); selectFromInput(); }});
+    if (goBtn) goBtn.addEventListener('click', selectFromInput);
+  })();
 </script>
 
 </body>
