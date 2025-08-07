@@ -25,22 +25,6 @@
       height: auto;
       display: block;
     }
-    header .overlay {
-      position: absolute;
-      bottom: 30px;
-      left: 30px;
-      right: 30px;
-      width: 90%;
-      max-width: 1000px;
-      text-align: left;
-      padding: 15px;
-      border-radius: 10px;
-      box-sizing: border-box;
-    }
-    header .overlay img.logo {
-      max-width: 300px;
-      margin-bottom: 15px;
-    }
     section {
       padding: 40px 20px;
       max-width: 1000px;
@@ -99,6 +83,12 @@
       height: 26px;
       width: 26px;
     }
+    .map-container {
+      width: 100%;
+      height: 400px;
+      margin-top: 60px;
+      border: none;
+    }
     @media screen and (max-width: 768px) {
       header .overlay {
         bottom: 10px;
@@ -139,17 +129,11 @@
         margin-bottom: 12px;
       }
     }
-    .map-container {
-      width: 100%;
-      height: 350px;
-      margin-top: 60px;
-      border: none;
-    }
   </style>
 </head>
 <body>
 
-  <nav style="position: absolute; top: 0; left: 0; right: 0; width: 100%; background: linear-gradient(to right, #fff700, #ffffff); padding: 4px 10px; display: flex; align-items: center; justify-content: space-between; z-index: 20; box-shadow: 0 2px 6px rgba(0,0,0,0.1); box-sizing: border-box;">
+<nav style="position: absolute; top: 0; left: 0; right: 0; width: 100%; background: linear-gradient(to right, #fff700, #ffffff); padding: 4px 10px; display: flex; align-items: center; justify-content: space-between; z-index: 20; box-shadow: 0 2px 6px rgba(0,0,0,0.1); box-sizing: border-box;">
   <div style="flex-shrink: 0; display: flex; align-items: center;"><img src="Logo.png" alt="TruckTire24 Logo" style="height: 22px; display: block; margin-right: 10px;" /></div>
   <div style="flex-grow: 1; text-align: center; font-size: 12px; font-weight: 500; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px;">
     Umgebung A7 Kirchheimer Dreieck / A5 Hattenbacher Dreieck / A49 Kassel–Ohmtal-Dreieck / B454 Niederaula / B254 Alsfeld / B27 Bad Hersfeld / Lauterbach B254 / Hünfeld 84 Fulda B 279
@@ -161,46 +145,45 @@
   </div>
 </nav>
 
-  <header>
-    <div style="position: relative; width: 100%; overflow: hidden;">
-      <img src="header.png" alt="LKW auf Autobahn bei Sonnenuntergang" class="bg" style="width: 100%; height: auto; display: block;" />
+<header>
+  <div style="position: relative; width: 100%; overflow: hidden;">
+    <img src="header.png" alt="LKW auf Autobahn bei Sonnenuntergang" class="bg" style="width: 100%; height: auto; display: block;" />
+  </div>
+</header>
+
+<section>
+  <div class="flex-boxes">
+    <div>
+      <p style="font-weight: bold; margin-bottom: 8px; font-size: 16px;">Kontaktieren Sie uns direkt:</p>
+      <a href="mailto:info@trucktire24h.com" style="display: inline-block; padding: 12px 24px; font-size: 16px; color: #000; font-weight: bold; text-decoration: none; border-radius: 30px; background: linear-gradient(to right, #fff700, #ffffff); box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s ease-in-out;">
+        ✉️ Kontakt aufnehmen
+      </a>
     </div>
-  </header>
-
-  <section>
-    <div class="flex-boxes">
-      <div>
-        <p style="font-weight: bold; margin-bottom: 8px; font-size: 16px;">Kontaktieren Sie uns direkt:</p>
-        <a href="mailto:info@trucktire24h.com" style="display: inline-block; padding: 12px 24px; font-size: 16px; color: #000; font-weight: bold; text-decoration: none; border-radius: 30px; background: linear-gradient(to right, #fff700, #ffffff); box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s ease-in-out;">
-          ✉️ Kontakt aufnehmen
-        </a>
-      </div>
-      <div>
-        <h3><img src="blitz-icon.png" alt="Blitz Icon"> 24/7-Notdienst</h3>
-        <p>24/7 Soforthilfe bei Reifenpannen – auch nachts, an Wochenenden und Feiertagen für Sie im Einsatz.</p>
-      </div>
-      <div>
-        <h3><img src="blitz-icon.png" alt="Blitz Icon"> Vor-Ort-Service</h3>
-        <p>Reifenservice und Montage direkt bei Ihnen vor Ort – für maximale Mobilität ohne Zeitverlust.</p>
-      </div>
-      <div>
-        <h3><img src="blitz-icon.png" alt="Blitz Icon"> Für Speditionen & Flotten</h3>
-        <p>Mobil, schnell und zuverlässig – Ihr Reifendienst für LKW-Flotten in Hessen.</p>
-      </div>
+    <div>
+      <h3><img src="blitz-icon.png" alt="Blitz Icon"> 24/7-Notdienst</h3>
+      <p>24/7 Soforthilfe bei Reifenpannen – auch nachts, an Wochenenden und Feiertagen für Sie im Einsatz.</p>
     </div>
-
-    <div class="map-container">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10152.008372946277!2d9.619!3d50.769!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd4a3fbb0a2d21%3A0x6a780b8f16c761ec!2s36272%20Niederaula!5e0!3m2!1sde!2sde!4v1691150000000!5m2!1sde!2sde"
-        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+    <div>
+      <h3><img src="blitz-icon.png" alt="Blitz Icon"> Vor-Ort-Service</h3>
+      <p>Reifenservice und Montage direkt bei Ihnen vor Ort – für maximale Mobilität ohne Zeitverlust.</p>
     </div>
+    <div>
+      <h3><img src="blitz-icon.png" alt="Blitz Icon"> Für Speditionen & Flotten</h3>
+      <p>Mobil, schnell und zuverlässig – Ihr Reifendienst für LKW-Flotten in Hessen.</p>
+    </div>
+  </div>
 
-  </section>
+  <div class="map-container">
+    <iframe
+      src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBX4eRrhGUZ9PqZQyKxULKdZbTkxEjTQ7s&center=50.769,9.619&zoom=9&maptype=roadmap"
+      width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
 
-  <footer>
-    <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
-  </footer>
+<footer>
+  <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
+</footer>
 
 </body>
 </html>
