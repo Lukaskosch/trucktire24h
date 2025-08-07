@@ -6,12 +6,13 @@
   <title>TruckTire24 – Mobiler LKW-Reifendienst</title>
   <style>
     body {
-      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f4f4;
-      color: #222;
-    }
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+  color: #222;
+  overflow-x: hidden;
+}
     header {
       position: relative;
       text-align: center;
@@ -25,7 +26,10 @@
     header .overlay {
   position: absolute;
   top: 120px;
-  left: 200px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-width: 800px;
   text-align: left;
   background-color: transparent;
   padding: 20px;
@@ -87,7 +91,7 @@
   <nav style="position: absolute; top: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.85); padding: 10px 30px; display: flex; align-items: center; z-index: 20; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
   <img src="Logo.png" alt="TruckTire24 Logo" style="height: 50px;" />
   <span style="font-size: 22px; font-weight: 600; margin-left: 15px; color: #222;">TruckTire24 – Mobiler LKW-Reifendienst</span>
-  <span style="margin-left: auto; font-size: 18px; color: #d32f2f; font-weight: 500;">📞 +49 151 24104553</span>
+  <span style="margin-left: 60px; font-size: 18px; color: #d32f2f; font-weight: 500;">📞 +49 151 24104553</span>
 </nav>
 
   <header>
