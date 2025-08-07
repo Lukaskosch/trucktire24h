@@ -6,111 +6,131 @@
   <title>TruckTire24 – Mobiler LKW-Reifendienst</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
-    body {
-      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f4f4;
-      color: #222;
-      max-width: 100%;
-      overflow-x: hidden;
-      box-sizing: border-box;
-    }
-    header { position: relative; color: white; }
-    header img.bg { width: 100%; height: auto; display: block; }
-    section { padding: 40px 20px; max-width: 1000px; margin: auto; }
-    h2 { color: #d32f2f; font-size: 24px; }
-    .services, .region { margin-top: 30px; }
-    .services ul, .region ul { list-style: none; padding-left: 0; }
-    .services li::before, .region li::before { content: "⚡ "; color: #d32f2f; }
-    footer { background: #eee; text-align: center; padding: 20px; font-size: 14px; }
-    a.footer-link { color: #666; text-decoration: none; }
-    nav .call-button:hover { background: #b71c1c; transform: scale(1.05); transition: all 0.2s ease-in-out; }
-    .flex-boxes { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
-    .flex-boxes > div { flex: 1 1 calc(25% - 20px); min-width: 220px; padding: 20px; border-radius: 8px; box-sizing: border-box; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
-    .flex-boxes > div h3 { display: flex; align-items: center; gap: 10px; }
-    .flex-boxes > div h3 img { height: 26px; width: 26px; }
-    .map-container { width: 100%; height: 400px; margin-top: 60px; border: none; position: relative; }
-    .map-container iframe { width: 100%; height: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: none; }
-    /* Parkplatzliste */
-    .parking-list { list-style: none; padding-left: 0; }
-    .parking-list li { margin: 6px 0; }
-    .parking-list a { text-decoration: none; color: #d32f2f; font-weight: 600; }
-    .parking-list a:hover { text-decoration: underline; }
-    .p-icon { margin-right: 8px; font-size: 16px; }
-    @media screen and (max-width: 768px) {
-      header .overlay { bottom: 10px; left: 10px; right: 10px; }
-      header .overlay h1 { font-size: 16px; line-height: 1.2; }
-      header .overlay p { font-size: 12px; line-height: 1.3; }
-      header .overlay .icon247 { max-width: 60px; margin-top: 4px; margin-bottom: 4px; }
-    }
-    @media screen and (min-width: 769px) {
-      header .overlay { bottom: 30px; left: 30px; right: 30px; }
-      header .overlay h1 { font-size: 52px; line-height: 1.2; }
-      header .overlay p { font-size: 26px; line-height: 1.4; }
-      header .overlay .icon247 { max-width: 200px; margin-top: 12px; margin-bottom: 12px; }
-    }
+    body { font-family: 'Segoe UI','Helvetica Neue',sans-serif; margin:0; padding:0; background:#f4f4f4; color:#222; }
+    header img.bg { width:100%; height:auto; display:block; }
+    section { padding:40px 20px; max-width:1000px; margin:auto; }
+    h2 { color:#d32f2f; font-size:24px; margin:28px 0 10px; }
+    .map-container iframe { width:100%; height:420px; border:none; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+    .flex-boxes { display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px; }
+    .flex-boxes > div { flex:1 1 calc(25% - 20px); min-width:220px; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.05); background:#fff; }
+    .parking-list { list-style:none; padding-left:0; }
+    .parking-list li { margin:6px 0; }
+    .parking-list a { text-decoration:none; color:#d32f2f; font-weight:600; }
+    .parking-list a:hover { text-decoration:underline; }
+    .p-icon { margin-right:8px; }
+    footer { background:#eee; text-align:center; padding:20px; font-size:14px; }
+    nav .call-button:hover { background:#b71c1c; transform:scale(1.05); transition:all .2s; }
+    nav { position:sticky; top:0; z-index:20; background:linear-gradient(to right,#fff700,#ffffff); box-shadow:0 2px 6px rgba(0,0,0,.1); padding:6px 10px; display:flex; align-items:center; justify-content:space-between; }
   </style>
 </head>
 <body>
 
-<nav style="position: absolute; top: 0; left: 0; right: 0; width: 100%; background: linear-gradient(to right, #fff700, #ffffff); padding: 4px 10px; display: flex; align-items: center; justify-content: space-between; z-index: 20; box-shadow: 0 2px 6px rgba(0,0,0,0.1); box-sizing: border-box;">
-  <div style="flex-shrink: 0; display: flex; align-items: center;"><img src="Logo.png" alt="TruckTire24 Logo" style="height: 22px; display: block; margin-right: 10px;" /></div>
-  <div style="flex-grow: 1; text-align: center; font-size: 12px; font-weight: 500; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px;">
+<nav>
+  <div><img src="Logo.png" alt="TruckTire24 Logo" style="height:22px; margin-right:10px;" /></div>
+  <div style="flex-grow:1; text-align:center; font-size:12px; font-weight:500; color:#444; padding:0 10px;">
     Umgebung A7 Kirchheimer Dreieck / A5 Hattenbacher Dreieck / A49 Kassel–Ohmtal-Dreieck / B454 Niederaula / B254 Alsfeld / B27 Bad Hersfeld / Lauterbach B254 / Hünfeld 84 Fulda B 279
   </div>
-  <div style="flex-shrink: 0;">
-    <span class="call-button" style="font-size: 12px; color: #fff; background: #d32f2f; padding: 4px 8px; border-radius: 4px; transition: all 0.2s ease-in-out; white-space: nowrap;">
-      📞 +49 151 24104553
-    </span>
-  </div>
+  <div><span class="call-button" style="font-size:12px; color:#fff; background:#d32f2f; padding:4px 8px; border-radius:4px;">📞 +49 151 24104553</span></div>
 </nav>
 
 <header>
-  <div style="position: relative; width: 100%; overflow: hidden;">
-    <img src="header.png" alt="LKW auf Autobahn bei Sonnenuntergang" class="bg" style="width: 100%; height: auto; display: block;" />
-  </div>
+  <div><img src="header.png" alt="LKW" class="bg" /></div>
 </header>
 
 <section>
   <div class="flex-boxes">
     <div>
-      <p style="font-weight: bold; margin-bottom: 8px; font-size: 16px;">Kontaktieren Sie uns direkt:</p>
-      <a href="mailto:info@trucktire24h.com" style="display: inline-block; padding: 12px 24px; font-size: 16px; color: #000; font-weight: bold; text-decoration: none; border-radius: 30px; background: linear-gradient(to right, #fff700, #ffffff); box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s ease-in-out;">
-        ✉️ Kontakt aufnehmen
-      </a>
+      <p style="font-weight:bold; margin-bottom:8px; font-size:16px;">Kontaktieren Sie uns direkt:</p>
+      <a href="mailto:info@trucktire24h.com" style="display:inline-block; padding:12px 24px; font-size:16px; color:#000; font-weight:bold; text-decoration:none; border-radius:30px; background:linear-gradient(to right,#fff700,#ffffff); box-shadow:0 4px 10px rgba(0,0,0,.1);">✉️ Kontakt aufnehmen</a>
     </div>
-    <div>
-      <h3><img src="blitz-icon.png" alt="Blitz Icon"> 24/7-Notdienst</h3>
-      <p>24/7 Soforthilfe bei Reifenpannen – auch nachts, an Wochenenden und Feiertagen für Sie im Einsatz.</p>
-    </div>
-    <div>
-      <h3><img src="blitz-icon.png" alt="Blitz Icon"> Vor-Ort-Service</h3>
-      <p>Reifenservice und Montage direkt bei Ihnen vor Ort – für maximale Mobilität ohne Zeitverlust.</p>
-    </div>
-    <div>
-      <h3><img src="blitz-icon.png" alt="Blitz Icon"> Für Speditionen & Flotten</h3>
-      <p>Mobil, schnell und zuverlässig – Ihr Reifendienst für LKW-Flotten in Hessen.</p>
-    </div>
+    <div><h3>⚡ 24/7-Notdienst</h3><p>24/7 Soforthilfe bei Reifenpannen.</p></div>
+    <div><h3>⚡ Vor-Ort-Service</h3><p>Reifenservice und Montage direkt vor Ort.</p></div>
+    <div><h3>⚡ Für Speditionen & Flotten</h3><p>Zuverlässiger Service für LKW-Flotten.</p></div>
   </div>
 
   <div class="map-container">
-    <iframe id="map-iframe"
-      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde"
-      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+    <iframe id="map-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde" allowfullscreen loading="lazy"></iframe>
   </div>
 
-  <h2 style="margin-top: 40px;">Gängige Parkplätze im Einsatzgebiet</h2>
+  <!-- A5 -->
+  <h2>A5 – Gängige Parkplätze</h2>
   <ul class="parking-list">
-    <li><a href="#" onclick="return focusMap(event, 'barnholz')"><span class="p-icon">🅿️</span>A5 – Parkplatz Barnholz</a></li>
-    <li><a href="#" onclick="return focusMap(event, 'rimberg-nord')"><span class="p-icon">🅿️</span>A5 – Parkplatz Rimberg Nord</a></li>
-    <li><a href="#" onclick="return focusMap(event, 'krachgarten')"><span class="p-icon">🅿️</span>A5 – Parkplatz Krachgarten</a></li>
-    <li><a href="#" onclick="return focusMap(event, 'dottenberg')"><span class="p-icon">🅿️</span>A5 – Parkplatz Dottenberg</a></li>
-    <li><a href="#" onclick="return focusMap(event, 'eifa')"><span class="p-icon">🅿️</span>A5 – Parkplatz Eifa</a></li>
-    <li><a href="#" onclick="return focusMap(event, 'berfa-nord')"><span class="p-icon">🅿️</span>A5 – Parkplatz Berfa Nord</a></li>
-    <li><a href="#" onclick="return focusMap(event, 'frohnkreuz')"><span class="p-icon">🅿️</span>A5 – Parkplatz Frohnkreuz</a></li>
+    <li><a href="#" onclick="return focusMap(event,'barnholz')"><span class="p-icon">🅿️</span>Parkplatz Barnholz</a></li>
+    <li><a href="#" onclick="return focusMap(event,'rimberg-nord')"><span class="p-icon">🅿️</span>Parkplatz Rimberg Nord</a></li>
+    <li><a href="#" onclick="return focusMap(event,'krachgarten')"><span class="p-icon">🅿️</span>Parkplatz Krachgarten</a></li>
+    <li><a href="#" onclick="return focusMap(event,'dottenberg')"><span class="p-icon">🅿️</span>Parkplatz Dottenberg</a></li>
+    <li><a href="#" onclick="return focusMap(event,'eifa')"><span class="p-icon">🅿️</span>Parkplatz Eifa</a></li>
+    <li><a href="#" onclick="return focusMap(event,'berfa-nord')"><span class="p-icon">🅿️</span>Parkplatz Berfa Nord</a></li>
+    <li><a href="#" onclick="return focusMap(event,'frohnkreuz')"><span class="p-icon">🅿️</span>Parkplatz Frohnkreuz</a></li>
+    <li><a href="#" onclick="return focusMap(event,'reinhardshain-nord')"><span class="p-icon">🅿️</span>Parkplatz Reinhardshain Nord</a></li>
+    <li><a href="#" onclick="return focusMap(event,'reinhardshain-sued')"><span class="p-icon">🅿️</span>Parkplatz Reinhardshain Süd</a></li>
+    <li><a href="#" onclick="return focusMap(event,'finkenwald')"><span class="p-icon">🅿️</span>Parkplatz Finkenwald</a></li>
+    <li><a href="#" onclick="return focusMap(event,'heg-berg')"><span class="p-icon">🅿️</span>Parkplatz Heg-Berg</a></li>
   </ul>
+
+  <!-- A4 -->
+  <h2>A4 – Gängige Parkplätze</h2>
+  <ul class="parking-list">
+    <li><a href="#" onclick="return focusMap(event,'seulingswald')"><span class="p-icon">🅿️</span>Parkplatz Seulingswald</a></li>
+    <li><a href="#" onclick="return focusMap(event,'nadeloehr')"><span class="p-icon">🅿️</span>Parkplatz Nadelöhr</a></li>
+    <li><a href="#" onclick="return focusMap(event,'burgberg-nord')"><span class="p-icon">🅿️</span>Parkplatz Burgberg Nord</a></li>
+    <li><a href="#" onclick="return focusMap(event,'werratal-sued')"><span class="p-icon">🅿️</span>Parkplatz Werratal Süd</a></li>
+    <li><a href="#" onclick="return focusMap(event,'eisenach-nord')"><span class="p-icon">🅿️</span>Parkplatz Eisenach Nord</a></li>
+    <li><a href="#" onclick="return focusMap(event,'hainich-sued')"><span class="p-icon">🅿️</span>Parkplatz Hainich Süd</a></li>
+    <li><a href="#" onclick="return focusMap(event,'hainich-nord')"><span class="p-icon">🅿️</span>Parkplatz Hainich Nord</a></li>
+  </ul>
+
+  <!-- A7 -->
+  <h2>A7 – Gängige Parkplätze</h2>
+  <ul class="parking-list">
+    <li><a href="#" onclick="return focusMap(event,'strampen')"><span class="p-icon">🅿️</span>Parkplatz Strampen</a></li>
+    <li><a href="#" onclick="return focusMap(event,'ottersbach')"><span class="p-icon">🅿️</span>Parkplatz Ottersbach</a></li>
+    <li><a href="#" onclick="return focusMap(event,'kirchheim-ost')"><span class="p-icon">🅿️</span>Parkplatz Kirchheim Ost</a></li>
+    <li><a href="#" onclick="return focusMap(event,'am-pommer')"><span class="p-icon">🅿️</span>Parkplatz Am Pommer</a></li>
+    <li><a href="#" onclick="return focusMap(event,'fuchsrain')"><span class="p-icon">🅿️</span>Parkplatz Fuchsrain</a></li>
+    <li><a href="#" onclick="return focusMap(event,'hasselberg-ost')"><span class="p-icon">🅿️</span>Parkplatz Hasselberg Ost</a></li>
+    <li><a href="#" onclick="return focusMap(event,'hasselberg-west')"><span class="p-icon">🅿️</span>Parkplatz Hasselberg West</a></li>
+    <li><a href="#" onclick="return focusMap(event,'quillerwald')"><span class="p-icon">🅿️</span>Parkplatz Quillerwald</a></li>
+    <li><a href="#" onclick="return focusMap(event,'veitsbrunn')"><span class="p-icon">🅿️</span>Parkplatz Veitsbrunn</a></li>
+    <li><a href="#" onclick="return focusMap(event,'roehn-west')"><span class="p-icon">🅿️</span>Parkplatz Röhn West</a></li>
+    <li><a href="#" onclick="return focusMap(event,'roehn-ost')"><span class="p-icon">🅿️</span>Parkplatz Röhn Ost</a></li>
+    <li><a href="#" onclick="return focusMap(event,'schildeck')"><span class="p-icon">🅿️</span>Parkplatz Schildeck</a></li>
+    <li><a href="#" onclick="return focusMap(event,'tir')"><span class="p-icon">🅿️</span>Parkplatz TIR</a></li>
+    <li><a href="#" onclick="return focusMap(event,'roenblick')"><span class="p-icon">🅿️</span>Parkplatz Rönblick</a></li>
+    <li><a href="#" onclick="return focusMap(event,'speicherz')"><span class="p-icon">🅿️</span>Parkplatz Speicherz</a></li>
+    <li><a href="#" onclick="return focusMap(event,'am-forsthaus')"><span class="p-icon">🅿️</span>Parkplatz Am Forsthaus</a></li>
+    <li><a href="#" onclick="return focusMap(event,'roehneiche')"><span class="p-icon">🅿️</span>Parkplatz Röhneiche</a></li>
+    <li><a href="#" onclick="return focusMap(event,'uttrichshausen-west')"><span class="p-icon">🅿️</span>Parkplatz Uttrichshausen West</a></li>
+    <li><a href="#" onclick="return focusMap(event,'uttrichshausen-ost')"><span class="p-icon">🅿️</span>Parkplatz Uttrichshausen Ost</a></li>
+    <li><a href="#" onclick="return focusMap(event,'lohmuehle')"><span class="p-icon">🅿️</span>Parkplatz Lohmühle</a></li>
+    <li><a href="#" onclick="return focusMap(event,'steinborntal')"><span class="p-icon">🅿️</span>Parkplatz Steinborntal</a></li>
+    <li><a href="#" onclick="return focusMap(event,'riederberg')"><span class="p-icon">🅿️</span>Parkplatz Riederberg</a></li>
+    <li><a href="#" onclick="return focusMap(event,'steinhauk')"><span class="p-icon">🅿️</span>Parkplatz Steinhauk</a></li>
+    <li><a href="#" onclick="return focusMap(event,'pilgerzell')"><span class="p-icon">🅿️</span>Parkplatz Pilgerzell</a></li>
+    <li><a href="#" onclick="return focusMap(event,'roether-tannen')"><span class="p-icon">🅿️</span>Parkplatz Röther Tannen</a></li>
+    <li><a href="#" onclick="return focusMap(event,'petersberg')"><span class="p-icon">🅿️</span>Parkplatz Petersberg</a></li>
+    <li><a href="#" onclick="return focusMap(event,'rauschenberg')"><span class="p-icon">🅿️</span>Parkplatz Rauschenberg</a></li>
+    <li><a href="#" onclick="return focusMap(event,'geisshecke')"><span class="p-icon">🅿️</span>Parkplatz Geißhecke</a></li>
+    <li><a href="#" onclick="return focusMap(event,'hummelskopf-west')"><span class="p-icon">🅿️</span>Parkplatz Hummelskopf West</a></li>
+    <li><a href="#" onclick="return focusMap(event,'rotkopf')"><span class="p-icon">🅿️</span>Parkplatz Rotkopf</a></li>
+    <li><a href="#" onclick="return focusMap(event,'fuchsberg')"><span class="p-icon">🅿️</span>Parkplatz Fuchsberg</a></li>
+    <li><a href="#" onclick="return focusMap(event,'mahlertshof')"><span class="p-icon">🅿️</span>Parkplatz Mahlertshof</a></li>
+    <li><a href="#" onclick="return focusMap(event,'guenterswald')"><span class="p-icon">🅿️</span>Parkplatz Günterswald</a></li>
+    <li><a href="#" onclick="return focusMap(event,'grossenmoor-west')"><span class="p-icon">🅿️</span>Parkplatz Großenmoor West</a></li>
+    <li><a href="#" onclick="return focusMap(event,'grossenmoor-ost')"><span class="p-icon">🅿️</span>Parkplatz Großenmoor Ost</a></li>
+    <li><a href="#" onclick="return focusMap(event,'dornbusch')"><span class="p-icon">🅿️</span>Parkplatz Dornbusch</a></li>
+    <li><a href="#" onclick="return focusMap(event,'richtgraben')"><span class="p-icon">🅿️</span>Parkplatz Richtgraben</a></li>
+  </ul>
+
+  <!-- A49 -->
+  <h2>A49 – Gängige Parkplätze</h2>
+  <ul class="parking-list">
+    <li><a href="#" onclick="return focusMap(event,'holzhausen-ost')"><span class="p-icon">🅿️</span>Parkplatz Holzhausen Ost</a></li>
+    <li><a href="#" onclick="return focusMap(event,'scharfenstein')"><span class="p-icon">🅿️</span>Parkplatz Scharfenstein</a></li>
+    <li><a href="#" onclick="return focusMap(event,'am-sonnenborn')"><span class="p-icon">🅿️</span>Parkplatz Am Sonnenborn</a></li>
+    <li><a href="#" onclick="return focusMap(event,'diebachsgraben-ost')"><span class="p-icon">🅿️</span>Parkplatz Diebachsgraben Ost</a></li>
+  </ul>
+
 </section>
 
 <footer>
@@ -121,29 +141,75 @@
   function focusMap(event, place) {
     if (event) event.preventDefault();
     const iframe = document.getElementById('map-iframe');
-    switch (place) {
-      case 'barnholz':
-        iframe.src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2521.716795228925!2d9.295676416011217!3d50.702174979511315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bdcb19368e2dc5%3A0x3f6e1df8a3cf7edc!2sRastplatz%20Barnholz!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde';
-        break;
-      case 'rimberg-nord':
-        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Rimberg+Nord&output=embed';
-        break;
-      case 'krachgarten':
-        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Krachgarten&output=embed';
-        break;
-      case 'dottenberg':
-        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Dottenberg&output=embed';
-        break;
-      case 'eifa':
-        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Eifa&output=embed';
-        break;
-      case 'berfa-nord':
-        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Berfa+Nord&output=embed';
-        break;
-      case 'frohnkreuz':
-        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Frohnkreuz&output=embed';
-        break;
-    }
+    const urls = {
+      // A5
+      'barnholz': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2521.716795228925!2d9.295676416011217!3d50.702174979511315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bdcb19368e2dc5%3A0x3f6e1df8a3cf7edc!2sRastplatz%20Barnholz!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde',
+      'rimberg-nord': 'https://www.google.com/maps?q=Rastplatz%20Rimberg%20Nord%20A5&output=embed',
+      'krachgarten': 'https://www.google.com/maps?q=Parkplatz%20Krachgarten%20A5&output=embed',
+      'dottenberg': 'https://www.google.com/maps?q=Parkplatz%20Dottenberg%20A5&output=embed',
+      'eifa': 'https://www.google.com/maps?q=Parkplatz%20Eifa%20A5&output=embed',
+      'berfa-nord': 'https://www.google.com/maps?q=Parkplatz%20Berfa%20Nord%20A5&output=embed',
+      'frohnkreuz': 'https://www.google.com/maps?q=Parkplatz%20Frohnkreuz%20A5&output=embed',
+      'reinhardshain-nord': 'https://www.google.com/maps?q=Parkplatz%20Reinhardshain%20Nord%20A5&output=embed',
+      'reinhardshain-sued': 'https://www.google.com/maps?q=Parkplatz%20Reinhardshain%20S%C3%BCd%20A5&output=embed',
+      'finkenwald': 'https://www.google.com/maps?q=Parkplatz%20Finkenwald%20A5&output=embed',
+      'heg-berg': 'https://www.google.com/maps?q=Parkplatz%20Heg-Berg%20A5&output=embed',
+
+      // A4
+      'seulingswald': 'https://www.google.com/maps?q=Parkplatz%20Seulingswald%20A4&output=embed',
+      'nadeloehr': 'https://www.google.com/maps?q=Parkplatz%20Nadel%C3%B6hr%20A4&output=embed',
+      'burgberg-nord': 'https://www.google.com/maps?q=Parkplatz%20Burgberg%20Nord%20A4&output=embed',
+      'werratal-sued': 'https://www.google.com/maps?q=Parkplatz%20Werratal%20S%C3%BCd%20A4&output=embed',
+      'eisenach-nord': 'https://www.google.com/maps?q=Parkplatz%20Eisenach%20Nord%20A4&output=embed',
+      'hainich-sued': 'https://www.google.com/maps?q=Parkplatz%20Hainich%20S%C3%BCd%20A4&output=embed',
+      'hainich-nord': 'https://www.google.com/maps?q=Parkplatz%20Hainich%20Nord%20A4&output=embed',
+
+      // A7
+      'strampen': 'https://www.google.com/maps?q=Parkplatz%20Strampen%20A7&output=embed',
+      'ottersbach': 'https://www.google.com/maps?q=Parkplatz%20Ottersbach%20A7&output=embed',
+      'kirchheim-ost': 'https://www.google.com/maps?q=Parkplatz%20Kirchheim%20Ost%20A7&output=embed',
+      'am-pommer': 'https://www.google.com/maps?q=Parkplatz%20Am%20Pommer%20A7&output=embed',
+      'fuchsrain': 'https://www.google.com/maps?q=Parkplatz%20Fuchsrain%20A7&output=embed',
+      'hasselberg-ost': 'https://www.google.com/maps?q=Parkplatz%20Hasselberg%20Ost%20A7&output=embed',
+      'hasselberg-west': 'https://www.google.com/maps?q=Parkplatz%20Hasselberg%20West%20A7&output=embed',
+      'quillerwald': 'https://www.google.com/maps?q=Parkplatz%20Quillerwald%20A7&output=embed',
+      'veitsbrunn': 'https://www.google.com/maps?q=Parkplatz%20Veitsbrunn%20A7&output=embed',
+      'roehn-west': 'https://www.google.com/maps?q=Parkplatz%20Rh%C3%B6n%20West%20A7&output=embed',
+      'roehn-ost': 'https://www.google.com/maps?q=Parkplatz%20Rh%C3%B6n%20Ost%20A7&output=embed',
+      'schildeck': 'https://www.google.com/maps?q=Parkplatz%20Schildeck%20A7&output=embed',
+      'tir': 'https://www.google.com/maps?q=Parkplatz%20TIR%20A7&output=embed',
+      'roenblick': 'https://www.google.com/maps?q=Parkplatz%20R%C3%B6nblick%20A7&output=embed',
+      'speicherz': 'https://www.google.com/maps?q=Parkplatz%20Speicherz%20A7&output=embed',
+      'am-forsthaus': 'https://www.google.com/maps?q=Parkplatz%20Am%20Forsthaus%20A7&output=embed',
+      'roehneiche': 'https://www.google.com/maps?q=Parkplatz%20R%C3%B6hneiche%20A7&output=embed',
+      'uttrichshausen-west': 'https://www.google.com/maps?q=Parkplatz%20Uttrichshausen%20West%20A7&output=embed',
+      'uttrichshausen-ost': 'https://www.google.com/maps?q=Parkplatz%20Uttrichshausen%20Ost%20A7&output=embed',
+      'lohmuehle': 'https://www.google.com/maps?q=Parkplatz%20Lohm%C3%BChle%20A7&output=embed',
+      'steinborntal': 'https://www.google.com/maps?q=Parkplatz%20Steinborntal%20A7&output=embed',
+      'riederberg': 'https://www.google.com/maps?q=Parkplatz%20Riederberg%20A7&output=embed',
+      'steinhauk': 'https://www.google.com/maps?q=Parkplatz%20Steinhauk%20A7&output=embed',
+      'pilgerzell': 'https://www.google.com/maps?q=Parkplatz%20Pilgerzell%20A7&output=embed',
+      'roether-tannen': 'https://www.google.com/maps?q=Parkplatz%20R%C3%B6ther%20Tannen%20A7&output=embed',
+      'petersberg': 'https://www.google.com/maps?q=Parkplatz%20Petersberg%20A7&output=embed',
+      'rauschenberg': 'https://www.google.com/maps?q=Parkplatz%20Rauschenberg%20A7&output=embed',
+      'geisshecke': 'https://www.google.com/maps?q=Parkplatz%20Gei%C3%9Fhecke%20A7&output=embed',
+      'hummelskopf-west': 'https://www.google.com/maps?q=Parkplatz%20Hummelskopf%20West%20A7&output=embed',
+      'rotkopf': 'https://www.google.com/maps?q=Parkplatz%20Rotkopf%20A7&output=embed',
+      'fuchsberg': 'https://www.google.com/maps?q=Parkplatz%20Fuchsberg%20A7&output=embed',
+      'mahlertshof': 'https://www.google.com/maps?q=Parkplatz%20Mahlertshof%20A7&output=embed',
+      'guenterswald': 'https://www.google.com/maps?q=Parkplatz%20G%C3%BCnterswald%20A7&output=embed',
+      'grossenmoor-west': 'https://www.google.com/maps?q=Parkplatz%20Gro%C3%9Fenmoor%20West%20A7&output=embed',
+      'grossenmoor-ost': 'https://www.google.com/maps?q=Parkplatz%20Gro%C3%9Fenmoor%20Ost%20A7&output=embed',
+      'dornbusch': 'https://www.google.com/maps?q=Parkplatz%20Dornbusch%20A7&output=embed',
+      'richtgraben': 'https://www.google.com/maps?q=Parkplatz%20Richtgraben%20A7&output=embed',
+
+      // A49
+      'holzhausen-ost': 'https://www.google.com/maps?q=Parkplatz%20Holzhausen%20Ost%20A49&output=embed',
+      'scharfenstein': 'https://www.google.com/maps?q=Parkplatz%20Scharfenstein%20A49&output=embed',
+      'am-sonnenborn': 'https://www.google.com/maps?q=Parkplatz%20Am%20Sonnenborn%20A49&output=embed',
+      'diebachsgraben-ost': 'https://www.google.com/maps?q=Parkplatz%20Diebachsgraben%20Ost%20A49&output=embed'
+    };
+    if (urls[place]) { iframe.src = urls[place]; }
     return false;
   }
 </script>
