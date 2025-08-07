@@ -21,6 +21,11 @@
     footer { background:#eee; text-align:center; padding:20px; font-size:14px; }
     nav .call-button:hover { background:#b71c1c; transform:scale(1.05); transition:all .2s; }
     nav { position:sticky; top:0; z-index:20; background:linear-gradient(to right,#fff700,#ffffff); box-shadow:0 2px 6px rgba(0,0,0,.1); padding:6px 10px; display:flex; align-items:center; justify-content:space-between; }
+    /* Suche */
+    .search-wrap { margin:18px 0 6px; display:flex; gap:10px; align-items:center; }
+    .search-wrap input[type="search"]{ flex:1; padding:10px 12px; border:1px solid #ddd; border-radius:8px; font-size:16px; }
+    .search-meta { font-size:12px; color:#666; margin:2px 0 0; }
+    .hidden { display:none !important; }
   </style>
 </head>
 <body>
@@ -52,9 +57,15 @@
     <iframe id="map-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde" allowfullscreen loading="lazy"></iframe>
   </div>
 
+  <!-- Suche unter der Karte -->
+  <div class="search-wrap">
+    <input id="parking-search" type="search" placeholder="Parkplatz suchen … z. B. 'Rimberg', 'A7', 'Hasselberg'" aria-label="Parkplätze durchsuchen">
+    <div id="match-count" class="search-meta"></div>
+  </div>
+
   <!-- A5 -->
-  <h2>A5 – Gängige Parkplätze</h2>
-  <ul class="parking-list">
+  <h2 data-group="A5">A5 – Gängige Parkplätze</h2>
+  <ul class="parking-list" data-group="A5">
     <li><a href="#" onclick="return focusMap(event,'barnholz')"><span class="p-icon">🅿️</span>Parkplatz Barnholz</a></li>
     <li><a href="#" onclick="return focusMap(event,'rimberg-nord')"><span class="p-icon">🅿️</span>Parkplatz Rimberg Nord</a></li>
     <li><a href="#" onclick="return focusMap(event,'krachgarten')"><span class="p-icon">🅿️</span>Parkplatz Krachgarten</a></li>
@@ -69,8 +80,8 @@
   </ul>
 
   <!-- A4 -->
-  <h2>A4 – Gängige Parkplätze</h2>
-  <ul class="parking-list">
+  <h2 data-group="A4">A4 – Gängige Parkplätze</h2>
+  <ul class="parking-list" data-group="A4">
     <li><a href="#" onclick="return focusMap(event,'seulingswald')"><span class="p-icon">🅿️</span>Parkplatz Seulingswald</a></li>
     <li><a href="#" onclick="return focusMap(event,'nadeloehr')"><span class="p-icon">🅿️</span>Parkplatz Nadelöhr</a></li>
     <li><a href="#" onclick="return focusMap(event,'burgberg-nord')"><span class="p-icon">🅿️</span>Parkplatz Burgberg Nord</a></li>
@@ -81,8 +92,8 @@
   </ul>
 
   <!-- A7 -->
-  <h2>A7 – Gängige Parkplätze</h2>
-  <ul class="parking-list">
+  <h2 data-group="A7">A7 – Gängige Parkplätze</h2>
+  <ul class="parking-list" data-group="A7">
     <li><a href="#" onclick="return focusMap(event,'strampen')"><span class="p-icon">🅿️</span>Parkplatz Strampen</a></li>
     <li><a href="#" onclick="return focusMap(event,'ottersbach')"><span class="p-icon">🅿️</span>Parkplatz Ottersbach</a></li>
     <li><a href="#" onclick="return focusMap(event,'kirchheim-ost')"><span class="p-icon">🅿️</span>Parkplatz Kirchheim Ost</a></li>
@@ -123,8 +134,8 @@
   </ul>
 
   <!-- A49 -->
-  <h2>A49 – Gängige Parkplätze</h2>
-  <ul class="parking-list">
+  <h2 data-group="A49">A49 – Gängige Parkplätze</h2>
+  <ul class="parking-list" data-group="A49">
     <li><a href="#" onclick="return focusMap(event,'holzhausen-ost')"><span class="p-icon">🅿️</span>Parkplatz Holzhausen Ost</a></li>
     <li><a href="#" onclick="return focusMap(event,'scharfenstein')"><span class="p-icon">🅿️</span>Parkplatz Scharfenstein</a></li>
     <li><a href="#" onclick="return focusMap(event,'am-sonnenborn')"><span class="p-icon">🅿️</span>Parkplatz Am Sonnenborn</a></li>
@@ -138,6 +149,7 @@
 </footer>
 
 <script>
+  // Karte fokussieren
   function focusMap(event, place) {
     if (event) event.preventDefault();
     const iframe = document.getElementById('map-iframe');
@@ -154,7 +166,6 @@
       'reinhardshain-sued': 'https://www.google.com/maps?q=Parkplatz%20Reinhardshain%20S%C3%BCd%20A5&output=embed',
       'finkenwald': 'https://www.google.com/maps?q=Parkplatz%20Finkenwald%20A5&output=embed',
       'heg-berg': 'https://www.google.com/maps?q=Parkplatz%20Heg-Berg%20A5&output=embed',
-
       // A4
       'seulingswald': 'https://www.google.com/maps?q=Parkplatz%20Seulingswald%20A4&output=embed',
       'nadeloehr': 'https://www.google.com/maps?q=Parkplatz%20Nadel%C3%B6hr%20A4&output=embed',
@@ -163,7 +174,6 @@
       'eisenach-nord': 'https://www.google.com/maps?q=Parkplatz%20Eisenach%20Nord%20A4&output=embed',
       'hainich-sued': 'https://www.google.com/maps?q=Parkplatz%20Hainich%20S%C3%BCd%20A4&output=embed',
       'hainich-nord': 'https://www.google.com/maps?q=Parkplatz%20Hainich%20Nord%20A4&output=embed',
-
       // A7
       'strampen': 'https://www.google.com/maps?q=Parkplatz%20Strampen%20A7&output=embed',
       'ottersbach': 'https://www.google.com/maps?q=Parkplatz%20Ottersbach%20A7&output=embed',
@@ -202,7 +212,6 @@
       'grossenmoor-ost': 'https://www.google.com/maps?q=Parkplatz%20Gro%C3%9Fenmoor%20Ost%20A7&output=embed',
       'dornbusch': 'https://www.google.com/maps?q=Parkplatz%20Dornbusch%20A7&output=embed',
       'richtgraben': 'https://www.google.com/maps?q=Parkplatz%20Richtgraben%20A7&output=embed',
-
       // A49
       'holzhausen-ost': 'https://www.google.com/maps?q=Parkplatz%20Holzhausen%20Ost%20A49&output=embed',
       'scharfenstein': 'https://www.google.com/maps?q=Parkplatz%20Scharfenstein%20A49&output=embed',
@@ -212,10 +221,38 @@
     if (urls[place]) { iframe.src = urls[place]; }
     return false;
   }
+
+  // Live-Suche (filtert alle Listen; blendet Überschriften ohne Treffer aus)
+  const searchInput = document.getElementById('parking-search');
+  const matchCount = document.getElementById('match-count');
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      let matches = 0;
+      document.querySelectorAll('ul.parking-list').forEach(ul => {
+        let sectionMatches = 0;
+        ul.querySelectorAll('li').forEach(li => {
+          const text = li.textContent.toLowerCase();
+          const show = !q || text.includes(q);
+          li.classList.toggle('hidden', !show);
+          if (show) sectionMatches++;
+        });
+        // Überschrift zu diesem UL ermitteln (vorheriges H2)
+        const h2 = ul.previousElementSibling;
+        if (h2 && h2.tagName === 'H2') {
+          h2.classList.toggle('hidden', sectionMatches === 0);
+        }
+        ul.classList.toggle('hidden', sectionMatches === 0);
+        matches += sectionMatches;
+      });
+      matchCount.textContent = q ? `${matches} Treffer` : '';
+    });
+  }
 </script>
 
 </body>
 </html>
+
 
 
 
