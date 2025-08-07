@@ -84,16 +84,21 @@
       max-width: 150px;
       z-index: 10;
     }
-  </style>
+  nav .call-button:hover {
+  background: #b71c1c;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+</style>
 </head>
 <body>
 
-  <nav style="position: absolute; top: 0; left: 0; width: 100%; background: #fdf2f2; padding: 12px 30px; display: flex; align-items: center; z-index: 20; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+  <nav style="position: absolute; top: 0; left: 0; width: 100%; background: linear-gradient(to right, #fffbb0, #ffffff); padding: 12px 30px; display: flex; align-items: center; z-index: 20; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
   <img src="Logo.png" alt="TruckTire24 Logo" style="height: 50px;" />
   <span style="font-size: 15px; font-weight: 500; margin-left: 20px; color: #444;">
-    Einsatzgebiet: A7 Kirchheimer Dreieck / A5 Hattenbacher Dreieck / A49 Kassel–Ohmtal-Dreieck / B454 Niederaula / B254 Alsfeld / Bad Hersfeld / B27
+    Einsatzgebiet: A7 Kirchheimer Dreieck / A5 Hattenbacher Dreieck / A49 Kassel–Ohmtal-Dreieck / B454 Niederaula / B254 Alsfeld / B27 Bad Hersfeld 
   </span>
-  <span style="margin-left: auto; font-size: 16px; color: #fff; background: #d32f2f; padding: 6px 12px; border-radius: 4px;">
+  <span class="call-button" style="margin-left: auto; font-size: 16px; color: #fff; background: #d32f2f; padding: 6px 12px; border-radius: 4px; transition: all 0.2s ease-in-out;">
     📞 +49 151 24104553
   </span>
 </nav>
@@ -135,6 +140,7 @@
 
 </body>
 </html>
+
 
 
 
