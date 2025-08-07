@@ -22,10 +22,14 @@
     nav .call-button:hover { background:#b71c1c; transform:scale(1.05); transition:all .2s; }
     nav { position:sticky; top:0; z-index:20; background:linear-gradient(to right,#fff700,#ffffff); box-shadow:0 2px 6px rgba(0,0,0,.1); padding:6px 10px; display:flex; align-items:center; justify-content:space-between; }
     /* Suche */
-    .search-wrap { margin:18px 0 6px; display:flex; gap:10px; align-items:center; }
-    .search-wrap input[type="search"]{ flex:1; padding:10px 12px; border:1px solid #ddd; border-radius:8px; font-size:16px; }
+    .search-wrap { margin:18px 0 6px; display:flex; gap:10px; align-items:center; position:relative; }
+    .search-wrap input[type="search"]{ flex:1; padding:10px 12px; border:1px solid #ddd; border-radius:8px; font-size:16px; background:#fff; }
     .search-wrap button{ padding:10px 14px; border:1px solid #ddd; border-radius:8px; background:#fff; cursor:pointer; }
-    .search-meta { font-size:12px; color:#666; margin:2px 0 0; }
+    .suggestions{ position:absolute; top:100%; left:0; right:0; background:#fff; border:1px solid #ddd; border-radius:8px; margin-top:4px; box-shadow:0 8px 24px rgba(0,0,0,.08); max-height:240px; overflow-y:auto; z-index:30; }
+    .suggestion-item{ padding:8px 12px; cursor:pointer; }
+    .suggestion-item:hover,.suggestion-item.active{ background:#f6f6f6; }
+    .muted{ color:#666; font-size:12px; }
+    .hidden{ display:none !important; }
   </style>
 </head>
 <body>
@@ -57,11 +61,11 @@
     <iframe id="map-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde" allowfullscreen loading="lazy"></iframe>
   </div>
 
-  <!-- Suche unter der Karte: Datalist + Button (Listen bleiben sichtbar) -->
+  <!-- Suche unter der Karte: eigene Vorschlagsliste (max 5 sichtbar) -->
   <div class="search-wrap">
-    <input id="parking-search" list="parking-suggestions" type="search" placeholder="Parkplatz suchen … z. B. 'Rimberg', 'A7', 'Hasselberg'" aria-label="Parkplätze durchsuchen">
+    <input id="parking-search" type="search" placeholder="Parkplatz suchen … z. B. 'Rimberg', 'A7', 'Hasselberg'" aria-label="Parkplätze durchsuchen">
     <button id="parking-go" type="button">Anzeigen</button>
-    <datalist id="parking-suggestions"></datalist>
+    <div id="suggestions" class="suggestions hidden" role="listbox" aria-label="Vorschläge"></div>
   </div>
 
   <!-- A5 -->
@@ -223,46 +227,88 @@
     return false;
   }
 
-  // Autocomplete-Suche: Listen bleiben sichtbar; Auswahl springt zur Karte
-  (function initSearch(){
+  // Eigene Autocomplete-Dropdown (max. 5 Vorschläge) – Listen bleiben sichtbar
+  (function initAutocomplete(){
     const input = document.getElementById('parking-search');
     const goBtn = document.getElementById('parking-go');
-    const datalist = document.getElementById('parking-suggestions');
-    if (!input || !datalist) return;
+    const box = document.getElementById('suggestions');
+    if (!input || !box) return;
 
-    // Aus Links (Listen) automatisch Vorschläge generieren
-    const labelToSlug = new Map();
-    const links = document.querySelectorAll('ul.parking-list a');
-    links.forEach(a => {
-      const label = a.textContent.trim();
-      const onclk = a.getAttribute('onclick') || '';
-      const m = onclk.match(/focusMap\(event,'([^']+)'\)/);
-      if (m && label && !labelToSlug.has(label)) {
-        labelToSlug.set(label, m[1]);
-        const opt = document.createElement('option');
-        opt.value = label; // datalist speichert nur value
-        datalist.appendChild(opt);
-      }
+    // Daten aus den Listen sammeln
+    const items = []; // {label, slug, group, display}
+    document.querySelectorAll('ul.parking-list').forEach(ul => {
+      const group = ul.getAttribute('data-group') || (ul.previousElementSibling && ul.previousElementSibling.textContent.trim()) || '';
+      ul.querySelectorAll('a').forEach(a => {
+        const label = a.textContent.trim();
+        const onclk = a.getAttribute('onclick') || '';
+        const m = onclk.match(/focusMap\(event,'([^']+)'\)/);
+        if (m) {
+          items.push({ label, slug: m[1], group, display: (group ? group+" – " : "") + label });
+        }
+      });
     });
 
-    function selectFromInput(){
-      const val = (input.value || '').trim();
-      if (!val) return;
-      // exakte Übereinstimmung bevorzugen
-      if (labelToSlug.has(val)) { focusMap(null, labelToSlug.get(val)); return; }
-      // sonst erste partielle Übereinstimmung nehmen
-      const match = Array.from(labelToSlug.keys()).find(k => k.toLowerCase().includes(val.toLowerCase()));
-      if (match) focusMap(null, labelToSlug.get(match));
+    let active = -1; // Index in gerenderten Vorschlägen
+
+    function render(list){
+      box.innerHTML = '';
+      if (!list.length) { box.classList.add('hidden'); return; }
+      list.slice(0,5).forEach((it, idx) => {
+        const div = document.createElement('div');
+        div.className = 'suggestion-item' + (idx===active ? ' active' : '');
+        div.textContent = it.display;
+        div.setAttribute('role','option');
+        div.addEventListener('mousedown', (e)=>{ e.preventDefault(); select(it); });
+        box.appendChild(div);
+      });
+      box.classList.remove('hidden');
     }
 
-    input.addEventListener('change', selectFromInput);
-    input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); selectFromInput(); }});
-    if (goBtn) goBtn.addEventListener('click', selectFromInput);
+    function filter(q){
+      const s = q.trim().toLowerCase();
+      if (!s) { box.classList.add('hidden'); return; }
+      const list = items.filter(it => it.display.toLowerCase().includes(s));
+      active = -1;
+      render(list);
+    }
+
+    function select(it){
+      input.value = it.display;
+      box.classList.add('hidden');
+      focusMap(null, it.slug);
+    }
+
+    function selectFromInput(){
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+      const exact = items.find(it => it.display.toLowerCase() === val || it.label.toLowerCase() === val);
+      if (exact) return select(exact);
+      const first = items.find(it => it.display.toLowerCase().includes(val));
+      if (first) return select(first);
+    }
+
+    input.addEventListener('input', ()=> filter(input.value));
+    input.addEventListener('keydown', (e)=>{
+      const visible = !box.classList.contains('hidden');
+      if (!visible) return;
+      const options = Array.from(box.querySelectorAll('.suggestion-item'));
+      if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active+1, options.length-1); options.forEach((el,i)=>el.classList.toggle('active', i===active)); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active-1, 0); options.forEach((el,i)=>el.classList.toggle('active', i===active)); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (active>=0 && options[active]) { options[active].dispatchEvent(new Event('mousedown')); } else { selectFromInput(); } }
+      else if (e.key === 'Escape') { box.classList.add('hidden'); }
+    });
+
+    goBtn && goBtn.addEventListener('click', selectFromInput);
+
+    document.addEventListener('click', (e)=>{
+      if (!e.target.closest('.search-wrap')) box.classList.add('hidden');
+    });
   })();
 </script>
 
 </body>
 </html>
+
 
 
 
