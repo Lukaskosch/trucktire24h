@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>TruckTire24 – Mobiler LKW-Reifendienst</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     body {
       font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
@@ -90,22 +91,11 @@
       border: none;
       position: relative;
     }
-    .map-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
+    #leaflet-map {
       width: 100%;
       height: 100%;
-      pointer-events: none;
-    }
-    .map-overlay svg {
-      width: 100%;
-      height: 100%;
-    }
-    .map-overlay circle {
-      fill: rgba(211, 47, 47, 0.15);
-      stroke: #d32f2f;
-      stroke-width: 2;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     @media screen and (max-width: 768px) {
       header .overlay {
@@ -192,16 +182,7 @@
   </div>
 
   <div class="map-container">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d732437.3861888464!2d8.741199999999999!3d50.7686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bde7eec94c6971%3A0x9ba4e2c14d92c03f!2s36272%20Niederaula!5e0!3m2!1sde!2sde!4v1699999999999"
-      width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-    <div class="map-overlay">
-      <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-        <circle cx="50" cy="50" r="30"></circle>
-      </svg>
-    </div>
+    <div id="leaflet-map"></div>
   </div>
 </section>
 
@@ -209,9 +190,25 @@
   <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
 </footer>
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const map = L.map('leaflet-map').setView([50.7602, 9.6062], 9);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  L.circle([50.7602, 9.6062], {
+    color: '#d32f2f',
+    fillColor: '#d32f2f',
+    fillOpacity: 0.2,
+    radius: 60000
+  }).addTo(map);
+</script>
+
 </body>
 </html>
-
 
 
 
