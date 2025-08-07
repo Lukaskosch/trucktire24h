@@ -1,4 +1,4 @@
-""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
@@ -182,18 +182,31 @@
   </div>
 
   <div class="map-container">
-    <iframe
+    <iframe id="map-iframe"
       src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
     </iframe>
   </div>
+
+  <h2 style="margin-top: 40px;">Gängige Parkplätze im Einsatzgebiet</h2>
+  <ul>
+    <li><a href="#" onclick="focusMap('barnholz')">A5 – Parkplatz Barnholz</a></li>
+    <!-- Weitere Parkplätze folgen -->
+  </ul>
 </section>
 
 <footer>
   <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
 </footer>
+
+<script>
+  function focusMap(place) {
+    const iframe = document.getElementById("map-iframe");
+    if (place === "barnholz") {
+      iframe.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2521.716795228925!2d9.295676416011217!3d50.702174979511315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bdcb19368e2dc5%3A0x3f6e1df8a3cf7edc!2sRastplatz%20Barnholz!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde";
+    }
+  }
+</script>
 
 </body>
 </html>
