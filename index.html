@@ -16,126 +16,39 @@
       overflow-x: hidden;
       box-sizing: border-box;
     }
-    header {
-      position: relative;
-      color: white;
-    }
-    header img.bg {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    section {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    h2 {
-      color: #d32f2f;
-      font-size: 24px;
-    }
-    .services, .region {
-      margin-top: 30px;
-    }
-    .services ul, .region ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .services li::before, .region li::before {
-      content: "⚡ ";
-      color: #d32f2f;
-    }
-    footer {
-      background: #eee;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-    }
-    a.footer-link {
-      color: #666;
-      text-decoration: none;
-    }
-    nav .call-button:hover {
-      background: #b71c1c;
-      transform: scale(1.05);
-      transition: all 0.2s ease-in-out;
-    }
-    .flex-boxes {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .flex-boxes > div {
-      flex: 1 1 calc(25% - 20px);
-      min-width: 220px;
-      padding: 20px;
-      border-radius: 8px;
-      box-sizing: border-box;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-    .flex-boxes > div h3 {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .flex-boxes > div h3 img {
-      height: 26px;
-      width: 26px;
-    }
-    .map-container {
-      width: 100%;
-      height: 400px;
-      margin-top: 60px;
-      border: none;
-      position: relative;
-    }
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border: none;
-    }
+    header { position: relative; color: white; }
+    header img.bg { width: 100%; height: auto; display: block; }
+    section { padding: 40px 20px; max-width: 1000px; margin: auto; }
+    h2 { color: #d32f2f; font-size: 24px; }
+    .services, .region { margin-top: 30px; }
+    .services ul, .region ul { list-style: none; padding-left: 0; }
+    .services li::before, .region li::before { content: "⚡ "; color: #d32f2f; }
+    footer { background: #eee; text-align: center; padding: 20px; font-size: 14px; }
+    a.footer-link { color: #666; text-decoration: none; }
+    nav .call-button:hover { background: #b71c1c; transform: scale(1.05); transition: all 0.2s ease-in-out; }
+    .flex-boxes { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
+    .flex-boxes > div { flex: 1 1 calc(25% - 20px); min-width: 220px; padding: 20px; border-radius: 8px; box-sizing: border-box; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+    .flex-boxes > div h3 { display: flex; align-items: center; gap: 10px; }
+    .flex-boxes > div h3 img { height: 26px; width: 26px; }
+    .map-container { width: 100%; height: 400px; margin-top: 60px; border: none; position: relative; }
+    .map-container iframe { width: 100%; height: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: none; }
+    /* Parkplatzliste */
+    .parking-list { list-style: none; padding-left: 0; }
+    .parking-list li { margin: 6px 0; }
+    .parking-list a { text-decoration: none; color: #d32f2f; font-weight: 600; }
+    .parking-list a:hover { text-decoration: underline; }
+    .p-icon { margin-right: 8px; font-size: 16px; }
     @media screen and (max-width: 768px) {
-      header .overlay {
-        bottom: 10px;
-        left: 10px;
-        right: 10px;
-      }
-      header .overlay h1 {
-        font-size: 16px;
-        line-height: 1.2;
-      }
-      header .overlay p {
-        font-size: 12px;
-        line-height: 1.3;
-      }
-      header .overlay .icon247 {
-        max-width: 60px;
-        margin-top: 4px;
-        margin-bottom: 4px;
-      }
+      header .overlay { bottom: 10px; left: 10px; right: 10px; }
+      header .overlay h1 { font-size: 16px; line-height: 1.2; }
+      header .overlay p { font-size: 12px; line-height: 1.3; }
+      header .overlay .icon247 { max-width: 60px; margin-top: 4px; margin-bottom: 4px; }
     }
     @media screen and (min-width: 769px) {
-      header .overlay {
-        bottom: 30px;
-        left: 30px;
-        right: 30px;
-      }
-      header .overlay h1 {
-        font-size: 52px;
-        line-height: 1.2;
-      }
-      header .overlay p {
-        font-size: 26px;
-        line-height: 1.4;
-      }
-      header .overlay .icon247 {
-        max-width: 200px;
-        margin-top: 12px;
-        margin-bottom: 12px;
-      }
+      header .overlay { bottom: 30px; left: 30px; right: 30px; }
+      header .overlay h1 { font-size: 52px; line-height: 1.2; }
+      header .overlay p { font-size: 26px; line-height: 1.4; }
+      header .overlay .icon247 { max-width: 200px; margin-top: 12px; margin-bottom: 12px; }
     }
   </style>
 </head>
@@ -189,9 +102,14 @@
   </div>
 
   <h2 style="margin-top: 40px;">Gängige Parkplätze im Einsatzgebiet</h2>
-  <ul>
-    <li><a href="#" onclick="return focusMap(event, 'barnholz')">A5 – Parkplatz Barnholz</a></li>
-    <!-- Weitere Parkplätze folgen -->
+  <ul class="parking-list">
+    <li><a href="#" onclick="return focusMap(event, 'barnholz')"><span class="p-icon">🅿️</span>A5 – Parkplatz Barnholz</a></li>
+    <li><a href="#" onclick="return focusMap(event, 'rimberg-nord')"><span class="p-icon">🅿️</span>A5 – Parkplatz Rimberg Nord</a></li>
+    <li><a href="#" onclick="return focusMap(event, 'krachgarten')"><span class="p-icon">🅿️</span>A5 – Parkplatz Krachgarten</a></li>
+    <li><a href="#" onclick="return focusMap(event, 'dottenberg')"><span class="p-icon">🅿️</span>A5 – Parkplatz Dottenberg</a></li>
+    <li><a href="#" onclick="return focusMap(event, 'eifa')"><span class="p-icon">🅿️</span>A5 – Parkplatz Eifa</a></li>
+    <li><a href="#" onclick="return focusMap(event, 'berfa-nord')"><span class="p-icon">🅿️</span>A5 – Parkplatz Berfa Nord</a></li>
+    <li><a href="#" onclick="return focusMap(event, 'frohnkreuz')"><span class="p-icon">🅿️</span>A5 – Parkplatz Frohnkreuz</a></li>
   </ul>
 </section>
 
@@ -202,9 +120,29 @@
 <script>
   function focusMap(event, place) {
     if (event) event.preventDefault();
-    const iframe = document.getElementById("map-iframe");
-    if (place === "barnholz") {
-      iframe.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2521.716795228925!2d9.295676416011217!3d50.702174979511315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bdcb19368e2dc5%3A0x3f6e1df8a3cf7edc!2sRastplatz%20Barnholz!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde";
+    const iframe = document.getElementById('map-iframe');
+    switch (place) {
+      case 'barnholz':
+        iframe.src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2521.716795228925!2d9.295676416011217!3d50.702174979511315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bdcb19368e2dc5%3A0x3f6e1df8a3cf7edc!2sRastplatz%20Barnholz!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde';
+        break;
+      case 'rimberg-nord':
+        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Rimberg+Nord&output=embed';
+        break;
+      case 'krachgarten':
+        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Krachgarten&output=embed';
+        break;
+      case 'dottenberg':
+        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Dottenberg&output=embed';
+        break;
+      case 'eifa':
+        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Eifa&output=embed';
+        break;
+      case 'berfa-nord':
+        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Berfa+Nord&output=embed';
+        break;
+      case 'frohnkreuz':
+        iframe.src = 'https://www.google.com/maps?q=Rastplatz+Frohnkreuz&output=embed';
+        break;
     }
     return false;
   }
