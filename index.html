@@ -7,15 +7,15 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
     body {
-  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f4f4f4;
-  color: #222;
-  max-width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
+      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #222;
+      max-width: 100%;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
     header {
       position: relative;
       color: white;
@@ -26,32 +26,32 @@
       display: block;
     }
     header .overlay {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  right: 30px;
-  max-width: 600px;
-  text-align: left;
-  padding: 15px;
-  border-radius: 10px;
-  box-sizing: border-box;
-}
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      right: 30px;
+      max-width: 600px;
+      text-align: left;
+      padding: 15px;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
     header .overlay img.logo {
       max-width: 300px;
       margin-bottom: 15px;
     }
     header .overlay h1 {
-  margin: 5px 0;
-  font-size: 28px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  white-space: normal;
-}
+      margin: 5px 0;
+      font-size: 28px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      white-space: normal;
+    }
     header .overlay p {
-  font-size: 18px;
-  margin: 5px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  white-space: normal;
-}
+      font-size: 18px;
+      margin: 5px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      white-space: normal;
+    }
     section {
       padding: 40px 20px;
       max-width: 1000px;
@@ -82,212 +82,57 @@
       color: #666;
       text-decoration: none;
     }
-    
     nav .call-button:hover {
       background: #b71c1c;
       transform: scale(1.05);
       transition: all 0.2s ease-in-out;
     }
 
-    /* MOBILE-FRIENDLY ANPASSUNG */
-    $1
-  header img.bg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-  header .overlay h1 {
-  margin: 5px 0;
-  font-size: 28px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  white-space: normal;
-}
-  header .overlay p {
-  font-size: 18px;
-  margin: 5px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  white-space: normal;
-}
-  header .overlay {
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    padding: 10px;
-  }
-  header .overlay h1 {
-    font-size: 20px;
-    line-height: 1.2;
-  }
-  header .overlay p {
-    font-size: 14px;
-    line-height: 1.4;
-  }
-  body {
-    font-size: 14px;
-  }
-  .flex-boxes h3 {
-    font-size: 18px;
-  }
-  .flex-boxes p {
-    font-size: 14px;
-  }
-  
-  
-  
-  nav img {
-    margin-bottom: 10px;
-  }
-  nav span {
-    margin: 5px 0 !important;
-  }
-  header .overlay h1 {
-    font-size: 28px;
-    white-space: normal;
-  }
-  header .overlay p {
-    font-size: 20px;
-    white-space: normal;
-  }
-}
-      .flex-boxes > div {
-  text-align: center;
-  flex: 1 1 220px;
-  min-width: 220px;
-}
-      
-      nav img {
-        margin-bottom: 10px;
+    .flex-boxes {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .flex-boxes > div {
+      text-align: center;
+      flex: 1 1 220px;
+      min-width: 220px;
+    }
+
+    @media screen and (max-width: 768px) {
+      header img.bg {
+        width: 100%;
+        max-height: 160px;
+        object-fit: cover;
       }
-      nav span {
-        margin: 5px 0 !important;
+      header .overlay {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        padding: 8px;
       }
       header .overlay h1 {
-        font-size: 28px;
-        white-space: normal;
+        font-size: 16px;
+        line-height: 1.2;
+        margin-bottom: 6px;
       }
       header .overlay p {
-        font-size: 20px;
-        white-space: normal;
+        font-size: 13px;
+        line-height: 1.3;
+      }
+      .flex-boxes {
+        flex-direction: column;
+        align-items: center;
+      }
+      .flex-boxes > div {
+        width: 100%;
+        max-width: 90%;
+        margin-bottom: 20px;
       }
     }
-  @media screen and (max-width: 768px) {
-  header img.bg {
-    max-height: 140px;
-    object-fit: cover;
-  }
-  header .overlay {
-    bottom: 6px;
-    left: 6px;
-    right: 6px;
-    padding: 8px;
-  }
-  header .overlay h1 {
-    font-size: 14px;
-    line-height: 1.2;
-    margin-bottom: 6px;
-  }
-  header .overlay p {
-    font-size: 12px;
-    line-height: 1.3;
-  }
-  header img.bg {
-    width: 100%;
-    max-height: 140px;
-    object-fit: cover;
-  }
-  header .overlay {
-    bottom: 6px;
-    left: 6px;
-    right: 6px;
-    padding: 8px;
-  }
-  header .overlay h1 {
-    font-size: 14px;
-    line-height: 1.2;
-    margin-bottom: 6px;
-  }
-  header .overlay p {
-    font-size: 12px;
-    line-height: 1.3;
-  }
-  header img.bg {
-    max-height: 160px;
-    object-fit: cover;
-  }
-  header .overlay h1 {
-    font-size: 16px !important;
-  }
-  header .overlay p {
-    font-size: 12px !important;
-  }
-  header img.bg {
-    width: 100%;
-    height: auto;
-    max-height: 220px;
-    object-fit: cover;
-  }
-  header .overlay {
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    padding: 10px;
-  }
-  header .overlay h1 {
-    font-size: 18px;
-    line-height: 1.2;
-    margin-bottom: 6px;
-  }
-  header .overlay p {
-    font-size: 14px;
-    line-height: 1.4;
-  }
-  
-  .flex-boxes > div {
-    width: 100%;
-    max-width: 90%;
-    margin-bottom: 20px;
-  }
-}
-  header .overlay h1 {
-    font-size: 18px !important;
-    line-height: 1.3;
-  }
-  header .overlay p {
-    font-size: 14px !important;
-    line-height: 1.4;
-  }
-  header .overlay h1 {
-    font-size: 26px !important;
-  }
-  header .overlay p {
-    font-size: 18px !important;
-  }
-  .flex-boxes {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-  .flex-boxes > div {
-    width: 100%;
-    max-width: 90%;
-    margin-bottom: 20px;
-  }
-  .flex-boxes {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-  .flex-boxes > div {
-    width: 100%;
-    max-width: 90%;
-    margin-bottom: 20px;
-  }
-}
-</style>
+  </style>
 </head>
 <body>
 
@@ -319,31 +164,21 @@
 
   <section>
     <div class="flex-boxes">
-      <div style="text-align: center; flex: 1 1 220px; min-width: 220px;">
+      <div>
         <p style="font-weight: bold; margin-bottom: 8px; font-size: 16px;">Kontaktieren Sie uns direkt:</p>
-        <a href="mailto:info@trucktire24h.com" style="
-          display: inline-block;
-          padding: 12px 24px;
-          font-size: 16px;
-          color: #000;
-          font-weight: bold;
-          text-decoration: none;
-          border-radius: 30px;
-          background: linear-gradient(to right, #fff700, #ffffff);
-          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-          transition: transform 0.2s ease-in-out;">
+        <a href="mailto:info@trucktire24h.com" style="display: inline-block; padding: 12px 24px; font-size: 16px; color: #000; font-weight: bold; text-decoration: none; border-radius: 30px; background: linear-gradient(to right, #fff700, #ffffff); box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s ease-in-out;">
           ✉️ Kontakt aufnehmen
         </a>
       </div>
-      <div style="text-align: center; flex: 1 1 220px; min-width: 220px;">
+      <div>
         <h3>⚡ 24/7-Notdienst</h3>
         <p>24/7 Soforthilfe bei Reifenpannen – auch nachts, an Wochenenden und Feiertagen für Sie im Einsatz.</p>
       </div>
-      <div style="text-align: center; flex: 1 1 220px; min-width: 220px;">
+      <div>
         <h3>⚡ Vor-Ort-Service</h3>
         <p>Reifenservice und Montage direkt bei Ihnen vor Ort – für maximale Mobilität ohne Zeitverlust.</p>
       </div>
-      <div style="text-align: center; flex: 1 1 220px; min-width: 220px;">
+      <div>
         <h3>⚡ Für Speditionen & Flotten</h3>
         <p>Mobil, schnell und zuverlässig – Ihr Reifendienst für LKW-Flotten in Hessen.</p>
       </div>
