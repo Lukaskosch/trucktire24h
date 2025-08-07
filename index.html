@@ -98,10 +98,35 @@
 
     /* MOBILE-FRIENDLY ANPASSUNG */
     @media screen and (max-width: 768px) {
-      .flex-boxes {
-        flex-direction: column;
-        align-items: center;
-      }
+  .flex-boxes {
+    flex-direction: column;
+    align-items: center;
+  }
+  .flex-boxes > div {
+    width: 100%;
+    max-width: 90%;
+    margin-bottom: 20px;
+  }
+  nav {
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+  }
+  nav img {
+    margin-bottom: 10px;
+  }
+  nav span {
+    margin: 5px 0 !important;
+  }
+  header .overlay h1 {
+    font-size: 28px;
+    white-space: normal;
+  }
+  header .overlay p {
+    font-size: 20px;
+    white-space: normal;
+  }
+}
       .flex-boxes > div {
         width: 100%;
         max-width: 90%;
@@ -156,7 +181,7 @@
   </header>
 
   <section>
-    <div class="flex-boxes" style="display: flex; justify-content: space-between; align-items: stretch; flex-wrap: wrap; gap: 20px;">
+    <div class="flex-boxes" style="display: flex; justify-content: space-between; align-items: stretch; flex-wrap: nowrap; gap: 20px;">
       <div style="text-align: center; max-width: 250px;">
         <p style="font-weight: bold; margin-bottom: 8px; font-size: 16px;">Kontaktieren Sie uns direkt:</p>
         <a href="mailto:info@trucktire24h.com" style="
@@ -194,6 +219,7 @@
 
 </body>
 </html>
+
 
 
 
