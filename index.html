@@ -92,15 +92,22 @@
     /* MOBILE-FRIENDLY ANPASSUNG */
     $1
   header img.bg {
-    height: 200px;
-    object-fit: cover;
-  }
+  width: 100%;
+  height: auto;
+  display: block;
+}
   header .overlay h1 {
-    font-size: 20px !important;
-  }
+  margin: 5px 0;
+  font-size: 28px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  white-space: normal;
+}
   header .overlay p {
-    font-size: 14px !important;
-  }
+  font-size: 18px;
+  margin: 5px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  white-space: normal;
+}
   header .overlay {
     bottom: 10px;
     left: 10px;
@@ -124,15 +131,8 @@
   .flex-boxes p {
     font-size: 14px;
   }
-  .flex-boxes {
-    flex-direction: column;
-    align-items: center;
-  }
-  .flex-boxes > div {
-    width: 100%;
-    max-width: 90%;
-    margin-bottom: 20px;
-  }
+  
+  
   
   nav img {
     margin-bottom: 10px;
@@ -170,7 +170,18 @@
         white-space: normal;
       }
     }
-  </style>
+  @media screen and (max-width: 768px) {
+  .flex-boxes {
+    flex-direction: column;
+    align-items: center;
+  }
+  .flex-boxes > div {
+    width: 100%;
+    max-width: 90%;
+    margin-bottom: 20px;
+  }
+}
+</style>
 </head>
 <body>
 
