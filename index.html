@@ -14,10 +14,12 @@
 
     /* NAV */
     nav { position:sticky; top:0; z-index:20; background:linear-gradient(to right,#fff700,#ffffff); box-shadow:0 2px 6px rgba(0,0,0,.1); padding:6px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
-    nav .route-text{ flex-grow:1; text-align:center; font-size:12px; font-weight:500; color:#444; padding:0 10px; }
+    nav .brand { flex:0 0 auto; display:flex; align-items:center; }
+    nav .header-text{ flex:1 1 auto; min-width:0; text-align:center; font-size:12px; font-weight:500; color:#444; padding:0 10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     nav .call-button{ display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#fff; background:#d32f2f; padding:6px 10px; border-radius:6px; transition:.2s; white-space:nowrap; text-decoration:none; }
     nav .call-button:hover{ background:#b71c1c; transform:scale(1.05); }
-    @media (max-width:700px){ .route-text{ display:none; } }
+    /* Optional: auf sehr kleinen Screens etwas mehr Platz schaffen */
+    @media (max-width:420px){ nav .brand img{ height:18px; } }
 
     /* Feature/Info-Boxen */
     .flex-boxes { display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px; }
@@ -68,8 +70,8 @@
 <body>
 
 <nav>
-  <div><img src="Logo.png" alt="TruckTire24 Logo" style="height:22px; margin-right:10px;" /></div>
-  <div class="route-text">Umgebung A7 Kirchheimer Dreieck / A5 Hattenbacher Dreieck / A49 Kassel–Ohmtal-Dreieck / B454 Niederaula / B254 Alsfeld / B27 Bad Hersfeld / Lauterbach B254 / Hünfeld 84 Fulda B 279</div>
+  <div class="brand"><img src="Logo.png" alt="TruckTire24 Logo" style="height:22px; margin-right:10px;" /></div>
+  <div class="header-text">Umgebung A7 Kirchheimer Dreieck / A5 Hattenbacher Dreieck / A49 Kassel–Ohmtal-Dreieck / B454 Niederaula / B254 Alsfeld / B27 Bad Hersfeld / Lauterbach B254 / Hünfeld 84 Fulda B 279</div>
   <a href="tel:+4915124104553" class="call-button">📞 +49 151 24104553</a>
 </nav>
 
