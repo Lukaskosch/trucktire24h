@@ -7,88 +7,121 @@
   <meta name="description" content="Mobil, schnell, zuverlässig: LKW-Reifenservice für Speditionen & Flotten in Hessen – 24/7-Notdienst, Vor-Ort-Montage, regelmäßige Flottenchecks und transparente Abrechnung." />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
+    /* ===== Light Theme (wie die anderen Seiten, ohne gelben Hero-Hintergrund) ===== */
     :root{
-      --brand-yellow:#fff700; --brand-red:#d32f2f; --text:#222; --muted:#666; --bg:#f4f4f4; --card:#fff; --border:#e9e9e9; --shadow:0 2px 8px rgba(0,0,0,.08);
-      --ok:#2e7d32; --err:#c62828;
+      --brand-yellow:#fff700; /* Kopfzeile bleibt gelb */
+      --brand-red:#d32f2f;    /* Call-Buttons */
+
+      --bg:#ffffff;           /* Seitenhintergrund */
+      --bg-soft:#f7f9fc;      /* sanfte Sektionen (ohne Gelb) */
+      --card:#ffffff;         /* Karten */
+      --text:#0f172a;         /* Primärtext */
+      --muted:#64748b;        /* Sekundärtext */
+      --border:#e6ecf3;       /* feiner Rahmen */
+      --shadow:0 10px 30px rgba(15,23,42,.06);
+      --table-head:#f2f6fb;   /* Tabellenkopf */
+      --ring:rgba(79,156,255,.28);
+      --ok:#2e7d32;           /* Häkchen */
+      --err:#c62828;          /* Fehlertext */
     }
+
     *{box-sizing:border-box}
     body{font-family:'Segoe UI','Helvetica Neue',system-ui,-apple-system,sans-serif;margin:0;color:var(--text);background:var(--bg)}
-    a{color:inherit}
-    nav{position:sticky;top:0;z-index:20;background:linear-gradient(to right,var(--brand-yellow),#ffffff);box-shadow:0 2px 6px rgba(0,0,0,.1);padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+    a{color:inherit;text-decoration:none}
+
+    /* NAV (gelbe Kopfzeile bleibt) */
+    nav{position:sticky;top:0;z-index:40;background:linear-gradient(to right,var(--brand-yellow),#ffffff);box-shadow:0 2px 6px rgba(0,0,0,.08);padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
     nav .brand{display:flex;align-items:center;gap:8px}
     nav .brand img{height:40px;width:auto}
-    nav .header-text{flex:1 1 auto;min-width:0;text-align:center;font-size:12px;font-weight:500;color:#444;padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    nav .call-button{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fff;background:var(--brand-red);padding:6px 10px;border-radius:6px;transition:.2s;white-space:nowrap;text-decoration:none}
-    nav .call-button:hover{background:#b71c1c;transform:scale(1.05)}
+    nav .header-text{flex:1 1 auto;min-width:0;text-align:center;font-size:12px;font-weight:700;color:#b71c1c;padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    nav .call-button{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fff;background:var(--brand-red);padding:8px 12px;border-radius:999px;transition:.2s;white-space:nowrap}
+    nav .call-button:hover{background:#b71c1c;transform:translateY(-1px)}
     @media (max-width:420px){nav .brand img{height:18px}}
 
+    /* Layout */
     .container{max-width:1100px;margin:auto;padding:40px 20px}
-    .hero{background:linear-gradient(180deg,#ffffff, #fefbe7);border-bottom:1px solid var(--border)}
-    .hero h1{font-size:32px;margin:0 0 10px}
-    .hero p{margin:0;color:#444;line-height:1.55}
-    .hero-cta{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px}
-    .btn{display:inline-block;padding:12px 20px;font-weight:700;border-radius:999px;text-decoration:none;border:1px solid #e5e5a0;background:linear-gradient(90deg,var(--brand-yellow),#ffffff);box-shadow:0 4px 10px rgba(0,0,0,.08)}
-    .btn.red{background:var(--brand-red);border-color:var(--brand-red);color:#fff}
 
+    /* HERO (hell, OHNE Gelbton) */
+    .hero{background:linear-gradient(180deg,var(--bg),var(--bg));border-bottom:1px solid var(--border)}
+    .hero h1{font-size:clamp(28px,4vw,36px);margin:0 0 10px;line-height:1.15}
+    .hero p{margin:0;color:var(--muted);line-height:1.6}
+    .hero-cta{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px}
+
+    /* Buttons (Farben wie besprochen) */
+    .btn{display:inline-block;padding:12px 20px;font-weight:800;border-radius:999px;box-shadow:0 6px 16px rgba(15,23,42,.08);transition:.2s}
+    .btn.yellow{background:linear-gradient(90deg,#ffe24d,#fff700);border:1px solid #ffef8a;color:#111}
+    .btn.yellow:hover{background:linear-gradient(90deg,#fff700,#ffe24d)}
+    .btn.red{background:var(--brand-red);border:1px solid var(--brand-red);color:#fff}
+    .btn:focus{outline:2px solid transparent;box-shadow:0 0 0 4px var(--ring)}
+
+    /* GRID */
     .grid{display:grid;gap:20px}
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
     .grid.cols-2{grid-template-columns:repeat(2,1fr)}
     @media (max-width:900px){.grid.cols-3{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:600px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
 
-    .card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:18px;border:1px solid var(--border)}
+    /* Cards */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px}
     .card h3{margin:0 0 8px;font-size:18px}
     .muted{color:var(--muted)}
+
+    /* Listen */
     ul.clean{list-style:none;padding:0;margin:0}
     ul.clean li{padding-left:24px;position:relative;margin:8px 0}
     ul.clean li::before{content:'✔';position:absolute;left:0;top:0;color:var(--ok)}
 
+    /* Steps */
     .step{display:flex;gap:14px;align-items:flex-start}
-    .step .num{flex:0 0 36px;height:36px;display:grid;place-items:center;border-radius:999px;background:#111;color:#fff;font-weight:800}
+    .step .num{flex:0 0 36px;height:36px;display:grid;place-items:center;border-radius:999px;background:#111827;color:#fff;font-weight:800}
     .step .txt h4{margin:0 0 4px}
 
-    table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+    /* Table */
+    table{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);color:var(--text)}
     th,td{padding:12px 14px;border-bottom:1px solid var(--border);text-align:left;font-size:14px}
-    th{background:#fafafa;font-weight:700}
+    th{background:var(--table-head);font-weight:700}
 
     /* FORM */
-    form.fleet{background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:12px;padding:18px}
+    form.fleet{background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:16px;padding:18px}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     @media (max-width:720px){.row{grid-template-columns:1fr}}
-    label{display:block;font-size:13px;color:#444;margin-bottom:6px}
-    input,select,textarea{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:15px;background:#fff}
+    label{display:block;font-size:13px;color:#334155;margin-bottom:6px}
+    input,select,textarea{width:100%;padding:10px 12px;border:1px solid #d8e0ea;border-radius:10px;font-size:15px;background:#fff}
     textarea{min-height:120px}
-    .hint{font-size:12px;color:#777;margin-top:4px}
+    .hint{font-size:12px;color:#6b7280;margin-top:4px}
     .form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .note{font-size:12px;color:#777;margin-top:8px}
+    .note{font-size:12px;color:#6b7280;margin-top:8px}
     .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
     .error{color:var(--err);font-size:13px;margin-top:6px;display:none}
-    .success{background:#e8f5e9;border:1px solid #c8e6c9;color:#1b5e20;padding:10px 12px;border-radius:8px;margin-top:12px;display:none}
+    .success{background:#e8f5e9;border:1px solid #c8e6c9;color:#1b5e20;padding:10px 12px;border-radius:10px;margin-top:12px;display:none}
 
-    footer{background:#eee;text-align:center;padding:20px;font-size:14px;border-top:1px solid var(--border)}
-    a.footer-link{color:#666;text-decoration:none}
-    .copyright{margin-top:6px;color:#666}
-    
+    /* Footer */
+    footer{background:#f1f5f9;text-align:center;padding:20px;font-size:14px;border-top:1px solid var(--border);color:#475569}
+    a.footer-link{color:#475569}
+    a.footer-link:hover{color:#0f172a}
   </style>
 </head>
 <body>
+  <!-- NAV -->
   <nav>
     <div class="brand"><a href="index.html" aria-label="Startseite"><img src="logo.png" alt="TruckTire24 Logo"></a></div>
     <div class="header-text">Flottenservice – A4 · A5 · A7 · A49 | Hessen</div>
     <a href="tel:+4915124104553" class="call-button">📞 +49 151 24104553</a>
   </nav>
 
+  <!-- HERO (ohne Gelbton) -->
   <header class="hero">
     <div class="container">
       <h1>Für Speditionen & Flotten</h1>
       <p>Mobil, schnell, zuverlässig: Wir halten Ihre LKW-Flotte rollend – mit 24/7-Notdienst, Vor-Ort-Montage und planbaren Flottenchecks. Transparente Preise und kurze Reaktionszeiten in unserer Einsatzregion rund um A4, A5, A7 und A49.</p>
       <div class="hero-cta">
-        <a href="mailto:info@trucktire24h.com?subject=Flottenanfrage" class="btn">✉️ Flottenanfrage senden</a>
+        <a href="mailto:info@trucktire24h.com?subject=Flottenanfrage" class="btn yellow">✉️ Flottenanfrage senden</a>
         <a href="tel:+4915124104553" class="btn red">📞 24/7 Notruf</a>
       </div>
     </div>
   </header>
 
+  <!-- USP -->
   <section class="container">
     <div class="grid cols-3">
       <div class="card"><h3>24/7-Pannenhilfe</h3><p class="muted">Tag & Nacht verfügbar – auch Wochenende & Feiertage.</p><ul class="clean"><li>Schnelle Anfahrt in der Region</li><li>Vor-Ort-Reparatur/Montage</li><li>Transparente Kommunikation</li></ul></div>
@@ -97,16 +130,18 @@
     </div>
   </section>
 
+  <!-- LEISTUNGEN -->
   <section class="container">
     <h2>Unsere Leistungen für Flotten</h2>
     <div class="grid cols-2" style="margin-top:16px">
-      <div class="card"><h3>Vor-Ort-Reifenservice</h3><ul class="clean"><li>Montage/Demontage aller gängigen LKW-Reifendimensionen</li><li>Reparatur (z. B. Nagel, Durchstich) wenn technisch zulässig</li><li>Auswuchten & Kontrolle Luftdruck / Ventile</li></ul></div>
-      <div class="card"><h3>Flotten-Inspektion & Protokoll</h3><ul class="clean"><li>Dokumentation je Achsposition (z. B. 1LA, 1LI, 1RI, 1RA …)</li><li>Profiltiefe, Beschädigungen, DOT, Luftdruck</li><li>Empfehlungen & Priorisierung (sofort / zeitnah / Planung)</li></ul></div>
+      <div class="card"><h3>Vor-Ort-Reifenservice</h3><ul class="clean"><li>Montage/Demontage aller gängigen LKW-Reifendimensionen</li><li>Reparatur (z. B. Nagel, Durchstich) wenn technisch zulässig</li><li>Auswuchten & Kontrolle Luftdruck / Ventile</li></ul></div>
+      <div class="card"><h3>Flotten-Inspektion & Protokoll</h3><ul class="clean"><li>Dokumentation je Achsposition (z. B. 1LA, 1LI, 1RI, 1RA …)</li><li>Profiltiefe, Beschädigungen, DOT, Luftdruck</li><li>Empfehlungen & Priorisierung (sofort / zeitnah / Planung)</li></ul></div>
       <div class="card"><h3>24/7-Pannen-Notdienst</h3><ul class="clean"><li>Schnelle Hilfe auf Autobahn, Bundesstraße & Betriebshof</li><li>Absicherung & sichere Arbeitsweise vor Ort</li><li>Direkte Telefonhotline: <a href="tel:+4915124104553">+49 151 24104553</a></li></ul></div>
       <div class="card"><h3>Transparente Preise</h3><ul class="clean"><li>Klare Anfahrts- und Montagepauschalen</li><li>Einheitliche Konditionen nach Rahmenvertrag</li><li>Kostenübersicht pro Einsatz/Einheit</li></ul></div>
     </div>
   </section>
 
+  <!-- ABLAUF -->
   <section class="container">
     <h2>Ablauf & Reaktionszeiten</h2>
     <div class="card" style="margin-top:12px">
@@ -117,10 +152,11 @@
     </div>
     <div style="margin-top:16px" class="grid cols-2">
       <div class="card"><h3>Typische Reaktionszeit</h3><p class="muted">In unserer Kernregion häufig <strong>30–90 Minuten</strong> – abhängig von Verkehr, Verfügbarkeit und Einsatzort.</p></div>
-      <div class="card"><h3>Einsatzgebiet</h3><p class="muted">Rund um A4, A5, A7, A49 – z. B. Niederaula, Kirchheimer Dreieck, Hattenbacher Dreieck, Fulda, Bad Hersfeld, Alsfeld u. a.</p></div>
+      <div class="card"><h3>Einsatzgebiet</h3><p class="muted">Rund um A4, A5, A7, A49 – z. B. Niederaula, Kirchheimer Dreieck, Hattenbacher Dreieck, Fulda, Bad Hersfeld, Alsfeld u. a.</p></div>
     </div>
   </section>
 
+  <!-- PREISE -->
   <section class="container">
     <h2>Beispielhafte Rahmenkonditionen</h2>
     <div class="muted" style="margin:6px 0 12px">Konkrete Preise nennen wir nach kurzer Abstimmung zur Flottengröße und den Standorten.</div>
@@ -134,7 +170,7 @@
     </table>
   </section>
 
-  <!-- KONTAKTFORMULAR -->
+  <!-- KONTAKTFORMULAR (vollständig) -->
   <section class="container" id="kontakt">
     <h2>Kontaktformular für Flotten</h2>
     <form class="fleet" id="fleet-form" novalidate>
@@ -150,7 +186,7 @@
       </div>
       <div class="row">
         <div>
-          <label for="email">E‑Mail *</label>
+          <label for="email">E-Mail *</label>
           <input id="email" name="email" type="email" autocomplete="email" required>
         </div>
         <div>
@@ -171,22 +207,22 @@
         </div>
         <div>
           <label for="vehicleTypes">Fahrzeugtypen</label>
-          <input id="vehicleTypes" name="vehicleTypes" placeholder="z. B. SZM, Auflieger, Tandem, Tieflader">
+          <input id="vehicleTypes" name="vehicleTypes" placeholder="z. B. SZM, Auflieger, Tandem, Tieflader">
         </div>
       </div>
       <div class="row">
         <div>
           <label for="time">Bevorzugte Kontaktzeit</label>
-          <input id="time" name="time" placeholder="z. B. Mo–Fr 08:00–16:00">
+          <input id="time" name="time" placeholder="z. B. Mo–Fr 08:00–16:00">
         </div>
         <div>
           <label for="location">Standorte / Einsatzgebiete</label>
-          <input id="location" name="location" placeholder="z. B. A7 Kirchheim, Fulda, Bad Hersfeld">
+          <input id="location" name="location" placeholder="z. B. A7 Kirchheim, Fulda, Bad Hersfeld">
         </div>
       </div>
       <div>
         <label for="message">Nachricht *</label>
-        <textarea id="message" name="message" required placeholder="Worum geht es? (z. B. Rahmenvertrag, regelmäßige Flottenchecks, Konditionen)"></textarea>
+        <textarea id="message" name="message" required placeholder="Worum geht es? (z. B. Rahmenvertrag, regelmäßige Flottenchecks, Konditionen)"></textarea>
         <div class="hint">Felder mit * sind Pflichtfelder.</div>
       </div>
 
@@ -197,16 +233,17 @@
       </div>
 
       <div class="error" id="form-error">Bitte fülle alle Pflichtfelder korrekt aus.</div>
-      <div class="success" id="form-success">Vielen Dank! Dein E‑Mail-Programm öffnet sich gleich mit deiner Anfrage.</div>
+      <div class="success" id="form-success">Vielen Dank! Dein E-Mail-Programm öffnet sich gleich mit deiner Anfrage.</div>
 
       <div class="form-actions">
         <button type="submit" class="btn red">Anfrage senden</button>
-        <a href="tel:+4915124104553" class="btn" role="button">📞 Oder jetzt anrufen</a>
+        <a href="tel:+4915124104553" class="btn yellow" role="button">📞 Oder jetzt anrufen</a>
       </div>
       <div class="note">Tipp: Für dringende Fälle bitte immer anrufen.</div>
     </form>
   </section>
 
+  <!-- CTA unten -->
   <section class="container">
     <div class="card" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
       <div>
@@ -214,13 +251,13 @@
         <div class="muted">Kurzer Anruf genügt – wir klären Details zur Flottengröße & Einsatzgebieten.</div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="mailto:info@trucktire24h.com?subject=Rahmenvertrag%20Flotte" class="btn">✉️ Anfrage per E-Mail</a>
+        <a href="mailto:info@trucktire24h.com?subject=Rahmenvertrag%20Flotte" class="btn yellow">✉️ Anfrage per E-Mail</a>
         <a href="tel:+4915124104553" class="btn red">📞 Jetzt anrufen</a>
       </div>
     </div>
   </section>
 
-  
+  <!-- FOOTER -->
   <footer>
     <a href="index.html" class="footer-link">TruckTire24</a> · 
     <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
@@ -263,6 +300,7 @@
     })();
   </script>
 
+  <!-- Schema.org -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"LocalBusiness","name":"TruckTire24","url":"https://trucktire24h.com/","telephone":"+49 151 24104553","areaServed":["A4","A5","A7","A49","Hessen"],"description":"Mobiler LKW-Reifendienst für Speditionen & Flotten: 24/7-Notdienst, Vor-Ort-Montage, Flottenchecks.","sameAs":[]}
   </script>
