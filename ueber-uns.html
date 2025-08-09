@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Über uns – TruckTire24</title>
-  <meta name="description" content="TruckTire24 – LKW‑Reifendienst in Hessen. Teil eines europaweiten Netzwerks mit über 9.000 Servicepartnern. 24/7‑Notdienst, Vor‑Ort‑Montage, Reparaturen und transparente Preise." />
+  <meta name="description" content="TruckTire24 – Ihr Partner für LKW‑Reifenservice in Hessen. Teil eines europaweiten Netzwerks mit über 9.000 Servicepartnern. 24/7‑Notdienst, Vor‑Ort‑Montage, Reparaturen und transparente Preise." />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
     :root{--brand-yellow:#fff700;--brand-red:#d32f2f;--text:#222;--muted:#666;--bg:#f4f4f4;--card:#fff;--border:#e9e9e9;--shadow:0 2px 8px rgba(0,0,0,.08)}
@@ -23,15 +23,10 @@
 
     .container{max-width:1100px;margin:auto;padding:40px 20px}
 
-    /* Buttons – (allgemein, falls später benötigt) */
-    .primary-btn{display:inline-block;padding:12px 24px;font-size:16px;font-weight:700;border-radius:999px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
-    .primary-btn.yellow{color:#000;background:linear-gradient(to right,#fff700,#ffffff);border:1px solid #efe99a}
-    .primary-btn.red{color:#fff;background:linear-gradient(to right,#d32f2f,#f44336);border:1px solid #d32f2f}
-
     /* HERO */
     .hero{background:linear-gradient(180deg,#ffffff,#fefbe7);border-bottom:1px solid var(--border)}
     .hero h1{margin:0 0 8px;font-size:34px}
-    .hero p{margin:0;color:#444;line-height:1.55}
+    .hero p{margin:0;color:#444;line-height:1.6}
 
     /* GRID */
     .grid{display:grid;gap:20px}
@@ -50,19 +45,13 @@
     ul.clean li{padding-left:24px;position:relative;margin:8px 0}
     ul.clean li::before{content:'✔';position:absolute;left:0;top:0;color:#2e7d32;font-weight:700}
 
-    /* TIMELINE (Fix: Punkt klemmt nicht mehr) */
-    .timeline{position:relative;padding-left:44px}
-    .timeline::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:2px;background:#e5e5e5}
-    .t-item{position:relative;margin:18px 0;padding-left:0}
-    .t-item::before{content:"";position:absolute;left:16px;top:6px;width:12px;height:12px;border-radius:50%;background:#111;border:2px solid #fff;box-shadow:0 0 0 2px #e5e5e5}
-    .t-item h4{margin:0 0 6px}
-
     /* BADGES */
     .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);font-weight:700}
 
     /* GALLERY */
-    .gallery-grid img{width:100%;display:block;border-radius:10px}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
+    .gallery img{width:100%;height:auto;border-radius:10px;display:block;box-shadow:var(--shadow)}
 
     /* FOOTER */
     footer{background:#eee;text-align:center;padding:20px;font-size:14px;border-top:1px solid var(--border)}
@@ -80,11 +69,11 @@
   <header class="hero">
     <div class="container">
       <h1>Über uns – TruckTire24</h1>
-      <p>TruckTire24 ist Ihr zuverlässiger Partner für LKW‑Reifenpannen in Hessen. Als Teil eines europaweiten Netzwerks mit über <strong>9.000 Servicepartnern</strong> bieten wir schnellen und professionellen 24‑Stunden‑LKW‑Reifenservice, Reifenreparaturen und Pannenhilfe – direkt dort, wo Sie uns brauchen.</p>
+      <p>TruckTire24 ist Ihr zuverlässiger Partner für LKW‑Reifenpannen in Hessen. Als Teil eines europaweiten Netzwerks mit über <strong>9.000 Servicepartnern</strong> bieten wir schnellen und professionellen 24‑Stunden‑LKW‑Reifenservice, Reifenreparaturen und Pannenhilfe – direkt dort, wo Sie uns brauchen. Spezialisierung: <strong>Reifenpannen im Hessen‑Gebiet</strong> (A3, A4, A5, A7, A45, A49, A66 u. a.).</p>
     </div>
   </header>
 
-  <!-- SERVICE AUF EINEN BLICK (SEO-Liste) -->
+  <!-- SERVICE AUF EINEN BLICK (SEO‑Liste) -->
   <section class="container">
     <h2>Unser Service auf einen Blick</h2>
     <div class="card">
@@ -100,7 +89,7 @@
     </div>
   </section>
 
-  <!-- ORIGINAL-KARTEN / USP -->
+  <!-- 3 BOXEN: Mission / Werte / Warum wir -->
   <section class="container">
     <div class="grid cols-3">
       <div class="card">
@@ -126,34 +115,6 @@
     </div>
   </section>
 
-  <!-- WARUM WIR DIE RICHTIGE WAHL SIND -->
-  <section class="container">
-    <h2>Warum wir die richtige Wahl sind</h2>
-    <div class="card">
-      <p class="muted">Mit jahrelanger Erfahrung im mobilen LKW‑Reifenservice wissen wir: Jede Minute zählt. Unsere mobilen Einsatzfahrzeuge sind bestens ausgestattet, um Ihre Reifenpanne auf der Autobahn, im Industriegebiet oder direkt auf Ihrem Betriebshof schnell zu beheben.</p>
-      <p class="muted">Wir arbeiten für Speditionen, Logistikunternehmen und Einzelkunden – zuverlässig, schnell und kompetent.</p>
-    </div>
-  </section>
-
-  <!-- TIMELINE (fixed spacing) -->
-  <section class="container">
-    <h2>Unser Weg</h2>
-    <div class="timeline card" style="margin-top:12px">
-      <div class="t-item">
-        <h4>Gründung</h4>
-        <div class="muted">Aus der Praxis im Schwerlast‑Alltag: Bedarf nach schnellem, mobilem Reifenservice.</div>
-      </div>
-      <div class="t-item">
-        <h4>24/7‑Notdienst aufgebaut</h4>
-        <div class="muted">Einsatzfahrzeug, Werkzeug & Material nach Standards – für Nacht, Wochenende & Feiertage.</div>
-      </div>
-      <div class="t-item">
-        <h4>Flottenservice erweitert</h4>
-        <div class="muted">Planbare Checks, Achs‑Protokolle, klare Empfehlungen – damit Ausfälle gar nicht erst entstehen.</div>
-      </div>
-    </div>
-  </section>
-
   <!-- WAS UNS AUSZEICHNET -->
   <section class="container">
     <h2>Was uns auszeichnet</h2>
@@ -168,7 +129,16 @@
     </div>
   </section>
 
-  <!-- TEAM & KONTAKT (ohne Buttons unter „Über uns“) -->
+  <!-- WARUM WIR DIE RICHTIGE WAHL SIND -->
+  <section class="container">
+    <h2>Warum wir die richtige Wahl sind</h2>
+    <div class="card">
+      <p class="muted">Mit jahrelanger Erfahrung im mobilen LKW‑Reifenservice wissen wir: Jede Minute zählt. Unsere mobilen Einsatzfahrzeuge sind bestens ausgestattet, um Ihre Reifenpanne auf der Autobahn, im Industriegebiet oder direkt auf Ihrem Betriebshof schnell zu beheben.</p>
+      <p class="muted">Wir arbeiten für Speditionen, Logistikunternehmen und Einzelkunden – zuverlässig, schnell und kompetent.</p>
+    </div>
+  </section>
+
+  <!-- TEAM & KONTAKT (ohne Buttons) -->
   <section class="container">
     <h2>Team & Kontakt</h2>
     <div class="grid cols-2" style="margin-top:12px">
@@ -187,17 +157,25 @@
   <section class="container">
     <h2>Einsatzgebiet</h2>
     <div class="card">
-      <p class="muted" style="margin:0">Unser LKW‑Pannenservice ist in ganz Hessen im Einsatz: Frankfurt am Main, Wiesbaden, Kassel, Darmstadt, Gießen, Fulda, Marburg – sowie an allen wichtigen Autobahnen wie A3, A5, A7, A45, A66 u. v. m.</p>
+      <p class="muted" style="margin:0">Hessen‑weit, u. a. Frankfurt am Main, Wiesbaden, Kassel, Darmstadt, Gießen, Fulda, Marburg – sowie alle wichtigen Autobahnen: A3, A4, A5, A7, A45, A49, A66. Kernpunkte: Niederaula, Kirchheimer Dreieck, Hattenbacher Dreieck, Fulda, Bad Hersfeld, Alsfeld u. a.</p>
     </div>
   </section>
 
-  <!-- OPTIONAL: Einsatzbilder (Platzhalter) -->
+  <!-- EINSATZBILDER (3 Platzhalter) -->
   <section class="container">
     <h2>Einsatzbilder</h2>
-    <div class="grid cols-3 gallery-grid" style="margin-top:12px">
-      <div class="card"><img src="bilder/panne1.jpg" alt="LKW‑Reifenpanne – abgesichert am Fahrbahnrand"></div>
-      <div class="card"><img src="bilder/panne2.jpg" alt="Vor‑Ort‑Reifenmontage bei Nacht"></div>
-      <div class="card"><img src="bilder/panne3.jpg" alt="Servicefahrzeug TruckTire24 im Einsatz"></div>
+    <div class="gallery">
+      <img src="bilder/panne1.jpg" alt="LKW‑Reifenpanne – abgesichert am Fahrbahnrand">
+      <img src="bilder/panne2.jpg" alt="Vor‑Ort‑Reifenmontage bei Nacht">
+      <img src="bilder/panne3.jpg" alt="Servicefahrzeug TruckTire24 im Einsatz">
+    </div>
+  </section>
+
+  <!-- CLAIM / SLOGAN -->
+  <section class="container">
+    <div class="card" style="text-align:center;font-weight:700;font-size:18px">
+      ✅ TruckTire24 – Ihr Partner für LKW Reifenservice in Hessen.<br>
+      Schnell. Zuverlässig. Rund um die Uhr.
     </div>
   </section>
 
@@ -224,7 +202,7 @@
     "publisher": {"@type":"Organization","name":"TruckTire24","telephone":"+49 151 24104553"},
     "about": {
       "@type":"LocalBusiness",
-      "areaServed":["A3","A4","A5","A7","A45","A66","Hessen"],
+      "areaServed":["A3","A4","A5","A7","A45","A49","A66","Hessen"],
       "description":"Mobiler LKW‑Reifendienst: 24/7‑Notdienst, Vor‑Ort‑Montage, Flottenservice.",
       "telephone":"+49 151 24104553"
     }
