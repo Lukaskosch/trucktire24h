@@ -27,13 +27,15 @@
     .feature-card:hover { box-shadow:0 6px 18px rgba(0,0,0,.10); transform:translateY(-2px); }
     .box-cta { margin-top:10px; display:inline-block; font-size:12px; font-weight:700; color:#000; background:linear-gradient(90deg,#fff700,#ffffff); border:1px solid #efe99a; border-radius:999px; padding:6px 10px; box-shadow:0 1px 3px rgba(0,0,0,.12); }
 
-    /* Buttons (Kontakt + Telefon) – in zwei Varianten */
+    /* Buttons (Kontakt + Telefon) – Varianten & Aliase */
     .primary-btn { display:inline-block; padding:12px 24px; font-size:16px; font-weight:bold; text-decoration:none; border-radius:30px; box-shadow:0 4px 10px rgba(0,0,0,.1); }
-    .primary-btn.yellow { color:#000; background:linear-gradient(to right,#fff700,#ffffff); border:1px solid #efe99a; }
-    .primary-btn.red { color:#fff; background:linear-gradient(to right,#d32f2f,#f44336); border:1px solid #d32f2f; }
+    /* Gelb (Anfrage) */
+    .primary-btn.yellow, .primary-btn.anfrage { color:#000; background:linear-gradient(to right,#fff700,#ffffff); border:1px solid #efe99a; }
+    /* Rot (Anruf) */
+    .primary-btn.red, .primary-btn.anruf { color:#fff; background:linear-gradient(to right,#d32f2f,#f44336); border:1px solid #d32f2f; }
     .primary-btn + .primary-btn { margin-top:10px; }
-    .primary-btn.yellow:hover{ filter:brightness(0.98); }
-    .primary-btn.red:hover{ filter:brightness(0.97); }
+    .primary-btn.yellow:hover, .primary-btn.anfrage:hover{ filter:brightness(0.98); }
+    .primary-btn.red:hover, .primary-btn.anruf:hover{ filter:brightness(0.97); }
 
     /* Map */
     .map-container iframe { width:100%; height:420px; border:none; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
@@ -89,8 +91,8 @@
     <!-- Box 1: Kontakt + Telefon-Button -->
     <div>
       <p style="font-weight:bold; margin-bottom:8px; font-size:16px;">Soforthilfe bei LKW-Reifenpannen – wir sind jederzeit für Sie erreichbar:</p>
-      <a href="mailto:info@trucktire24h.com" class="primary-btn yellow">✉️ Anfrage senden</a>
-      <a href="tel:+4915124104553" class="primary-btn red">📞24/7Notruf</a>
+      <a href="mailto:info@trucktire24h.com" class="primary-btn yellow">✉️ Anfrage stellen</a>
+      <a href="tel:+4915124104553" class="primary-btn red">📞 Anrufen: +49 151 24104553</a>
     </div>
 
     <!-- Box 2: 24/7-Notdienst (klickbar) -->
@@ -111,6 +113,13 @@
     <a class="feature-card" href="flottenservice.html">
       <h3>⚡ Für Speditionen & Flotten</h3>
       <p>Mobil, schnell und zuverlässig – Ihr Reifendienst für LKW-Flotten in Hessen.</p>
+      <span class="box-cta">Hier klicken</span>
+    </a>
+
+    <!-- Box 5: Über uns (klickbar) -->
+    <a class="feature-card" href="ueber-uns.html">
+      <h3>ℹ️ Über uns</h3>
+      <p>Erfahren Sie mehr über TruckTire24, unsere Arbeitsweise und wofür wir stehen.</p>
       <span class="box-cta">Hier klicken</span>
     </a>
   </div>
@@ -135,7 +144,7 @@
     <div id="suggestions" class="suggestions hidden" role="listbox" aria-label="Vorschläge"></div>
   </div>
 
-  <!-- Parkplatz-Boxen -->
+  <!-- Parkplatz-Boxen (vollständig) -->
   <div class="parking-sections">
     <div class="parking-card">
       <h2>Parkplätze Region A5</h2>
