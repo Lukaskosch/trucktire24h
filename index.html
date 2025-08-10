@@ -9,8 +9,7 @@
     :root{
       --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
       --shadow:0 6px 18px rgba(0,0,0,.08); --radius:14px; --container:1120px;
-      --accent:#335d92; --accent-weak:#ecf2f9;
-      --dark:#0f172a; --dark-border:#1f2937; --dark-soft:#334155; --dark-text:#e5e7eb;
+      --accent:#335d92; --accent-weak:#ecf2f9; --dark:#0f172a; --dark-border:#1f2937; --dark-soft:#334155; --dark-text:#e5e7eb;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif}
@@ -24,13 +23,11 @@
     .brand img{height:42px}
     .header-text{flex:1;min-width:0;text-align:center;font-size:12px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .call-button{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#fff;background:linear-gradient(90deg,#d32f2f,#f44336);padding:8px 12px;border-radius:10px;box-shadow:var(--shadow);transition:.2s}
-    .call-button:hover{filter:brightness(.96);transform:translateY(-1px)}
 
-    /* ===== Schwarze Sub-Navigation (modern, mit Suche & Vorschlägen) ===== */
-    .subnav{background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border)}
-    .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 16px;display:flex;gap:8px;align-items:center;overflow-x:auto;white-space:nowrap}
+    /* ===== Schwarze Sub‑Navigation (modern, mit Suche & Vorschlägen) ===== */
+    .subnav{background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);position:relative;z-index:35;overflow:visible}
+    .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 16px;display:flex;gap:8px;align-items:center;overflow-x:auto;overflow-y:visible;white-space:nowrap}
     .subnav-inner::-webkit-scrollbar{display:none}
-    .subnav-inner{scrollbar-width:none}
     .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;transition:background .15s,border-color .15s,color .15s}
     .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
     .subnav a.active{background:rgba(255,255,255,.10);color:#fff;border-color:var(--dark-soft)}
@@ -42,7 +39,7 @@
     .subnav button[type="submit"]:hover{background:#0b1220}
 
     /* Vorschlags-Dropdown */
-    .suggest-box{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#0b1220;border:1px solid #243047;border-radius:10px;box-shadow:0 12px 24px rgba(2,6,23,.45);overflow:hidden;display:none;z-index:50}
+    .suggest-box{position:absolute;left:0;top:calc(100% + 6px);min-width:240px;background:#0b1220;border:1px solid #243047;border-radius:10px;box-shadow:0 12px 24px rgba(2,6,23,.45);overflow:hidden;display:none;z-index:1000}
     .suggest-item{padding:8px 10px;color:#e5e7eb;cursor:pointer}
     .suggest-item:hover,.suggest-item.active{background:rgba(255,255,255,.08)}
 
@@ -193,6 +190,7 @@
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
 
+    // === Subnav Suche mit Vorschlägen ===
     const ROUTES = [
       { label:'Start', href:'index.html' },
       { label:'24/7‑Notdienst', href:'notdienst.html' },
@@ -205,26 +203,25 @@
     ];
 
     const input = document.getElementById('site-search');
-    const box = document.getElementById('suggest');
-    let activeIndex = -1; // für Keyboard-Navigation
+    const suggestBox = document.getElementById('suggest');
+    let activeIndex = -1;
 
     function renderSuggestions(list){
-      box.innerHTML = '';
-      if(!list.length){ box.style.display='none'; return; }
+      suggestBox.innerHTML = '';
+      if(!list.length){ suggestBox.style.display='none'; return; }
       list.slice(0,6).forEach((it,idx)=>{
         const div = document.createElement('div');
         div.className = 'suggest-item' + (idx===activeIndex ? ' active' : '');
         div.textContent = it.label;
-        div.setAttribute('role','option');
         div.addEventListener('mousedown', e=>{ e.preventDefault(); location.href = it.href; });
-        box.appendChild(div);
+        suggestBox.appendChild(div);
       });
-      box.style.display='block';
+      suggestBox.style.display='block';
     }
 
     function filterSuggestions(q){
       const s = q.trim().toLowerCase();
-      if(!s){ box.style.display='none'; return; }
+      if(!s){ suggestBox.style.display='none'; return; }
       const list = ROUTES.filter(r => r.label.toLowerCase().includes(s));
       activeIndex = -1;
       renderSuggestions(list);
@@ -233,18 +230,17 @@
     function subnavSearch(ev){
       ev.preventDefault();
       const val = (input.value||'').trim().toLowerCase();
-      if(!val){ box.style.display='none'; return false; }
+      if(!val){ suggestBox.style.display='none'; return false; }
       const match = ROUTES.find(r => r.label.toLowerCase()===val) || ROUTES.find(r => r.label.toLowerCase().includes(val));
       if(match){ location.href = match.href; return false; }
       location.href = 'https://www.google.com/search?q=' + encodeURIComponent('site:trucktire24h.com ' + val);
       return false;
     }
 
-    // Events
-    if(input && box){
+    if(input && suggestBox){
       input.addEventListener('input', ()=> filterSuggestions(input.value));
       input.addEventListener('keydown', e=>{
-        const items = Array.from(box.querySelectorAll('.suggest-item'));
+        const items = Array.from(suggestBox.querySelectorAll('.suggest-item'));
         if(e.key==='ArrowDown'){
           e.preventDefault();
           if(!items.length) return;
@@ -259,15 +255,14 @@
           const current = items[activeIndex];
           if(current){ current.dispatchEvent(new Event('mousedown')); }
         } else if(e.key==='Escape'){
-          box.style.display='none';
+          suggestBox.style.display='none';
         }
       });
-      document.addEventListener('click', e=>{ if(!e.target.closest('.subnav-search')) box.style.display='none'; });
+      document.addEventListener('click', e=>{ if(!e.target.closest('.subnav-search')) suggestBox.style.display='none'; });
     }
   </script>
 </body>
 </html>
-
 
 
 
