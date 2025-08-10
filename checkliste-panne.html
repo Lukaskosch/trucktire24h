@@ -1,1 +1,326 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Checkliste: Verhalten bei LKW‑Reifenpanne – TruckTire24</title>
+  <meta name="description" content="Checkliste & Tipps für LKW‑Fahrer: Sicheres Verhalten bei Reifenpanne – Absicherung, Notruf, richtige Reihenfolge, was bereithalten. 24/7‑Hilfe in Hessen." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    :root{
+      --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
+      --shadow:0 6px 18px rgba(0,0,0,.08); --radius:14px; --container:1120px;
+      --accent:#335d92; --accent-weak:#ecf2f9;
+      --dark:#0f172a; --dark-border:#1f2937; --dark-soft:#334155; --dark-text:#e5e7eb;
+      --ok:#2e7d32; --warn:#b45309; --danger:#b91c1c; --ring:rgba(37,99,235,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+
+    /* ===== Topbar ===== */
+    nav.topbar{position:sticky;top:0;z-index:1000;background:linear-gradient(90deg,#fff700,#fff);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    .nav-row{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:var(--container);margin:0 auto}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:42px}
+    .header-text{flex:1;min-width:0;text-align:center;font-size:12px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .call-button{display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:8px 12px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    .call-button--dark{color:#fff;background:var(--dark);border:1px solid var(--dark-border)}
+    .call-button--dark:hover{opacity:.95}
+
+    /* ===== Sub-Navigation – mobil wischbar + Lupe ===== */
+    .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
+    .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
+    .subnav-row{display:flex;align-items:center;gap:8px;padding:0 16px}
+    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
+    .subnav-scroll::-webkit-scrollbar{display:none}
+    .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto}
+    .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
+    .subnav a.active{background:rgba(255,255,255,.10);color:#fff;border-color:var(--dark-soft)}
+    .subnav:before,.subnav:after{content:"";position:absolute;top:0;bottom:0;width:24px;pointer-events:none}
+    .subnav:before{left:0;background:linear-gradient(90deg,rgba(15,23,42,1),rgba(15,23,42,0))}
+    .subnav:after{right:0;background:linear-gradient(270deg,rgba(15,23,42,1),rgba(15,23,42,0))}
+    .subnav-tools{display:flex;align-items:center;gap:8px}
+    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,.06);color:#e5e7eb;cursor:pointer}
+    .icon-btn:hover{background:rgba(255,255,255,.12)}
+    .icon-btn svg{width:18px;height:18px}
+
+    /* ===== Suche (per Lupe ein-/ausblenden) ===== */
+    .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500;display:none}
+    .search-wrap.open{display:block}
+    .search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px}
+    .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 6px}
+    .search-btn{border:none;background:var(--dark);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    .search-btn:hover{opacity:.95}
+    .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600}
+    .hidden{display:none}
+    .result-item{display:block;padding:10px 12px;border-bottom:1px solid #f1f5f9}
+    .result-item:last-child{border-bottom:none}
+    .result-title{font-weight:700;font-size:14px}
+    .result-snippet{font-size:13px;color:#6b7280;margin-top:3px}
+    .result-item[aria-selected="true"], .result-item:hover{background:#f8fafc}
+
+    /* ===== Seiten-Hero ===== */
+    header.page-hero{background:linear-gradient(180deg,#f7f9fc,#fff);border-bottom:1px solid var(--border)}
+    .container{max-width:var(--container);margin:0 auto;padding:28px 16px}
+    .page-hero h1{font-size:clamp(28px,4vw,36px);margin:0 0 6px;line-height:1.15}
+    .page-hero p{margin:0;color:var(--muted);line-height:1.6}
+
+    /* ===== Cards / Blöcke ===== */
+    .grid{display:grid;gap:20px}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){.grid.cols-2{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+    .card h2{margin:0 0 10px}
+    .muted{color:var(--muted)}
+
+    /* Steps / Checkliste */
+    .step{display:flex;gap:14px;align-items:flex-start;margin:10px 0}
+    .step .num{flex:0 0 36px;height:36px;display:grid;place-items:center;border-radius:999px;background:#111827;color:#fff;font-weight:800}
+    .step .txt h3{margin:0 0 4px;font-size:16px}
+    ul.clean{list-style:none;margin:0;padding:0}
+    ul.clean li{padding-left:24px;position:relative;margin:8px 0}
+    ul.clean li::before{content:'✔';position:absolute;left:0;top:0;color:var(--ok);font-weight:700}
+
+    /* Hinweisboxen */
+    .note{border-left:4px solid var(--warn);background:#fff7ed;border:1px solid #fed7aa;padding:12px;border-radius:10px;color:#7c2d12}
+    .danger{border-left:4px solid var(--danger);background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:10px;color:#7f1d1d}
+
+    /* Footer */
+    footer{background:#eef2f6;margin-top:32px;text-align:center;border-top:1px solid var(--border)}
+    .footer-inner{max-width:var(--container);padding:18px 16px;margin:0 auto;font-size:14px;color:#4b5563}
+    .footer-link{color:#4b5563;text-decoration:none}
+
+    /* Buttons allgemein */
+    .btn{display:inline-block;padding:12px 16px;font-weight:800;border-radius:999px;box-shadow:0 6px 16px rgba(15,23,42,.08);border:1px solid var(--dark-border);background:var(--dark);color:#fff}
+    .btn:focus{outline:2px solid transparent;box-shadow:0 0 0 4px var(--ring)}
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <nav class="topbar" aria-label="Hauptnavigation">
+    <div class="nav-row">
+      <a class="brand" href="index.html" aria-label="Startseite">
+        <img src="logo.png" alt="TruckTire24 Logo" />
+      </a>
+      <div class="header-text">Checkliste · Richtiges Verhalten bei LKW‑Reifenpanne – 24/7 Hilfe</div>
+      <a href="tel:+4915124104553" class="call-button call-button--dark" aria-label="Jetzt anrufen">+49 151 24104553</a>
+    </div>
+  </nav>
+
+  <!-- Subnav + Lupe -->
+  <div class="subnav" aria-label="Seitennavigation">
+    <div class="subnav-inner">
+      <div class="subnav-row">
+        <div class="subnav-scroll" id="subnavScroll" tabindex="0">
+          <a href="index.html">Start</a>
+          <a href="notdienst.html">24/7-Notdienst</a>
+          <a href="vor-ort-service.html">Vor-Ort-Service</a>
+          <a href="flottenservice.html">Für Speditionen</a>
+          <a href="einsatzgebiet.html">Einsatzgebiet</a>
+          <a href="checkliste-panne.html" class="active">Checkliste</a>
+          <a href="parkplaetze.html">Parkplätze</a>
+          <a href="ueber-uns.html">Über uns</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="subnav-tools">
+          <button id="toggleSearch" class="icon-btn" aria-expanded="false" aria-controls="searchArea" title="Suche ein-/ausblenden">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Suche -->
+  <div id="searchArea" class="search-wrap" role="search" aria-hidden="true">
+    <div class="search-bar" id="searchCard" aria-expanded="false">
+      <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchResults" autocomplete="off" />
+      <button id="searchButton" class="search-btn" aria-label="Suche starten">Enter</button>
+    </div>
+    <div id="searchResults" class="search-dropdown hidden" role="listbox" aria-label="Suchvorschläge"></div>
+  </div>
+
+  <!-- Hero -->
+  <header class="page-hero">
+    <div class="container">
+      <h1>Checkliste: Verhalten bei Reifenpanne</h1>
+      <p>So handeln Sie sicher und richtig – von der Absicherung bis zur schnellen Wiederfahrt.</p>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="tel:+4915124104553">📞 24/7 Hilfe anfordern</a>
+        <a class="btn" href="parkplaetze.html">🅿️ Nächsten Parkplatz finden</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid cols-2">
+      <!-- Linke Spalte: Schritt-für-Schritt -->
+      <section class="card">
+        <h2>Schritt‑für‑Schritt</h2>
+        <div class="step"><div class="num">1</div><div class="txt"><h3>Warnblinker einschalten & langsam ausrollen</h3><div class="muted">Wenn möglich auf Standstreifen, Parkplatz oder Ausfahrt rollen. Plötzliche Lenkmanöver vermeiden.</div></div></div>
+        <div class="step"><div class="num">2</div><div class="txt"><h3>Warnweste an, Fahrzeug verlassen</h3><div class="muted">Auf der <strong>abgewandten Seite</strong> aussteigen, hinter der Leitplanke sammeln. Mitfahrende sichern.</div></div></div>
+        <div class="step"><div class="num">3</div><div class="txt"><h3>Warndreieck aufstellen</h3><div class="muted">Auf Autobahnen <strong>mind. 150–200 m</strong> hinter dem Fahrzeug, auf Landstraßen <strong>100 m</strong> (Sichtlinie beachten).</div></div></div>
+        <div class="step"><div class="num">4</div><div class="txt"><h3>Stelle absichern</h3><div class="muted">Feststellbremse, Gang einlegen, ggf. Keile. Gefahrenbereich nicht betreten, wenn Verkehrslage kritisch ist.</div></div></div>
+        <div class="step"><div class="num">5</div><div class="txt"><h3>Hilfe anfordern</h3><div class="muted">TruckTire24 <a href="tel:+4915124104553">+49 151 24104553</a> anrufen. Bei akuter Gefahr zusätzlich <a href="tel:112">112</a>.</div></div></div>
+        <div class="step"><div class="num">6</div><div class="txt"><h3>Warten – sicher stehen</h3><div class="muted">Hinter Leitplanke bleiben, Abstand zum Fahrzeug halten. Anweisungen der Einsatzkräfte befolgen.</div></div></div>
+      </section>
+
+      <!-- Rechte Spalte: Was wir brauchen / Do & Don't -->
+      <section class="card">
+        <h2>Beim Anruf bereithalten</h2>
+        <ul class="clean">
+          <li>Genauer Standort (Autobahn, km‑Marker, Fahrtrichtung)</li>
+          <li>Fahrzeugtyp (SZM, Auflieger, 3‑Achser …)</li>
+          <li>Achsposition (z. B. 1LA, 1LI, 1RI …)</li>
+          <li>Reifendimension / DOT (falls ablesbar)</li>
+          <li>Kontakt‑Rufnummer für Rückfragen</li>
+        </ul>
+        <div class="note" style="margin-top:10px"><strong>Tipp:</strong> Nutze unser Raster: <em>Autobahn – km – Richtung – Parkplatz/Standstreifen</em>.</div>
+        <h2 style="margin-top:16px">Do & Don't</h2>
+        <div class="grid" style="grid-template-columns:1fr;gap:10px">
+          <div class="note"><strong>Do:</strong> Warnblinker, Weste, Warndreieck; hinter Leitplanke warten; Infos bereithalten.</div>
+          <div class="danger"><strong>Don't:</strong> <em>Kein</em> Reifenwechsel auf dem Standstreifen ohne Absicherung. Kein Unterkriechen. Keine improvisierten Hebel.</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Zusatzbox: Häufige Fragen kurz -->
+    <section class="card" style="margin-top:20px">
+      <h2>Häufige Kurzfragen</h2>
+      <ul class="clean">
+        <li><strong>Wie weit darf ich noch rollen?</strong> Nur bis zur nächsten sicheren Stelle (Parkplatz, Ausfahrt) – weiterfahren mit beschädigtem Reifen kann Felge/Fahrzeug gefährden.</li>
+        <li><strong>Kann ich auf dem Standstreifen wechseln?</strong> Nur mit professioneller Absicherung. Ansonsten warten und <a href="tel:+4915124104553">uns anrufen</a>.</li>
+        <li><strong>Was kostet es?</strong> Transparent nach Anfahrt, Arbeitszeit/Position und Material. Wir nennen dir den Rahmen am Telefon.</li>
+      </ul>
+    </section>
+
+    <!-- CTA unten -->
+    <section class="card" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:20px">
+      <div>
+        <h3 style="margin:0">Schnelle Hilfe anfordern</h3>
+        <div class="muted">24/7 erreichbar – Sicherheit hat Vorrang.</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="tel:+4915124104553">📞 Jetzt anrufen</a>
+        <a class="btn" href="parkplaetze.html">🅿️ Parkplatzsuche öffnen</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-link">TruckTire24</a> ·
+      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
+      <div>© <span id="year"></span> TruckTire24. Alle Rechte vorbehalten.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
+
+    // Subnav: Touch wischbar, Desktop klickbar
+    (function(){
+      const scroller = document.getElementById('subnavScroll');
+      if(!scroller) return; const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints>0);
+      if(!isTouch) return; let startX=0, startLeft=0, moved=false;
+      scroller.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; startLeft=scroller.scrollLeft; moved=false; }, {passive:true});
+      scroller.addEventListener('touchmove', e=>{ const dx=e.touches[0].clientX-startX; scroller.scrollLeft=startLeft-dx; if(Math.abs(dx)>12) moved=true; }, {passive:true});
+      scroller.addEventListener('touchend', ()=>{ setTimeout(()=>moved=false,0); }, {passive:true});
+      scroller.addEventListener('click', e=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
+    })();
+
+    // Lupe: Suche toggeln
+    (function(){
+      const btn = document.getElementById('toggleSearch');
+      const area = document.getElementById('searchArea');
+      const input = document.getElementById('siteSearch');
+      if(!btn || !area) return;
+      btn.addEventListener('click', ()=>{
+        const open = !area.classList.contains('open');
+        area.classList.toggle('open', open);
+        area.setAttribute('aria-hidden', String(!open));
+        btn.setAttribute('aria-expanded', String(open));
+        if(open){ setTimeout(()=> input && input.focus(), 120); }
+      });
+    })();
+
+    // Client-Side Suche mit Vorschlägen
+    const SITE_INDEX = [
+      {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW-Reifenpannen, 24/7 erreichbar.'},
+      {title:'24/7-Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
+      {title:'Vor-Ort-Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
+      {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW-Flotte.'},
+      {title:'Einsatzgebiet', url:'einsatzgebiet.html', snippet:'Alle Einsatzbereiche, Dreiecke und Regionen im Überblick.'},
+      {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW-Panne – Schritt für Schritt.'},
+      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW-Park- und Rastplätzen in der Region.'},
+      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür TruckTire24 steht.'},
+      {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
+    ];
+
+    const input = document.getElementById('siteSearch');
+    const resultsBox = document.getElementById('searchResults');
+    const card = document.getElementById('searchCard');
+    const btnSearch = document.getElementById('searchButton');
+
+    function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,''); }
+    function score(item, q){ const t=normalize(item.title), sn=normalize(item.snippet); let s=0; if(t.includes(q)) s+=8; if(t.startsWith(q)) s+=6; if(sn.includes(q)) s+=2; return s; }
+    function highlight(text, q){ if(!q) return text; const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); return text.replace(new RegExp('('+esc+')','ig'), '<mark>$1</mark>'); }
+
+    let activeIndex=-1;
+    function render(items, rawQ){
+      resultsBox.innerHTML='';
+      if(items.length===0){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const q = rawQ.trim();
+      const frag=document.createDocumentFragment();
+      items.slice(0,8).forEach((it,i)=>{
+        const a=document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
+        a.innerHTML=`<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
+        frag.appendChild(a);
+      });
+      resultsBox.appendChild(frag);
+      resultsBox.classList.remove('hidden');
+      card.setAttribute('aria-expanded','true');
+      activeIndex=-1;
+    }
+    function search(){
+      const q=normalize(input.value.trim());
+      if(!q){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const ranked=SITE_INDEX.map(it=>({it,s:score(it,q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).map(x=>x.it);
+      render(ranked, input.value);
+    }
+    let t=null; input && input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search,80); });
+    btnSearch && btnSearch.addEventListener('click', search);
+    input && input.addEventListener('keydown', (e)=>{
+      const items=[...resultsBox.querySelectorAll('.result-item')];
+      const open=!resultsBox.classList.contains('hidden');
+      if(e.key==='Enter'){
+        if(open && items.length>0){ e.preventDefault(); location.href=items[0].getAttribute('href'); }
+        else{ search(); }
+      } else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex=(activeIndex+1)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+        else if(open && e.key==='ArrowUp'){ e.preventDefault(); activeIndex=(activeIndex-1+items.length)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+    });
+    document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
+  </script>
+
+  <!-- Strukturierte Daten (HowTo) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Verhalten bei LKW‑Reifenpanne",
+    "description": "Sichere Schritte bei einer LKW‑Reifenpanne auf Autobahn oder Landstraße.",
+    "totalTime": "PT5M",
+    "step": [
+      {"@type":"HowToStep","name":"Warnblinker einschalten","text":"Tempo reduzieren, sanft ausrollen lassen."},
+      {"@type":"HowToStep","name":"Warnweste an, Fahrzeug verlassen","text":"Auf abgewandter Seite aussteigen, hinter Leitplanke."},
+      {"@type":"HowToStep","name":"Warndreieck aufstellen","text":"Autobahn 150–200 m, Landstraße ca. 100 m."},
+      {"@type":"HowToStep","name":"Stelle absichern","text":"Bremse, Gang, Keile – Gefahrenbereich meiden."},
+      {"@type":"HowToStep","name":"Hilfe anfordern","text":"TruckTire24 +49 151 24104553, bei Gefahr 112."}
+    ]
+  }
+  </script>
+</body>
+</html>
 
