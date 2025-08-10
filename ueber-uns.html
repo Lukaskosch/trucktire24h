@@ -4,85 +4,153 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Über uns – TruckTire24</title>
-  <meta name="description" content="TruckTire24 – Ihr Partner für LKW‑Reifenservice in Hessen. Teil eines europaweiten Netzwerks mit über 9.000 Servicepartnern. 24/7‑Notdienst, Vor‑Ort‑Montage, Reparaturen und transparente Preise." />
+  <meta name="description" content="TruckTire24 – Ihr Partner für LKW‑Reifenservice in Hessen. 24/7‑Notdienst, Vor‑Ort‑Montage, Reparaturen und transparente Preise. Teil eines europaweiten Netzwerks." />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
-    :root{--brand-yellow:#fff700;--brand-red:#d32f2f;--text:#222;--muted:#666;--bg:#f4f4f4;--card:#fff;--border:#e9e9e9;--shadow:0 2px 8px rgba(0,0,0,.08)}
+    :root{
+      --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
+      --shadow:0 6px 18px rgba(0,0,0,.08); --radius:14px; --container:1120px;
+      --accent:#335d92; --accent-weak:#ecf2f9;
+      --dark:#0f172a; --dark-border:#1f2937; --dark-soft:#334155; --dark-text:#e5e7eb;
+      --focus:#2563eb;
+    }
     *{box-sizing:border-box}
-    body{font-family:'Segoe UI','Helvetica Neue',system-ui,-apple-system,sans-serif;margin:0;color:var(--text);background:var(--bg)}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
+    img{max-width:100%;height:auto;display:block}
     a{color:inherit;text-decoration:none}
 
-    /* NAV (gelb bleibt) */
-    nav{position:sticky;top:0;z-index:20;background:linear-gradient(to right,var(--brand-yellow),#ffffff);box-shadow:0 2px 6px rgba(0,0,0,.1);padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-    nav .brand{display:flex;align-items:center;gap:8px}
-    nav .brand img{height:40px;width:auto}
-    nav .header-text{flex:1 1 auto;min-width:0;text-align:center;font-size:12px;font-weight:500;color:#444;padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    nav .call-button{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fff;background:var(--brand-red);padding:6px 10px;border-radius:6px;transition:.2s;white-space:nowrap}
-    nav .call-button:hover{background:#b71c1c;transform:scale(1.05)}
-    @media (max-width:420px){nav .brand img{height:18px}}
+    /* ===== Topbar ===== */
+    nav.topbar{position:sticky;top:0;z-index:1000;background:linear-gradient(90deg,#fff700,#fff);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    .nav-row{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:var(--container);margin:0 auto}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:42px}
+    .header-text{flex:1;min-width:0;text-align:center;font-size:12px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .call-button{display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:8px 12px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    .call-button--dark{color:#fff;background:var(--dark);border:1px solid var(--dark-border)}
+    .call-button--dark:hover{opacity:.95}
 
-    .container{max-width:1100px;margin:auto;padding:40px 20px}
+    /* ===== Sub-Navigation – mobil wischbar + Lupe ===== */
+    .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
+    .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
+    .subnav-row{display:flex;align-items:center;gap:8px;padding:0 16px}
+    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
+    .subnav-scroll::-webkit-scrollbar{display:none}
+    .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto}
+    .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
+    .subnav a.active{background:rgba(255,255,255,.10);color:#fff;border-color:var(--dark-soft)}
+    .subnav:before,.subnav:after{content:"";position:absolute;top:0;bottom:0;width:24px;pointer-events:none}
+    .subnav:before{left:0;background:linear-gradient(90deg,rgba(15,23,42,1),rgba(15,23,42,0))}
+    .subnav:after{right:0;background:linear-gradient(270deg,rgba(15,23,42,1),rgba(15,23,42,0))}
+    .subnav-tools{display:flex;align-items:center;gap:8px}
+    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,.06);color:#e5e7eb;cursor:pointer}
+    .icon-btn:hover{background:rgba(255,255,255,.12)}
+    .icon-btn svg{width:18px;height:18px}
 
-    /* HERO */
-    .hero{background:linear-gradient(180deg,#ffffff,#fefbe7);border-bottom:1px solid var(--border)}
-    .hero h1{margin:0 0 8px;font-size:34px}
-    .hero p{margin:0;color:#444;line-height:1.6}
+    /* ===== Suche (geschlossen, über Content) ===== */
+    .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500;display:none}
+    .search-wrap.open{display:block}
+    .search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px}
+    .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 6px}
+    .search-btn{border:none;background:var(--dark);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    .search-btn:hover{opacity:.95}
+    .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600}
+    .hidden{display:none}
 
-    /* GRID */
+    /* ===== Seiteninhalt ===== */
+    header.page-hero{background:linear-gradient(180deg,#ffffff,#fefbe7);border-bottom:1px solid var(--border)}
+    .container{max-width:var(--container);margin:0 auto;padding:28px 16px}
+    .page-hero h1{font-size:clamp(28px,4vw,36px);margin:0 0 6px;line-height:1.15}
+    .page-hero p{margin:0;color:var(--muted);line-height:1.6}
+
     .grid{display:grid;gap:20px}
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
     .grid.cols-2{grid-template-columns:repeat(2,1fr)}
     @media (max-width:900px){.grid.cols-3{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:600px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
 
-    /* CARD */
-    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:18px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px}
     .card h3{margin:0 0 8px;font-size:18px}
     .muted{color:var(--muted)}
 
-    /* LIST (Service auf einen Blick) */
     ul.clean{list-style:none;margin:0;padding:0}
     ul.clean li{padding-left:24px;position:relative;margin:8px 0}
     ul.clean li::before{content:'✔';position:absolute;left:0;top:0;color:#2e7d32;font-weight:700}
 
-    /* BADGES */
     .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);font-weight:700}
 
-    /* GALLERY */
     .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
     .gallery img{width:100%;height:auto;border-radius:10px;display:block;box-shadow:var(--shadow)}
 
-    /* FOOTER */
-    footer{background:#eee;text-align:center;padding:20px;font-size:14px;border-top:1px solid var(--border)}
-    a.footer-link{color:#666}
-    .copyright{margin-top:6px;color:#666}
+    /* Footer */
+    footer{background:#eef2f6;margin-top:32px;text-align:center;border-top:1px solid var(--border)}
+    .footer-inner{max-width:var(--container);padding:18px 16px;margin:0 auto;font-size:14px;color:#4b5563}
+    .footer-link{color:#4b5563;text-decoration:none}
   </style>
 </head>
 <body>
-  <nav>
-    <div class="brand"><a href="index.html" aria-label="Startseite"><img src="logo.png" alt="TruckTire24 Logo"></a></div>
-    <div class="header-text">Über uns</div>
-    <a href="tel:+4915124104553" class="call-button">📞 +49 151 24104553</a>
+  <!-- Topbar -->
+  <nav class="topbar" aria-label="Hauptnavigation">
+    <div class="nav-row">
+      <a class="brand" href="index.html" aria-label="Startseite">
+        <img src="logo.png" alt="TruckTire24 Logo" />
+      </a>
+      <div class="header-text">Über uns – TruckTire24</div>
+      <a href="tel:+4915124104553" class="call-button call-button--dark" aria-label="Jetzt anrufen">+49 151 24104553</a>
+    </div>
   </nav>
 
-  <header class="hero">
+  <!-- Sub-Navigation + Lupe rechts -->
+  <div class="subnav" aria-label="Seitennavigation">
+    <div class="subnav-inner">
+      <div class="subnav-row">
+        <div class="subnav-scroll" id="subnavScroll" tabindex="0">
+          <a href="index.html">Start</a>
+          <a href="notdienst.html">24/7-Notdienst</a>
+          <a href="vor-ort-service.html">Vor-Ort-Service</a>
+          <a href="flottenservice.html">Für Speditionen</a>
+          <a href="einsatzgebiet.html">Einsatzgebiet</a>
+          <a href="checkliste-panne.html">Checkliste</a>
+          <a href="parkplaetze.html">Parkplätze</a>
+          <a href="ueber-uns.html" class="active">Über uns</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="subnav-tools">
+          <button id="toggleSearch" class="icon-btn" aria-expanded="false" aria-controls="searchArea" title="Suche ein-/ausblenden">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Suche (standardmäßig geschlossen) -->
+  <div id="searchArea" class="search-wrap" role="search" aria-hidden="true">
+    <div class="search-bar" id="searchCard" aria-expanded="false">
+      <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchResults" autocomplete="off" />
+      <button id="searchButton" class="search-btn" aria-label="Suche starten">Enter</button>
+    </div>
+    <div id="searchResults" class="search-dropdown hidden" role="listbox" aria-label="Suchvorschläge"></div>
+  </div>
+
+  <!-- HERO -->
+  <header class="page-hero">
     <div class="container">
       <h1>Über uns – TruckTire24</h1>
-      <p>TruckTire24 ist Ihr zuverlässiger Partner für LKW‑Reifenpannen in Hessen. Als Teil eines europaweiten Netzwerks mit über <strong>9.000 Servicepartnern</strong> bieten wir schnellen und professionellen 24‑Stunden‑LKW‑Reifenservice, Reifenreparaturen und Pannenhilfe – direkt dort, wo Sie uns brauchen. Spezialisierung: <strong>Reifenpannen im Hessen‑Gebiet</strong> (A3, A4, A5, A7, A45, A49, A66 u. a.).</p>
+      <p>Ihr zuverlässiger Partner für LKW‑Reifenservice in Hessen. Als Teil eines europaweiten Netzwerks mit über <strong>9.000 Servicepartnern</strong> bieten wir 24/7‑Notdienst, Vor‑Ort‑Montage und transparente Leistungen – genau dort, wo Sie uns brauchen.</p>
     </div>
   </header>
 
-  <!-- SERVICE AUF EINEN BLICK (SEO‑Liste) -->
+  <!-- SERVICE AUF EINEN BLICK -->
   <section class="container">
     <h2>Unser Service auf einen Blick</h2>
     <div class="card">
       <ul class="clean">
-        <li>24/7 LKW‑Notdienst – Tag und Nacht für Sie erreichbar</li>
+        <li>24/7 LKW‑Notdienst – Tag und Nacht erreichbar</li>
         <li>Schnelle Hilfe bei LKW‑Reifenpannen in ganz Hessen</li>
-        <li>Ersatzreifen aller gängigen Größen sofort verfügbar</li>
+        <li>Ersatzreifen aller gängigen Größen verfügbar</li>
         <li>Reifenmontage und Reparatur direkt vor Ort</li>
-        <li>GPS‑Ortung für eine schnelle und präzise Anfahrt</li>
+        <li>GPS‑Ortung für präzise Anfahrt</li>
         <li>Service für SZM, Auflieger, Anhänger und Tieflader</li>
         <li>Transparente Preise ohne versteckte Kosten</li>
       </ul>
@@ -133,19 +201,18 @@
   <section class="container">
     <h2>Warum wir die richtige Wahl sind</h2>
     <div class="card">
-      <p class="muted">Mit jahrelanger Erfahrung im mobilen LKW‑Reifenservice wissen wir: Jede Minute zählt. Unsere mobilen Einsatzfahrzeuge sind bestens ausgestattet, um Ihre Reifenpanne auf der Autobahn, im Industriegebiet oder direkt auf Ihrem Betriebshof schnell zu beheben.</p>
+      <p class="muted">Mit jahrelanger Erfahrung im mobilen LKW‑Reifenservice wissen wir: Jede Minute zählt. Unsere Fahrzeuge sind so ausgestattet, dass wir Reifenpannen auf Autobahn, im Industriegebiet oder auf Ihrem Hof schnell beheben.</p>
       <p class="muted">Wir arbeiten für Speditionen, Logistikunternehmen und Einzelkunden – zuverlässig, schnell und kompetent.</p>
     </div>
   </section>
 
-  <!-- TEAM & KONTAKT (ohne Buttons) -->
+  <!-- TEAM & KONTAKT -->
   <section class="container">
     <h2>Team & Kontakt</h2>
     <div class="grid cols-2" style="margin-top:12px">
       <div class="card">
         <h3>Wer steckt dahinter?</h3>
-        <p class="muted">TruckTire24 wird von einem erfahrenen Team aus LKW-Reifen- und Pannendienst-Profis geführt.
-Mit jahrelanger Erfahrung, moderner Ausrüstung und einem europaweiten Partnernetzwerk sorgen wir dafür, dass Sie schnell, sicher und rund um die Uhr wieder mobil sind.</p>
+        <p class="muted">TruckTire24 wird von einem erfahrenen Team aus LKW‑Reifen‑ und Pannendienst‑Profis geführt. Mit moderner Ausrüstung und einem europaweiten Partnernetzwerk sorgen wir dafür, dass Sie schnell, sicher und rund um die Uhr wieder mobil sind.</p>
       </div>
       <div class="card">
         <h3>Schnell erreichbar</h3>
@@ -158,11 +225,11 @@ Mit jahrelanger Erfahrung, moderner Ausrüstung und einem europaweiten Partnerne
   <section class="container">
     <h2>Einsatzgebiet</h2>
     <div class="card">
-      <p class="muted" style="margin:0">Hessen‑weit, u. a. Frankfurt am Main, Wiesbaden, Kassel, Darmstadt, Gießen, Fulda, Marburg – sowie alle wichtigen Autobahnen: A3, A4, A5, A7, A45, A49, A66. Kernpunkte: Niederaula, Kirchheimer Dreieck, Hattenbacher Dreieck, Fulda, Bad Hersfeld, Alsfeld u. a.</p>
+      <p class="muted" style="margin:0">Hessen‑weit, u. a. Frankfurt am Main, Wiesbaden, Kassel, Darmstadt, Gießen, Fulda, Marburg – sowie wichtige Autobahnen: A3, A4, A5, A7, A45, A49, A66. Kernpunkte: Niederaula, Kirchheimer Dreieck, Hattenbacher Dreieck, Fulda, Bad Hersfeld, Alsfeld u. a.</p>
     </div>
   </section>
 
-  <!-- EINSATZBILDER (3 Platzhalter) -->
+  <!-- EINSATZBILDER -->
   <section class="container">
     <h2>Einsatzbilder</h2>
     <div class="gallery">
@@ -172,22 +239,120 @@ Mit jahrelanger Erfahrung, moderner Ausrüstung und einem europaweiten Partnerne
     </div>
   </section>
 
-  <!-- CLAIM / SLOGAN -->
+  <!-- CLAIM -->
   <section class="container">
     <div class="card" style="text-align:center;font-weight:700;font-size:18px">
-      ✅ TruckTire24 – Ihr Partner für LKW Reifenservice in Hessen.<br>
+      ✅ TruckTire24 – Ihr Partner für LKW‑Reifenservice in Hessen.<br>
       Schnell. Zuverlässig. Rund um die Uhr.
     </div>
   </section>
 
   <footer>
-    <a href="index.html" class="footer-link">TruckTire24</a> · 
-    <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
-    <div class="copyright">© <span id="year"></span> TruckTire24. Alle Rechte vorbehalten.</div>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-link">TruckTire24</a> ·
+      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
+      <div>© <span id="year"></span> TruckTire24. Alle Rechte vorbehalten.</div>
+    </div>
   </footer>
 
   <script>
-    (function(){ var el=document.getElementById('year'); if(el) el.textContent=new Date().getFullYear(); })();
+    (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
+
+    // ===== Subnav: Drag/Wisch nur Touch (Desktop klickbar) =====
+    (function(){
+      const scroller = document.getElementById('subnavScroll');
+      if(!scroller) return;
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      if(!isTouch) return;
+      let startX=0, startLeft=0, moved=false;
+      scroller.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; startLeft=scroller.scrollLeft; moved=false; }, {passive:true});
+      scroller.addEventListener('touchmove', e=>{ const dx=e.touches[0].clientX-startX; scroller.scrollLeft=startLeft-dx; if(Math.abs(dx)>12) moved=true; }, {passive:true});
+      scroller.addEventListener('touchend', ()=>{ setTimeout(()=>moved=false,0); }, {passive:true});
+      scroller.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
+    })();
+
+    // ===== Lupe: Suchleiste toggeln (geschlossen) =====
+    (function(){
+      const btn = document.getElementById('toggleSearch');
+      const area = document.getElementById('searchArea');
+      const input = document.getElementById('siteSearch');
+      if(!btn || !area) return;
+      btn.addEventListener('click', ()=>{
+        const open = !area.classList.contains('open');
+        area.classList.toggle('open', open);
+        area.setAttribute('aria-hidden', String(!open));
+        btn.setAttribute('aria-expanded', String(open));
+        if(open){ setTimeout(()=> input?.focus(), 120); }
+      });
+    })();
+
+    // ===== Client-Side Suche mit Vorschlägen (ohne Dateinamen) =====
+    const SITE_INDEX = [
+      {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW-Reifenpannen, 24/7 erreichbar.'},
+      {title:'24/7-Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
+      {title:'Vor-Ort-Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
+      {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW-Flotte.'},
+      {title:'Einsatzgebiet', url:'einsatzgebiet.html', snippet:'Alle Einsatzbereiche, Dreiecke und Regionen im Überblick.'},
+      {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW-Panne – Schritt für Schritt.'},
+      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW-Park- und Rastplätzen in der Region.'},
+      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür TruckTire24 steht.'},
+      {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
+    ];
+
+    const input = document.getElementById('siteSearch');
+    const resultsBox = document.getElementById('searchResults');
+    const card = document.getElementById('searchCard');
+    const btnSearch = document.getElementById('searchButton');
+
+    function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,''); }
+    function score(item, q){
+      const t = normalize(item.title); const sn = normalize(item.snippet);
+      let s = 0; if(t.includes(q)) s+=8; if(t.startsWith(q)) s+=6; if(sn.includes(q)) s+=2; return s;
+    }
+    function highlight(text, q){ if(!q) return text; const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); return text.replace(new RegExp('('+esc+')','ig'), '<mark>$1</mark>'); }
+
+    let activeIndex = -1;
+    function render(items, rawQ){
+      resultsBox.innerHTML = '';
+      if(items.length===0){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const q = rawQ.trim();
+      const frag = document.createDocumentFragment();
+      items.slice(0,8).forEach((it,i)=>{
+        const a = document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
+        a.innerHTML = `<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
+        frag.appendChild(a);
+      });
+      resultsBox.appendChild(frag);
+      resultsBox.classList.remove('hidden');
+      card.setAttribute('aria-expanded','true');
+      activeIndex = -1;
+    }
+
+    function search(){
+      const q = normalize(input.value.trim());
+      if(!q){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const ranked = SITE_INDEX.map(it=>({it,s:score(it,q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).map(x=>x.it);
+      render(ranked, input.value);
+    }
+
+    // Debounce Input
+    let t=null; input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search, 80); });
+    btnSearch.addEventListener('click', search);
+
+    // Enter = 1. Treffer öffnen
+    input.addEventListener('keydown', (e)=>{
+      const items = [...resultsBox.querySelectorAll('.result-item')];
+      const open = !resultsBox.classList.contains('hidden');
+      if(e.key==='Enter'){
+        if(open && items.length>0){ e.preventDefault(); location.href = items[0].getAttribute('href'); }
+        else { search(); }
+      }
+      else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex = (activeIndex+1) % items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+      else if(open && e.key==='ArrowUp'){ e.preventDefault(); activeIndex = (activeIndex-1+items.length)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+    });
+
+    // Klick außerhalb schließt nur Dropdown
+    document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
   </script>
 
   <!-- Strukturierte Daten (AboutPage) -->
