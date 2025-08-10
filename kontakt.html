@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Kontakt – TruckTire24</title>
+  <meta name="description" content="Kontakt zu TruckTire24 – 24/7-Notdienst für LKW-Reifen in Hessen. Telefon, E‑Mail oder Formular. Standort: Niederaula, Kernregion A4 · A5 · A7 · A49." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    :root{
+      --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
+      --shadow:0 6px 18px rgba(0,0,0,.08); --radius:14px; --container:1120px;
+      --accent:#335d92; --accent-weak:#ecf2f9;
+      --dark:#0f172a; --dark-border:#1f2937; --dark-soft:#334155; --dark-text:#e5e7eb;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+
+    /* ===== Topbar ===== */
+    nav.topbar{position:sticky;top:0;z-index:1000;background:linear-gradient(90deg,#fff700,#fff);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    .nav-row{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:var(--container);margin:0 auto}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:42px}
+    .header-text{flex:1;min-width:0;text-align:center;font-size:12px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .call-button{display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:8px 12px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    .call-button--dark{color:#fff;background:var(--dark);border:1px solid var(--dark-border)}
+    .call-button--dark:hover{opacity:.95}
+
+    /* ===== Sub-Navigation – mobil wischbar + Lupe ===== */
+    .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
+    .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
+    .subnav-row{display:flex;align-items:center;gap:8px;padding:0 16px}
+    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
+    .subnav-scroll::-webkit-scrollbar{display:none}
+    .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto}
+    .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
+    .subnav a.active{background:rgba(255,255,255,.10);color:#fff;border-color:var(--dark-soft)}
+    .subnav:before,.subnav:after{content:"";position:absolute;top:0;bottom:0;width:24px;pointer-events:none}
+    .subnav:before{left:0;background:linear-gradient(90deg,rgba(15,23,42,1),rgba(15,23,42,0))}
+    .subnav:after{right:0;background:linear-gradient(270deg,rgba(15,23,42,1),rgba(15,23,42,0))}
+    .subnav-tools{display:flex;align-items:center;gap:8px}
+    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,.06);color:#e5e7eb;cursor:pointer}
+    .icon-btn:hover{background:rgba(255,255,255,.12)}
+    .icon-btn svg{width:18px;height:18px}
+
+    /* ===== Suche (per Lupe ein-/ausblenden, über Content) ===== */
+    .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500;display:none}
+    .search-wrap.open{display:block}
+    .search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px}
+    .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 6px}
+    .search-btn{border:none;background:var(--dark);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    .search-btn:hover{opacity:.95}
+    .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600}
+    .hidden{display:none}
+    .result-item{display:block;padding:10px 12px;border-bottom:1px solid #f1f5f9}
+    .result-item:last-child{border-bottom:none}
+    .result-title{font-weight:700;font-size:14px}
+    .result-snippet{font-size:13px;color:#6b7280;margin-top:3px}
+    .result-item[aria-selected="true"], .result-item:hover{background:#f8fafc}
+
+    /* ===== Inhalt Kontakt ===== */
+    .container{max-width:var(--container);margin:0 auto;padding:28px 16px}
+    .grid{display:grid;gap:20px}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){.grid.cols-2{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+    .card h2{margin:0 0 10px}
+    label{display:block;font-size:13px;color:#334155;margin-top:10px}
+    input,textarea{width:100%;padding:10px 12px;border:1px solid #d8e0ea;border-radius:10px;font-size:15px;background:#fff}
+    textarea{min-height:120px}
+    .form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{display:inline-block;padding:12px 20px;font-weight:800;border-radius:999px;box-shadow:0 6px 16px rgba(15,23,42,.08);transition:.2s}
+    .btn.dark{background:var(--dark);border:1px solid var(--dark-border);color:#fff}
+    .hint{font-size:12px;color:#6b7280;margin-top:4px}
+    .success{background:#e8f5e9;border:1px solid #c8e6c9;color:#1b5e20;padding:10px 12px;border-radius:10px;margin-top:12px;display:none}
+
+    iframe.map{border:0;width:100%;height:320px;border-radius:12px}
+
+    /* Footer */
+    footer{background:#eef2f6;margin-top:32px;text-align:center;border-top:1px solid var(--border)}
+    .footer-inner{max-width:var(--container);padding:18px 16px;margin:0 auto;font-size:14px;color:#4b5563}
+    .footer-link{color:#4b5563;text-decoration:none}
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <nav class="topbar" aria-label="Hauptnavigation">
+    <div class="nav-row">
+      <a class="brand" href="index.html" aria-label="Startseite">
+        <img src="logo.png" alt="TruckTire24 Logo" />
+      </a>
+      <div class="header-text">Kontakt · 24/7 erreichbar in der Kernregion A4 · A5 · A7 · A49</div>
+      <a href="tel:+4915124104553" class="call-button call-button--dark" aria-label="Jetzt anrufen">+49 151 24104553</a>
+    </div>
+  </nav>
+
+  <!-- Subnav + Lupe -->
+  <div class="subnav" aria-label="Seitennavigation">
+    <div class="subnav-inner">
+      <div class="subnav-row">
+        <div class="subnav-scroll" id="subnavScroll" tabindex="0">
+          <a href="index.html">Start</a>
+          <a href="notdienst.html">24/7-Notdienst</a>
+          <a href="vor-ort-service.html">Vor-Ort-Service</a>
+          <a href="flottenservice.html">Für Speditionen</a>
+          <a href="einsatzgebiet.html">Einsatzgebiet</a>
+          <a href="checkliste-panne.html">Checkliste</a>
+          <a href="parkplaetze.html">Parkplätze</a>
+          <a href="ueber-uns.html">Über uns</a>
+          <a href="kontakt.html" class="active">Kontakt</a>
+        </div>
+        <div class="subnav-tools">
+          <button id="toggleSearch" class="icon-btn" aria-expanded="false" aria-controls="searchArea" title="Suche ein-/ausblenden">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Suche -->
+  <div id="searchArea" class="search-wrap" role="search" aria-hidden="true">
+    <div class="search-bar" id="searchCard" aria-expanded="false">
+      <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchResults" autocomplete="off" />
+      <button id="searchButton" class="search-btn" aria-label="Suche starten">Enter</button>
+    </div>
+    <div id="searchResults" class="search-dropdown hidden" role="listbox" aria-label="Suchvorschläge"></div>
+  </div>
+
+  <!-- Inhalt -->
+  <main class="container">
+    <h1>Kontakt</h1>
+    <div class="grid cols-2" style="margin-top:12px">
+      <section class="card" aria-labelledby="kontakt-direkt">
+        <h2 id="kontakt-direkt">Direkter Kontakt</h2>
+        <p><strong>Telefon:</strong> <a href="tel:+4915124104553">+49 151 24104553</a><br>
+           <strong>E‑Mail:</strong> <a href="mailto:info@trucktire24h.com">info@trucktire24h.com</a></p>
+        <h3 style="margin:14px 0 6px">Kontaktformular</h3>
+        <form id="contact-form" novalidate>
+          <label for="name">Name *</label>
+          <input id="name" name="name" required autocomplete="name">
+
+          <label for="email">E‑Mail *</label>
+          <input id="email" name="email" type="email" required autocomplete="email">
+
+          <label for="message">Nachricht *</label>
+          <textarea id="message" name="message" required placeholder="Worum geht es?"></textarea>
+
+          <!-- Honeypot gegen Spam -->
+          <div style="position:absolute;left:-9999px" aria-hidden="true">
+            <label for="hp">Bitte leer lassen</label>
+            <input id="hp" name="hp" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn dark">Nachricht senden</button>
+            <a class="btn dark" href="tel:+4915124104553" role="button">📞 Jetzt anrufen</a>
+          </div>
+          <div class="hint">Felder mit * sind Pflichtfelder.</div>
+          <div id="form-success" class="success">Danke! Dein E‑Mail‑Programm öffnet sich gleich mit der vorbefüllten Nachricht.</div>
+        </form>
+      </section>
+
+      <aside class="card" aria-labelledby="kontakt-standort">
+        <h2 id="kontakt-standort">Standort & Einsatzgebiet</h2>
+        <p class="muted">Niederaula (Hessen) – Kernregion ca. 60 km Umkreis rund um A4, A5, A7, A49.</p>
+        <iframe class="map" title="Karte: Niederaula" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-link">TruckTire24</a> ·
+      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
+      <div>© <span id="year"></span> TruckTire24. Alle Rechte vorbehalten.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
+
+    // Subnav: nur Touch-Geräte wischbar
+    (function(){
+      const scroller = document.getElementById('subnavScroll');
+      if(!scroller) return; const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints>0);
+      if(!isTouch) return; let startX=0, startLeft=0, moved=false;
+      scroller.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; startLeft=scroller.scrollLeft; moved=false; }, {passive:true});
+      scroller.addEventListener('touchmove', e=>{ const dx=e.touches[0].clientX-startX; scroller.scrollLeft=startLeft-dx; if(Math.abs(dx)>12) moved=true; }, {passive:true});
+      scroller.addEventListener('touchend', ()=>{ setTimeout(()=>moved=false,0); }, {passive:true});
+      scroller.addEventListener('click', e=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
+    })();
+
+    // Lupe: Suche toggeln
+    (function(){
+      const btn = document.getElementById('toggleSearch');
+      const area = document.getElementById('searchArea');
+      const input = document.getElementById('siteSearch');
+      if(!btn || !area) return;
+      btn.addEventListener('click', ()=>{
+        const open = !area.classList.contains('open');
+        area.classList.toggle('open', open);
+        area.setAttribute('aria-hidden', String(!open));
+        btn.setAttribute('aria-expanded', String(open));
+        if(open){ setTimeout(()=> input && input.focus(), 120); }
+      });
+    })();
+
+    // Client-Side Suche mit Vorschlägen
+    const SITE_INDEX = [
+      {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW-Reifenpannen, 24/7 erreichbar.'},
+      {title:'24/7-Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
+      {title:'Vor-Ort-Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
+      {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW-Flotte.'},
+      {title:'Einsatzgebiet', url:'einsatzgebiet.html', snippet:'Alle Einsatzbereiche, Dreiecke und Regionen im Überblick.'},
+      {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW-Panne – Schritt für Schritt.'},
+      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW-Park- und Rastplätzen in der Region.'},
+      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür TruckTire24 steht.'},
+      {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
+    ];
+
+    const input = document.getElementById('siteSearch');
+    const resultsBox = document.getElementById('searchResults');
+    const card = document.getElementById('searchCard');
+    const btnSearch = document.getElementById('searchButton');
+
+    function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,''); }
+    function score(item, q){ const t=normalize(item.title), sn=normalize(item.snippet); let s=0; if(t.includes(q)) s+=8; if(t.startsWith(q)) s+=6; if(sn.includes(q)) s+=2; return s; }
+    function highlight(text, q){ if(!q) return text; const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); return text.replace(new RegExp('('+esc+')','ig'), '<mark>$1</mark>'); }
+
+    let activeIndex=-1;
+    function render(items, rawQ){
+      resultsBox.innerHTML='';
+      if(items.length===0){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const q = rawQ.trim();
+      const frag=document.createDocumentFragment();
+      items.slice(0,8).forEach((it,i)=>{
+        const a=document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
+        a.innerHTML=`<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
+        frag.appendChild(a);
+      });
+      resultsBox.appendChild(frag);
+      resultsBox.classList.remove('hidden');
+      card.setAttribute('aria-expanded','true');
+      activeIndex=-1;
+    }
+    function search(){
+      const q=normalize(input.value.trim());
+      if(!q){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const ranked=SITE_INDEX.map(it=>({it,s:score(it,q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).map(x=>x.it);
+      render(ranked, input.value);
+    }
+    let t=null; input && input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search,80); });
+    btnSearch && btnSearch.addEventListener('click', search);
+    input && input.addEventListener('keydown', (e)=>{
+      const items=[...resultsBox.querySelectorAll('.result-item')];
+      const open=!resultsBox.classList.contains('hidden');
+      if(e.key==='Enter'){
+        if(open && items.length>0){ e.preventDefault(); location.href=items[0].getAttribute('href'); }
+        else{ search(); }
+      } else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex=(activeIndex+1)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+        else if(open && e.key==='ArrowUp'){ e.preventDefault(); activeIndex=(activeIndex-1+items.length)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+    });
+    document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
+
+    // Formular -> mailto-Fallback
+    (function(){
+      const form=document.getElementById('contact-form'); if(!form) return;
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        if(form.hp && form.hp.value.trim()) return; // Honeypot
+        const ok = form.name.value.trim() && form.email.checkValidity() && form.message.value.trim();
+        if(!ok){ alert('Bitte fülle die Pflichtfelder korrekt aus.'); return; }
+        const subject = 'Kontaktanfrage von ' + form.name.value.trim();
+        const body = [
+          'Name: ' + form.name.value.trim(),
+          'E-Mail: ' + form.email.value.trim(),
+          '',
+          'Nachricht:',
+          form.message.value.trim()
+        ].join('\n');
+        document.getElementById('form-success').style.display='block';
+        const mailto = 'mailto:info@trucktire24h.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = mailto;
+      });
+    })();
+  </script>
+</body>
+</html>
