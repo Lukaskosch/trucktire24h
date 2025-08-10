@@ -29,7 +29,7 @@
     .call-button--dark{color:#fff;background:var(--dark);border:1px solid var(--dark-border)}
     .call-button--dark:hover{opacity:.95}
 
-    /* ===== Sub-Navigation – mobil wischbar + Lupe ===== */
+    /* ===== Sub-Navigation – mobil wischbar + Tools (Lupe + Sprache) ===== */
     .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
     .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
     .subnav-row{display:flex;align-items:center;gap:8px;padding:0 16px}
@@ -42,9 +42,14 @@
     .subnav:before{left:0;background:linear-gradient(90deg,rgba(15,23,42,1),rgba(15,23,42,0))}
     .subnav:after{right:0;background:linear-gradient(270deg,rgba(15,23,42,1),rgba(15,23,42,0))}
     .subnav-tools{display:flex;align-items:center;gap:8px}
-    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,.06);color:#e5e7eb;cursor:pointer}
-    .icon-btn:hover{background:rgba(255,255,255,.12)}
+    .icon-btn, .lang-btn{display:inline-flex;align-items:center;justify-content:center;height:36px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,.06);color:#e5e7eb;cursor:pointer;padding:0 10px;gap:8px}
+    .icon-btn:hover, .lang-btn:hover{background:rgba(255,255,255,.12)}
     .icon-btn svg{width:18px;height:18px}
+    .lang-badge{display:inline-flex;align-items:center;gap:6px;font-weight:700}
+    .lang-menu{position:absolute;right:16px;top:calc(100% + 8px);background:#0b1220;color:#fff;border:1px solid #243043;border-radius:12px;box-shadow:0 16px 36px rgba(2,6,23,.5);padding:6px;display:none;z-index:1200}
+    .lang-menu.open{display:block}
+    .lang-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;cursor:pointer;white-space:nowrap}
+    .lang-item:hover{background:rgba(255,255,255,.06)}
 
     /* ===== Suche (per Lupe ein-/ausblenden) ===== */
     .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500;display:none}
@@ -87,14 +92,23 @@
     .note{border-left:4px solid var(--warn);background:#fff7ed;border:1px solid #fed7aa;padding:12px;border-radius:10px;color:#7c2d12}
     .danger{border-left:4px solid var(--danger);background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:10px;color:#7f1d1d}
 
+    /* Buttons allgemein */
+    .btn{display:inline-block;padding:12px 16px;font-weight:800;border-radius:999px;box-shadow:0 6px 16px rgba(15,23,42,.08);border:1px solid var(--dark-border);background:var(--dark);color:#fff}
+    .btn:focus{outline:2px solid transparent;box-shadow:0 0 0 4px var(--ring)}
+    .btn--light{background:#fff;color:#0f172a;border:1px solid #cbd5e1}
+
     /* Footer */
     footer{background:#eef2f6;margin-top:32px;text-align:center;border-top:1px solid var(--border)}
     .footer-inner{max-width:var(--container);padding:18px 16px;margin:0 auto;font-size:14px;color:#4b5563}
     .footer-link{color:#4b5563;text-decoration:none}
 
-    /* Buttons allgemein */
-    .btn{display:inline-block;padding:12px 16px;font-weight:800;border-radius:999px;box-shadow:0 6px 16px rgba(15,23,42,.08);border:1px solid var(--dark-border);background:var(--dark);color:#fff}
-    .btn:focus{outline:2px solid transparent;box-shadow:0 0 0 4px var(--ring)}
+    /* Print */
+    @media print{
+      nav.topbar, .subnav, .search-wrap, footer, .noprint{display:none !important}
+      body{background:#fff}
+      .card{box-shadow:none;border-color:#ddd}
+      .container{padding:0 0 8px}
+    }
   </style>
 </head>
 <body>
@@ -109,7 +123,7 @@
     </div>
   </nav>
 
-  <!-- Subnav + Lupe -->
+  <!-- Subnav + Tools (Lupe + Sprache) -->
   <div class="subnav" aria-label="Seitennavigation">
     <div class="subnav-inner">
       <div class="subnav-row">
@@ -125,9 +139,22 @@
           <a href="kontakt.html">Kontakt</a>
         </div>
         <div class="subnav-tools">
-          <button id="toggleSearch" class="icon-btn" aria-expanded="false" aria-controls="searchArea" title="Suche ein-/ausblenden">
+          <button id="toggleSearch" class="icon-btn noprint" aria-expanded="false" aria-controls="searchArea" title="Suche ein-/ausblenden">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </button>
+          <div style="position:relative" class="noprint">
+            <button id="langBtn" class="lang-btn" aria-haspopup="listbox" aria-expanded="false" title="Sprache wählen">
+              <span class="lang-badge"><span id="langFlag">🇩🇪</span><span id="langCode">DE</span></span>
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 011.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+            </button>
+            <div id="langMenu" class="lang-menu" role="listbox" aria-label="Sprache wählen">
+              <div class="lang-item" data-lang="de">🇩🇪 Deutsch</div>
+              <div class="lang-item" data-lang="en">🇬🇧 English</div>
+              <div class="lang-item" data-lang="pl">🇵🇱 Polski</div>
+              <div class="lang-item" data-lang="ro">🇷🇴 Română</div>
+              <div class="lang-item" data-lang="ru">🇷🇺 Русский</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -145,11 +172,12 @@
   <!-- Hero -->
   <header class="page-hero">
     <div class="container">
-      <h1>Checkliste: Verhalten bei Reifenpanne</h1>
-      <p>So handeln Sie sicher und richtig – von der Absicherung bis zur schnellen Wiederfahrt.</p>
+      <h1 data-i18n="hero.title">Checkliste: Verhalten bei Reifenpanne</h1>
+      <p data-i18n="hero.subtitle">So handeln Sie sicher und richtig – von der Absicherung bis zur schnellen Wiederfahrt.</p>
       <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn" href="tel:+4915124104553">📞 24/7 Hilfe anfordern</a>
-        <a class="btn" href="parkplaetze.html">🅿️ Nächsten Parkplatz finden</a>
+        <a class="btn" href="tel:+4915124104553" data-i18n="buttons.call">📞 24/7 Hilfe anfordern</a>
+        <a class="btn btn--light" href="parkplaetze.html" data-i18n="buttons.parking">🅿️ Nächsten Parkplatz finden</a>
+        <button class="btn btn--light" onclick="window.print()" data-i18n="buttons.print" type="button">🖨️ Drucken</button>
       </div>
     </div>
   </header>
@@ -158,53 +186,47 @@
     <div class="grid cols-2">
       <!-- Linke Spalte: Schritt-für-Schritt -->
       <section class="card">
-        <h2>Schritt‑für‑Schritt</h2>
-        <div class="step"><div class="num">1</div><div class="txt"><h3>Warnblinker einschalten & langsam ausrollen</h3><div class="muted">Wenn möglich auf Standstreifen, Parkplatz oder Ausfahrt rollen. Plötzliche Lenkmanöver vermeiden.</div></div></div>
-        <div class="step"><div class="num">2</div><div class="txt"><h3>Warnweste an, Fahrzeug verlassen</h3><div class="muted">Auf der <strong>abgewandten Seite</strong> aussteigen, hinter der Leitplanke sammeln. Mitfahrende sichern.</div></div></div>
-        <div class="step"><div class="num">3</div><div class="txt"><h3>Warndreieck aufstellen</h3><div class="muted">Auf Autobahnen <strong>mind. 150–200 m</strong> hinter dem Fahrzeug, auf Landstraßen <strong>100 m</strong> (Sichtlinie beachten).</div></div></div>
-        <div class="step"><div class="num">4</div><div class="txt"><h3>Stelle absichern</h3><div class="muted">Feststellbremse, Gang einlegen, ggf. Keile. Gefahrenbereich nicht betreten, wenn Verkehrslage kritisch ist.</div></div></div>
-        <div class="step"><div class="num">5</div><div class="txt"><h3>Hilfe anfordern</h3><div class="muted">TruckTire24 <a href="tel:+4915124104553">+49 151 24104553</a> anrufen. Bei akuter Gefahr zusätzlich <a href="tel:112">112</a>.</div></div></div>
-        <div class="step"><div class="num">6</div><div class="txt"><h3>Warten – sicher stehen</h3><div class="muted">Hinter Leitplanke bleiben, Abstand zum Fahrzeug halten. Anweisungen der Einsatzkräfte befolgen.</div></div></div>
+        <h2 data-i18n="section.steps.title">Schritt‑für‑Schritt</h2>
+        <div id="steps"></div>
       </section>
 
       <!-- Rechte Spalte: Was wir brauchen / Do & Don't -->
       <section class="card">
-        <h2>Beim Anruf bereithalten</h2>
-        <ul class="clean">
-          <li>Genauer Standort (Autobahn, km‑Marker, Fahrtrichtung)</li>
-          <li>Fahrzeugtyp (SZM, Auflieger, 3‑Achser …)</li>
-          <li>Achsposition (z. B. 1LA, 1LI, 1RI …)</li>
-          <li>Reifendimension / DOT (falls ablesbar)</li>
-          <li>Kontakt‑Rufnummer für Rückfragen</li>
+        <h2 data-i18n="section.prepare.title">Beim Anruf bereithalten</h2>
+        <ul id="prepareList" class="clean">
+          <!-- gefüllt per JS -->
         </ul>
-        <div class="note" style="margin-top:10px"><strong>Tipp:</strong> Nutze unser Raster: <em>Autobahn – km – Richtung – Parkplatz/Standstreifen</em>.</div>
-        <h2 style="margin-top:16px">Do & Don't</h2>
+        <div class="note" style="margin-top:10px" data-i18n="section.prepare.tip"><strong>Tipp:</strong> Nutze unser Raster: <em>Autobahn – km – Richtung – Parkplatz/Standstreifen</em>.</div>
+
+        <h2 style="margin-top:16px" data-i18n="section.dodont.title">Do & Don't</h2>
         <div class="grid" style="grid-template-columns:1fr;gap:10px">
-          <div class="note"><strong>Do:</strong> Warnblinker, Weste, Warndreieck; hinter Leitplanke warten; Infos bereithalten.</div>
-          <div class="danger"><strong>Don't:</strong> <em>Kein</em> Reifenwechsel auf dem Standstreifen ohne Absicherung. Kein Unterkriechen. Keine improvisierten Hebel.</div>
+          <div class="note">
+            <strong data-i18n="section.dodont.doTitle">Do:</strong>
+            <ul id="doList" class="clean" style="margin-top:8px"></ul>
+          </div>
+          <div class="danger">
+            <strong data-i18n="section.dodont.dontTitle">Don't:</strong>
+            <ul id="dontList" class="clean" style="margin-top:8px"></ul>
+          </div>
         </div>
       </section>
     </div>
 
     <!-- Zusatzbox: Häufige Fragen kurz -->
     <section class="card" style="margin-top:20px">
-      <h2>Häufige Kurzfragen</h2>
-      <ul class="clean">
-        <li><strong>Wie weit darf ich noch rollen?</strong> Nur bis zur nächsten sicheren Stelle (Parkplatz, Ausfahrt) – weiterfahren mit beschädigtem Reifen kann Felge/Fahrzeug gefährden.</li>
-        <li><strong>Kann ich auf dem Standstreifen wechseln?</strong> Nur mit professioneller Absicherung. Ansonsten warten und <a href="tel:+4915124104553">uns anrufen</a>.</li>
-        <li><strong>Was kostet es?</strong> Transparent nach Anfahrt, Arbeitszeit/Position und Material. Wir nennen dir den Rahmen am Telefon.</li>
-      </ul>
+      <h2 data-i18n="faq.title">Häufige Kurzfragen</h2>
+      <ul id="faqList" class="clean"></ul>
     </section>
 
     <!-- CTA unten -->
     <section class="card" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:20px">
       <div>
-        <h3 style="margin:0">Schnelle Hilfe anfordern</h3>
-        <div class="muted">24/7 erreichbar – Sicherheit hat Vorrang.</div>
+        <h3 style="margin:0" data-i18n="cta.title">Schnelle Hilfe anfordern</h3>
+        <div class="muted" data-i18n="cta.subtitle">24/7 erreichbar – Sicherheit hat Vorrang.</div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn" href="tel:+4915124104553">📞 Jetzt anrufen</a>
-        <a class="btn" href="parkplaetze.html">🅿️ Parkplatzsuche öffnen</a>
+        <a class="btn" href="tel:+4915124104553" data-i18n="cta.call">📞 Jetzt anrufen</a>
+        <a class="btn" href="parkplaetze.html" data-i18n="cta.parking">🅿️ Parkplatzsuche öffnen</a>
       </div>
     </section>
   </main>
@@ -220,7 +242,7 @@
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    // Subnav: Touch wischbar, Desktop klickbar
+    // ===== Subnav: Touch wischbar, Desktop klickbar =====
     (function(){
       const scroller = document.getElementById('subnavScroll');
       if(!scroller) return; const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints>0);
@@ -231,7 +253,7 @@
       scroller.addEventListener('click', e=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
     })();
 
-    // Lupe: Suche toggeln
+    // ===== Lupe: Suche toggeln =====
     (function(){
       const btn = document.getElementById('toggleSearch');
       const area = document.getElementById('searchArea');
@@ -246,7 +268,7 @@
       });
     })();
 
-    // Client-Side Suche mit Vorschlägen
+    // ===== Client-Side Suche mit Vorschlägen =====
     const SITE_INDEX = [
       {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW-Reifenpannen, 24/7 erreichbar.'},
       {title:'24/7-Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
@@ -259,68 +281,359 @@
       {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
     ];
 
-    const input = document.getElementById('siteSearch');
-    const resultsBox = document.getElementById('searchResults');
-    const card = document.getElementById('searchCard');
-    const btnSearch = document.getElementById('searchButton');
-
-    function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,''); }
-    function score(item, q){ const t=normalize(item.title), sn=normalize(item.snippet); let s=0; if(t.includes(q)) s+=8; if(t.startsWith(q)) s+=6; if(sn.includes(q)) s+=2; return s; }
-    function highlight(text, q){ if(!q) return text; const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); return text.replace(new RegExp('('+esc+')','ig'), '<mark>$1</mark>'); }
-
-    let activeIndex=-1;
-    function render(items, rawQ){
-      resultsBox.innerHTML='';
-      if(items.length===0){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
-      const q = rawQ.trim();
-      const frag=document.createDocumentFragment();
-      items.slice(0,8).forEach((it,i)=>{
-        const a=document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
-        a.innerHTML=`<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
-        frag.appendChild(a);
-      });
-      resultsBox.appendChild(frag);
-      resultsBox.classList.remove('hidden');
-      card.setAttribute('aria-expanded','true');
-      activeIndex=-1;
-    }
-    function search(){
-      const q=normalize(input.value.trim());
-      if(!q){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
-      const ranked=SITE_INDEX.map(it=>({it,s:score(it,q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).map(x=>x.it);
-      render(ranked, input.value);
-    }
-    let t=null; input && input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search,80); });
-    btnSearch && btnSearch.addEventListener('click', search);
-    input && input.addEventListener('keydown', (e)=>{
-      const items=[...resultsBox.querySelectorAll('.result-item')];
-      const open=!resultsBox.classList.contains('hidden');
-      if(e.key==='Enter'){
-        if(open && items.length>0){ e.preventDefault(); location.href=items[0].getAttribute('href'); }
-        else{ search(); }
-      } else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex=(activeIndex+1)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+    (function(){
+      const input = document.getElementById('siteSearch');
+      const resultsBox = document.getElementById('searchResults');
+      const card = document.getElementById('searchCard');
+      const btnSearch = document.getElementById('searchButton');
+      if(!input) return;
+      function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,''); }
+      function score(item, q){ const t=normalize(item.title), sn=normalize(item.snippet); let s=0; if(t.includes(q)) s+=8; if(t.startsWith(q)) s+=6; if(sn.includes(q)) s+=2; return s; }
+      function highlight(text, q){ if(!q) return text; const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); return text.replace(new RegExp('('+esc+')','ig'), '<mark>$1</mark>'); }
+      let activeIndex=-1;
+      function render(items, rawQ){
+        resultsBox.innerHTML='';
+        if(items.length===0){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+        const q = rawQ.trim();
+        const frag=document.createDocumentFragment();
+        items.slice(0,8).forEach((it,i)=>{
+          const a=document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
+          a.innerHTML=`<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
+          frag.appendChild(a);
+        });
+        resultsBox.appendChild(frag);
+        resultsBox.classList.remove('hidden');
+        card.setAttribute('aria-expanded','true');
+        activeIndex=-1;
+      }
+      function search(){
+        const q=normalize(input.value.trim());
+        if(!q){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+        const ranked=SITE_INDEX.map(it=>({it,s:score(it,q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).map(x=>x.it);
+        render(ranked, input.value);
+      }
+      let t=null; input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search,80); });
+      btnSearch && btnSearch.addEventListener('click', search);
+      input.addEventListener('keydown', (e)=>{
+        const items=[...resultsBox.querySelectorAll('.result-item')];
+        const open=!resultsBox.classList.contains('hidden');
+        if(e.key==='Enter'){
+          if(open && items.length>0){ e.preventDefault(); location.href=items[0].getAttribute('href'); }
+          else{ search(); }
+        } else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex=(activeIndex+1)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
         else if(open && e.key==='ArrowUp'){ e.preventDefault(); activeIndex=(activeIndex-1+items.length)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
-    });
-    document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
-  </script>
+      });
+      document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
+    })();
 
-  <!-- Strukturierte Daten (HowTo) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Verhalten bei LKW‑Reifenpanne",
-    "description": "Sichere Schritte bei einer LKW‑Reifenpanne auf Autobahn oder Landstraße.",
-    "totalTime": "PT5M",
-    "step": [
-      {"@type":"HowToStep","name":"Warnblinker einschalten","text":"Tempo reduzieren, sanft ausrollen lassen."},
-      {"@type":"HowToStep","name":"Warnweste an, Fahrzeug verlassen","text":"Auf abgewandter Seite aussteigen, hinter Leitplanke."},
-      {"@type":"HowToStep","name":"Warndreieck aufstellen","text":"Autobahn 150–200 m, Landstraße ca. 100 m."},
-      {"@type":"HowToStep","name":"Stelle absichern","text":"Bremse, Gang, Keile – Gefahrenbereich meiden."},
-      {"@type":"HowToStep","name":"Hilfe anfordern","text":"TruckTire24 +49 151 24104553, bei Gefahr 112."}
-    ]
-  }
-  </script>
-</body>
-</html>
+    // ===== Übersetzungen =====
+    const I18N = {
+      de: {
+        flag:'🇩🇪', code:'DE',
+        hero:{ title:'Checkliste: Verhalten bei Reifenpanne', subtitle:'So handeln Sie sicher und richtig – von der Absicherung bis zur schnellen Wiederfahrt.' },
+        buttons:{ call:'📞 24/7 Hilfe anfordern', parking:'🅿️ Nächsten Parkplatz finden', print:'🖨️ Drucken' },
+        section:{
+          steps:{ title:'Schritt‑für‑Schritt', items:[
+            {t:'Warnblinker einschalten & langsam ausrollen', d:'Wenn möglich auf Standstreifen, Parkplatz oder Ausfahrt rollen. Plötzliche Lenkmanöver vermeiden.'},
+            {t:'Warnweste an, Fahrzeug verlassen', d:'Auf der abgewandten Seite aussteigen, hinter der Leitplanke sammeln. Mitfahrende sichern.'},
+            {t:'Warndreieck aufstellen', d:'Auf Autobahnen mind. 150–200 m hinter dem Fahrzeug, auf Landstraßen 100 m (Sichtlinie beachten).'},
+            {t:'Stelle absichern', d:'Feststellbremse, Gang einlegen, ggf. Keile. Gefahrenbereich nicht betreten, wenn Verkehrslage kritisch ist.'},
+            {t:'Hilfe anfordern', d:'TruckTire24 +49 151 24104553 anrufen. Bei akuter Gefahr zusätzlich 112.'},
+            {t:'Warten – sicher stehen', d:'Hinter Leitplanke bleiben, Abstand zum Fahrzeug halten. Anweisungen der Einsatzkräfte befolgen.'}
+          ]},
+          prepare:{ title:'Beim Anruf bereithalten', tip:'<strong>Tipp:</strong> Nutze unser Raster: <em>Autobahn – km – Richtung – Parkplatz/Standstreifen</em>.', items:[
+            'Genauer Standort (Autobahn, km‑Marker, Fahrtrichtung)',
+            'Fahrzeugtyp (SZM, Auflieger, 3‑Achser …)',
+            'Achsposition (z. B. 1LA, 1LI, 1RI …)',
+            'Reifendimension / DOT (falls ablesbar)',
+            'Kontakt‑Rufnummer für Rückfragen'
+          ]},
+          dodont:{ title:'Do & Don\'t', doTitle:'Do:', dontTitle:"Don't:",
+            do:[
+              'Ruhe bewahren – keine Panik.',
+              'Sicher an den Fahrbahnrand fahren – langsam abbremsen.',
+              'Fahrzeug absichern – Warnblinker & Warndreieck.',
+              'Bei Unsicherheit Pannendienst rufen.',
+              'Ersatzrad oder Pannenset nur wenn sicher einsetzen.',
+              'Mit Notrad/Pannenset nur langsam bis zur Werkstatt.',
+              'Nachprotokoll: Reifendruck später prüfen.'
+            ],
+            dont:[
+              'Nicht auf der Fahrbahn anhalten.',
+              'Keine abrupten Brems- oder Lenkmanöver.',
+              'Nicht weiterfahren mit stark beschädigtem Reifen.',
+              'Keine Eigenreparatur bei größeren Schäden.',
+              'Mit Notrad/Runflat nicht zu schnell fahren.',
+              'Mit Dichtmittel behandelte Reifen nicht reparieren (StVZO).'
+            ]
+          }
+        },
+        faq:{ title:'Häufige Kurzfragen', items:[
+          {q:'Wie weit darf ich noch rollen?', a:'Nur bis zur nächsten sicheren Stelle (Parkplatz, Ausfahrt) – weiterfahren mit beschädigtem Reifen kann Felge/Fahrzeug gefährden.'},
+          {q:'Kann ich auf dem Standstreifen wechseln?', a:'Nur mit professioneller Absicherung. Ansonsten warten und uns anrufen.'},
+          {q:'Was kostet es?', a:'Transparent nach Anfahrt, Arbeitszeit/Position und Material. Wir nennen dir den Rahmen am Telefon.'}
+        ]},
+        cta:{ title:'Schnelle Hilfe anfordern', subtitle:'24/7 erreichbar – Sicherheit hat Vorrang.', call:'📞 Jetzt anrufen', parking:'🅿️ Parkplatzsuche öffnen' }
+      },
+      en: {
+        flag:'🇬🇧', code:'EN',
+        hero:{ title:'Checklist: What to do with a tyre failure', subtitle:'Act safely and correctly – from securing the scene to getting back on the road.' },
+        buttons:{ call:'📞 Call 24/7 Roadside Help', parking:'🅿️ Find nearest parking', print:'🖨️ Print' },
+        section:{
+          steps:{ title:'Step‑by‑step', items:[
+            {t:'Turn on hazard lights & roll out slowly', d:'If possible, roll to the hard shoulder, a parking area or an exit. Avoid sudden steering.'},
+            {t:'Put on hi‑vis, leave vehicle', d:'Exit on the far side and wait behind the guardrail. Secure passengers.'},
+            {t:'Set up warning triangle', d:'Motorway: at least 150–200 m behind the vehicle; country roads: about 100 m (line of sight).'},
+            {t:'Secure the spot', d:'Parking brake, engage gear, use chocks if available. Do not enter danger zone if traffic is heavy.'},
+            {t:'Call for help', d:'Phone TruckTire24 +49 151 24104553. In acute danger, also call 112.'},
+            {t:'Wait in a safe place', d:'Stay behind the guardrail, keep distance to the truck, follow instructions of responders.'}
+          ]},
+          prepare:{ title:'Have ready when calling', tip:'<strong>Tip:</strong> Use our scheme: <em>Motorway – km marker – direction – parking/hard shoulder</em>.', items:[
+            'Exact location (motorway, km marker, direction)',
+            'Vehicle type (tractor, trailer, 3‑axle …)',
+            'Axle position (e.g. 1LA, 1LI, 1RI …)',
+            'Tyre size / DOT (if readable)',
+            'Callback phone number'
+          ]},
+          dodont:{ title:"Do & Don't", doTitle:'Do:', dontTitle:"Don't:",
+            do:[
+              'Stay calm – no panic.',
+              'Move safely to the roadside – decelerate gently.',
+              'Secure the vehicle – hazards & triangle.',
+              'Call roadside service if unsure.',
+              'Use spare tyre/seal kit only if safe.',
+              'With spare/seal kit drive slowly to a workshop.',
+              'Check tyre pressure afterwards.'
+            ],
+            dont:[
+              'Do not stop in a live lane.',
+              'No sudden braking or steering.',
+              'Do not continue with a badly damaged tyre.',
+              'No DIY on major damage.',
+              'Do not speed on space saver/run‑flat.',
+              'Tyres filled with sealant must not be repaired.'
+            ]
+          }
+        },
+        faq:{ title:'Quick FAQs', items:[
+          {q:'How far can I still roll?', a:'Only to the next safe place (parking, exit). Driving on may damage rim/vehicle.'},
+          {q:'May I change on the hard shoulder?', a:'Only with professional protection. Otherwise wait and call us.'},
+          {q:'What will it cost?', a:'Transparent: travel, labour/position and materials. We give you a range on the phone.'}
+        ]},
+        cta:{ title:'Request quick help', subtitle:'Available 24/7 – safety first.', call:'📞 Call now', parking:'🅿️ Open parking map' }
+      },
+      pl: {
+        flag:'🇵🇱', code:'PL',
+        hero:{ title:'Lista kontrolna: awaria opony', subtitle:'Działaj bezpiecznie – od zabezpieczenia miejsca do powrotu na drogę.' },
+        buttons:{ call:'📞 Całodobowa pomoc', parking:'🅿️ Znajdź parking', print:'🖨️ Drukuj' },
+        section:{
+          steps:{ title:'Krok po kroku', items:[
+            {t:'Włącz awaryjne i zwalniaj', d:'Jeśli to możliwe, zjedź na pas awaryjny, parking lub zjazd. Unikaj gwałtownych ruchów kierownicą.'},
+            {t:'Załóż kamizelkę, opuść pojazd', d:'Wysiądź po stronie od jezdni i stań za barierą. Zabezpiecz pasażerów.'},
+            {t:'Ustaw trójkąt ostrzegawczy', d:'Autostrada: co najmniej 150–200 m za pojazdem; droga krajowa: ok. 100 m.'},
+            {t:'Zabezpiecz miejsce', d:'Hamulec postojowy, bieg, kliny jeśli są. Nie wchodź w strefę zagrożenia.'},
+            {t:'Wezwij pomoc', d:'Zadzwoń TruckTire24 +49 151 24104553. W nagłym niebezpieczeństwie 112.'},
+            {t:'Czekaj w bezpiecznym miejscu', d:'Pozostań za barierą, zachowaj dystans do pojazdu.'}
+          ]},
+          prepare:{ title:'Przygotuj podczas rozmowy', tip:'<strong>Wskazówka:</strong> Schemat: <em>autostrada – km – kierunek – parking/pas awaryjny</em>.', items:[
+            'Dokładna lokalizacja (autostrada, km, kierunek)',
+            'Typ pojazdu (ciągnik, naczepa, 3‑osiowy …)',
+            'Pozycja osi (np. 1LA, 1LI, 1RI …)',
+            'Rozmiar opony / DOT (jeśli widoczny)',
+            'Numer telefonu do kontaktu'
+          ]},
+          dodont:{ title:'Co robić / Czego nie robić', doTitle:'Do:', dontTitle:'Nie rób:',
+            do:[
+              'Zachowaj spokój.',
+              'Zatrzymaj się bezpiecznie na poboczu.',
+              'Zabezpiecz pojazd – awaryjne i trójkąt.',
+              'Wezwij pomoc, jeśli masz wątpliwości.',
+              'Użyj koła zapasowego/zestawu naprawczego tylko gdy to bezpieczne.',
+              'Na kole zapasowym jedź powoli do warsztatu.',
+              'Sprawdź później ciśnienie.'
+            ],
+            dont:[
+              'Nie zatrzymuj się na pasie ruchu.',
+              'Nie hamuj ani nie skręcaj gwałtownie.',
+              'Nie jedź dalej z uszkodzoną oponą.',
+              'Nie naprawiaj sam poważnych uszkodzeń.',
+              'Nie jedź szybko na dojazdówce/run‑flat.',
+              'Opona z uszczelniaczem nie podlega naprawie.'
+            ]
+          }
+        },
+        faq:{ title:'Szybkie pytania', items:[
+          {q:'Jak daleko mogę jechać?', a:'Tylko do najbliższego bezpiecznego miejsca (parking, zjazd). Jazda dalej grozi uszkodzeniem felgi/pojazdu.'},
+          {q:'Czy mogę wymienić na pasie awaryjnym?', a:'Tylko przy profesjonalnym zabezpieczeniu. W przeciwnym razie czekaj i zadzwoń.'},
+          {q:'Ile to kosztuje?', a:'Przejrzyście: dojazd, praca/pozycja i materiały. Podamy orientacyjny zakres telefonicznie.'}
+        ]},
+        cta:{ title:'Zgłoś potrzebę pomocy', subtitle:'Dostępni 24/7 – bezpieczeństwo przede wszystkim.', call:'📞 Zadzwoń teraz', parking:'🅿️ Otwórz mapę parkingów' }
+      },
+      ro: {
+        flag:'🇷🇴', code:'RO',
+        hero:{ title:'Listă de verificare: pană la anvelopă', subtitle:'Acționează în siguranță – de la securizarea locului până la reluarea drumului.' },
+        buttons:{ call:'📞 Ajutor 24/7', parking:'🅿️ Găsește parcare', print:'🖨️ Tipărește' },
+        section:{
+          steps:{ title:'Pas cu pas', items:[
+            {t:'Pornește avariile și încetinește', d:'Dacă se poate, oprește pe banda de urgență, parcare sau ieșire. Evită manevrele bruște.'},
+            {t:'Pune vesta reflectorizantă, părăsește vehiculul', d:'Coboară pe partea opusă traficului și așteaptă după parapet.'},
+            {t:'Montează triunghiul reflectorizant', d:'Autostradă: cel puțin 150–200 m; drumuri naționale: ~100 m.'},
+            {t:'Asigură locul', d:'Frâna de mână, treaptă cuplată, eventual cale. Nu intra în zona de pericol.'},
+            {t:'Solicită ajutor', d:'Sună TruckTire24 +49 151 24104553. În pericol iminent, apelează 112.'},
+            {t:'Așteaptă în siguranță', d:'Stai după parapet, la distanță de vehicul.'}
+          ]},
+          prepare:{ title:'La apel, pregătește', tip:'<strong>Sfat:</strong> Schema: <em>autostradă – km – direcție – parcare/bandă de urgență</em>.', items:[
+            'Locația exactă (autostradă, km, direcție)',
+            'Tip vehicul (cap tractor, semiremorcă, 3 axe …)',
+            'Poziția axei (ex. 1LA, 1LI, 1RI …)',
+            'Dimensiune anvelopă / DOT (dacă e lizibil)',
+            'Număr de telefon pentru contact'
+          ]},
+          dodont:{ title:'Ce să faci / Ce să nu faci', doTitle:'Do:', dontTitle:'Nu:',
+            do:[
+              'Păstrează calmul.',
+              'Oprescă în siguranță pe margine.',
+              'Asigură vehiculul – avarii & triunghi.',
+              'Sună la asistenta rutieră dacă nu ești sigur.',
+              'Folosește roata de rezervă/kitul doar dacă e sigur.',
+              'Cu roată de rezervă mergi încet la service.',
+              'Verifică ulterior presiunea.'
+            ],
+            dont:[
+              'Nu opri pe banda de rulare.',
+              'Nu frâna/viraj brusc.',
+              'Nu continua cu anvelopă grav avariată.',
+              'Nu repara singur avarii mari.',
+              'Nu depăși viteza cu roată de rezervă/run‑flat.',
+              'Anvelopele cu gel de etanșare nu se repară.'
+            ]
+          }
+        },
+        faq:{ title:'Întrebări rapide', items:[
+          {q:'Cât mai pot rula?', a:'Doar până la primul loc sigur (parcare, ieșire). Altfel riști să strici janta/vehiculul.'},
+          {q:'Pot schimba pe banda de urgență?', a:'Doar cu protecție profesională. În rest, așteaptă și sună-ne.'},
+          {q:'Cât costă?', a:'Transparent: deplasare, manoperă/poziție și materiale. Oferim interval la telefon.'}
+        ]},
+        cta:{ title:'Solicită ajutor rapid', subtitle:'Disponibili 24/7 – siguranța pe primul loc.', call:'📞 Sună acum', parking:'🅿️ Deschide harta parcărilor' }
+      },
+      ru: {
+        flag:'🇷🇺', code:'RU',
+        hero:{ title:'Памятка: что делать при пробое шины', subtitle:'Действуйте безопасно — от ограждения места до продолжения пути.' },
+        buttons:{ call:'📞 Круглосуточная помощь', parking:'🅿️ Найти парковку', print:'🖨️ Печать' },
+        section:{
+          steps:{ title:'Пошагово', items:[
+            {t:'Аварийка и плавное снижение скорости', d:'По возможности остановитесь на обочине, парковке или съезде. Избегайте резких манёвров.'},
+            {t:'Надеть жилет, покинуть кабину', d:'Выходите со стороны, противоположной движению, ждите за отбойником.'},
+            {t:'Поставить аварийный знак', d:'Автодорога: не менее 150–200 м; на трассах — около 100 м.'},
+            {t:'Обезопасить место', d:'Стояночный тормоз, включенная передача, при необходимости башмаки. Не заходите в опасную зону.'},
+            {t:'Вызвать помощь', d:'Позвоните TruckTire24 +49 151 24104553. При угрозе жизни звоните 112.'},
+            {t:'Ожидайте в безопасном месте', d:'Стойте за отбойником, держите дистанцию от ТС.'}
+          ]},
+          prepare:{ title:'При звонке подготовьте', tip:'<strong>Совет:</strong> Схема: <em>автобан – км – направление – парковка/обочина</em>.', items:[
+            'Точное место (автобан, км, направление)',
+            'Тип ТС (тягач, полуприцеп, 3‑осный …)',
+            'Позиция оси (напр. 1LA, 1LI, 1RI …)',
+            'Размер шины / DOT (если читается)',
+            'Контактный телефон'
+          ]},
+          dodont:{ title:'Что делать / чего не делать', doTitle:'Нужно:', dontTitle:'Нельзя:',
+            do:[
+              'Сохраняйте спокойствие.',
+              'Остановитесь безопасно у края дороги.',
+              'Обозначьте ТС — аварийка и знак.',
+              'Звоните в сервис, если не уверены.',
+              'Запаска/ремкомплект — только если безопасно.',
+              'На запаске — медленно до сервиса.',
+              'Позже проверьте давление.'
+            ],
+            dont:[
+              'Не останавливайтесь на полосе движения.',
+              'Без резких торможений и поворотов.',
+              'Не продолжайте движение с сильно повреждённой шиной.',
+              'Не чините серьёзные повреждения самостоятельно.',
+              'Не превышайте скорость на «докатке»/run‑flat.',
+              'Шина с герметиком ремонту не подлежит.'
+            ]
+          }
+        },
+        faq:{ title:'Короткие вопросы', items:[
+          {q:'Как далеко можно ехать?', a:'Только до ближайшего безопасного места (парковка, съезд). Иначе — риск повредить диск/ТС.'},
+          {q:'Можно менять на обочине?', a:'Только при профессиональном ограждении. Иначе — ждите и звоните нам.'},
+          {q:'Сколько это стоит?', a:'Прозрачно: выезд, работа/позиция и материалы. Диапазон назовём по телефону.'}
+        ]},
+        cta:{ title:'Нужна быстрая помощь', subtitle:'Круглосуточно — безопасность прежде всего.', call:'📞 Позвонить', parking:'🅿️ Открыть карту парковок' }
+      }
+    };
+
+    function renderLang(lang){
+      const L = I18N[lang] || I18N.de;
+      // Hero texts
+      document.querySelector('[data-i18n="hero.title"]').textContent = L.hero.title;
+      document.querySelector('[data-i18n="hero.subtitle"]').textContent = L.hero.subtitle;
+      document.querySelectorAll('[data-i18n="buttons.call"]').forEach(n=> n.textContent = L.buttons.call);
+      document.querySelectorAll('[data-i18n="buttons.parking"]').forEach(n=> n.textContent = L.buttons.parking);
+      document.querySelectorAll('[data-i18n="buttons.print"]').forEach(n=> n.textContent = L.buttons.print);
+
+      // Steps
+      document.querySelector('[data-i18n="section.steps.title"]').textContent = L.section.steps.title;
+      const steps = document.getElementById('steps'); steps.innerHTML='';
+      L.section.steps.items.forEach((st, idx)=>{
+        const el = document.createElement('div'); el.className='step';
+        el.innerHTML = `<div class="num">${idx+1}</div><div class="txt"><h3>${st.t}</h3><div class="muted">${st.d}</div></div>`;
+        steps.appendChild(el);
+      });
+
+      // Prepare list
+      document.querySelector('[data-i18n="section.prepare.title"]').textContent = L.section.prepare.title;
+      const prep = document.getElementById('prepareList'); prep.innerHTML='';
+      L.section.prepare.items.forEach(item=>{ const li=document.createElement('li'); li.textContent=item; prep.appendChild(li); });
+      document.querySelector('[data-i18n="section.prepare.tip"]').innerHTML = L.section.prepare.tip;
+
+      // Do & Don't
+      document.querySelector('[data-i18n="section.dodont.title"]').textContent = L.section.dodont.title;
+      document.querySelector('[data-i18n="section.dodont.doTitle"]').textContent = L.section.dodont.doTitle;
+      document.querySelector('[data-i18n="section.dodont.dontTitle"]').textContent = L.section.dodont.dontTitle;
+      const doUl = document.getElementById('doList'); doUl.innerHTML='';
+      L.section.dodont.do.forEach(item=>{ const li=document.createElement('li'); li.textContent=item; doUl.appendChild(li); });
+      const dontUl = document.getElementById('dontList'); dontUl.innerHTML='';
+      L.section.dodont.dont.forEach(item=>{ const li=document.createElement('li'); li.textContent=item; dontUl.appendChild(li); });
+
+      // FAQ
+      document.querySelector('[data-i18n="faq.title"]').textContent = L.faq.title;
+      const faq = document.getElementById('faqList'); faq.innerHTML='';
+      L.faq.items.forEach(x=>{ const li=document.createElement('li'); li.innerHTML = `<strong>${x.q}</strong> ${x.a}`; faq.appendChild(li); });
+
+      // CTA
+      document.querySelector('[data-i18n="cta.title"]').textContent = L.cta.title;
+      document.querySelector('[data-i18n="cta.subtitle"]').textContent = L.cta.subtitle;
+      document.querySelector('[data-i18n="cta.call"]').textContent = L.cta.call;
+      document.querySelector('[data-i18n="cta.parking"]').textContent = L.cta.parking;
+
+      // Badge
+      document.getElementById('langFlag').textContent = L.flag;
+      document.getElementById('langCode').textContent = L.code;
+      document.documentElement.lang = lang;
+    }
+
+    // Init language (persist in localStorage)
+    (function(){
+      const btn = document.getElementById('langBtn');
+      const menu = document.getElementById('langMenu');
+      const saved = localStorage.getItem('tt24_lang') || 'de';
+      renderLang(saved);
+      btn.setAttribute('aria-expanded','false');
+      btn.addEventListener('click', ()=>{
+        const open = !menu.classList.contains('open');
+        menu.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      menu.querySelectorAll('.lang-item').forEach(it=>{
+        it.addEventListener('click', ()=>{
+          const lang = it.getAttribute('data-lang');
+          localStorage.setItem('tt24_lang', lang);
+          menu.classList.remove('open'); btn.setAttribute('aria-expanded','false');
+          renderLang(lang);
+        });
+      });
+      document.addEventListener('click', (e)=>{ if(!btn.contains(e.target) && !menu.contains(e.target)){ menu.classList.remove('open'); btn.setAttribu
 
