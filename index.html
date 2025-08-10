@@ -25,23 +25,27 @@
     .call-button{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#fff;background:linear-gradient(90deg,#d32f2f,#f44336);padding:8px 12px;border-radius:10px;box-shadow:var(--shadow);transition:.2s}
     .call-button:hover{filter:brightness(.96);transform:translateY(-1px)}
 
-    /* ===== Schwarze Sub-Navigation (modern, ohne Icons) ===== */
+    /* ===== Schwarze Sub-Navigation (modern, mit Suche) ===== */
     .subnav{background:#0f172a;color:#e5e7eb;border-bottom:1px solid #1f2937}
-    .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 16px;display:flex;gap:8px;align-items:center;overflow-x:auto;white-space:nowrap;position:relative}
+    .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 16px;display:flex;gap:8px;align-items:center;overflow-x:auto;white-space:nowrap}
     .subnav-inner::-webkit-scrollbar{display:none}
     .subnav-inner{scrollbar-width:none}
-    /* Scroll-Hint (dezente Gradients an den Rändern) */
-    .subnav{position:sticky;top:56px;z-index:35}
-    .subnav:before,.subnav:after{content:"";position:absolute;top:0;bottom:0;width:24px;pointer-events:none}
-    .subnav:before{left:0;background:linear-gradient(90deg,#0f172a,rgba(15,23,42,0))}
-    .subnav:after{right:0;background:linear-gradient(270deg,#0f172a,rgba(15,23,42,0))}
-
     .subnav a{display:inline-block;color:#e5e7eb;font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;transition:background .15s,border-color .15s,color .15s}
     .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
-    .subnav a:focus-visible{outline:2px solid #94a3b8;outline-offset:2px}
     .subnav a.active{background:rgba(255,255,255,.1);color:#fff;border-color:#334155}
+    .subnav-spacer{flex:1}
+    .subnav-search{display:flex;gap:6px;align-items:center}
+    .subnav-search input{background:#0b1220;border:1px solid #243047;color:#e5e7eb;padding:8px 10px;border-radius:8px;min-width:200px}
+    .subnav-search input::placeholder{color:#94a3b8}
+    .subnav-search button{background:#111827;color:#e5e7eb;border:1px solid #374151;border-radius:8px;padding:8px 12px;cursor:pointer}
+    .subnav-search button:hover{background:#0b1220}
 
-    /* ===== Inhalt ===== */
+    /* ===== Headerbild (Hero) – nur Bild, kein Overlay */
+    header{position:relative}
+    .hero{position:relative;max-width:var(--container);margin:10px auto 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    .hero img{width:100%}
+
+    /* ===== Inhalte ===== */
     section{max-width:var(--container);margin:20px auto 28px;padding:0 16px}
 
     /* Pannen-Box */
@@ -52,20 +56,21 @@
     .pannen-title{font-size:20px;font-weight:800;line-height:1.3}
     .pannen-actions{display:flex;flex-wrap:wrap;gap:10px}
 
+    /* Button-Styles */
     .btn-neutral{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:700;border:1px solid #cdd6e1;background:#f3f6fa;color:#183652}
     .btn-neutral:hover{background:#e8eef6}
-    .btn-accent{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:800;background:var(--accent);color:#fff}
-    .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:700;border:1px dashed #cdd6e1;background:#ffffff}
+    .btn-dark{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:800;background:#0f172a;color:#fff;border:1px solid #1f2937}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:700;border:1px dashed #cdd6e1;background:#ffffff;color:#183652}
 
     @media (min-width:900px){ .pannen-box{grid-template-columns:420px 1fr;align-items:center;padding:20px} }
 
-    /* 3 Feature-Boxen – schwarz & gleich groß */
+    /* 3 Feature-Boxen – schwarz & einheitlich */
     .features-3{margin-top:16px;display:grid;grid-template-columns:1fr;gap:16px}
     .feature-card--dark{background:#0f172a;color:#fff;border:1px solid #1f2937;border-radius:var(--radius);padding:22px;box-shadow:0 12px 28px rgba(2,6,23,.35);text-decoration:none;display:flex;flex-direction:column;min-height:190px;transition:transform .2s, box-shadow .2s, border-color .2s}
     .feature-card--dark:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(2,6,23,.45);border-color:#334155}
     .feature-card--dark h3{margin:0 0 6px;font-size:18px;color:#fff}
     .feature-card--dark p{margin:0 0 12px;color:#e5e7eb;font-size:14px}
-    .card-cta{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid #334155;padding:8px 12px;border-radius:10px;color:#e2e8f0;background:rgba(255,255,255,.02)}
+    .card-cta{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid #334155;padding:8px 12px;border-radius:10px;color:#e2e8f0;background:rgba(255,255,255,.02);text-decoration:none}
     .card-cta:hover{background:rgba(255,255,255,.06)}
     @media (min-width:900px){ .features-3{grid-template-columns:repeat(3,1fr)} }
 
@@ -96,7 +101,7 @@
     </div>
   </nav>
 
-  <!-- Moderne Sub‑Navigation (ohne Icons) -->
+  <!-- Schwarze Sub‑Navigation mit Suche -->
   <div class="subnav" aria-label="Seitennavigation">
     <div class="subnav-inner">
       <a href="index.html" class="active">Start</a>
@@ -107,8 +112,20 @@
       <a href="checkliste-panne.html">Checkliste</a>
       <a href="mailto:info@trucktire24h.com">Kontakt</a>
       <a href="tel:+4915124104553">Anrufen</a>
+      <span class="subnav-spacer"></span>
+      <form class="subnav-search" role="search" onsubmit="return subnavSearch(event)">
+        <input type="search" id="site-search" placeholder="Suchen …" aria-label="Website durchsuchen" />
+        <button type="submit" aria-label="Suchen">Suchen</button>
+      </form>
     </div>
   </div>
+
+  <!-- Headerbild direkt unter der schwarzen Leiste -->
+  <header>
+    <div class="hero">
+      <img src="header.png" alt="LKW Headerbild" loading="lazy">
+    </div>
+  </header>
 
   <section>
     <!-- Pannen-Box -->
@@ -119,7 +136,7 @@
       <div class="pannen-content">
         <h2 id="pannenbox-title" class="pannen-title">Soforthilfe bei LKW‑Reifenpannen – wir sind jederzeit für Sie erreichbar</h2>
         <div class="pannen-actions">
-          <a href="tel:+4915124104553" class="btn-accent" aria-label="Telefon: +49 151 24104553">+49 151 24104553</a>
+          <a href="tel:+4915124104553" class="btn-dark" aria-label="Telefon: +49 151 24104553">+49 151 24104553</a>
           <a href="checkliste-panne.html" class="btn-neutral" aria-label="Checkliste: Sicheres Verhalten bei LKW‑Panne">Checkliste: Sicheres Verhalten</a>
           <a href="parkplaetze.html" class="btn-ghost" aria-label="Zur Parkplatzsuche">Parkplatzsuche</a>
         </div>
@@ -166,9 +183,36 @@
 
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
+
+    function subnavSearch(ev){
+      ev.preventDefault();
+      var q=(document.getElementById('site-search').value||'').trim().toLowerCase();
+      if(!q) return false;
+      var routes=[
+        {k:'start', href:'index.html'},
+        {k:'home', href:'index.html'},
+        {k:'notdienst', href:'notdienst.html'},
+        {k:'24/7', href:'notdienst.html'},
+        {k:'vor-ort', href:'vor-ort-service.html'},
+        {k:'service', href:'vor-ort-service.html'},
+        {k:'flotte', href:'flottenservice.html'},
+        {k:'spedition', href:'flottenservice.html'},
+        {k:'park', href:'parkplaetze.html'},
+        {k:'parkplätze', href:'parkplaetze.html'},
+        {k:'checkliste', href:'checkliste-panne.html'},
+        {k:'kontakt', href:'mailto:info@trucktire24h.com'},
+        {k:'anrufen', href:'tel:+4915124104553'}
+      ];
+      var m=routes.find(function(r){ return q.includes(r.k); });
+      if(m){ location.href=m.href; return false; }
+      // Fallback: Google-Suche auf der eigenen Domain
+      location.href = 'https://www.google.com/search?q=' + encodeURIComponent('site:trucktire24h.com ' + q);
+      return false;
+    }
   </script>
 </body>
 </html>
+
 
 
 
