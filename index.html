@@ -16,8 +16,8 @@
     img{max-width:100%;height:auto;display:block}
     a{color:inherit}
 
-    /* ===== Header (unverändert) ===== */
-    nav{position:sticky;top:0;z-index:20;background:linear-gradient(90deg,#fff700,#fff);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    /* ===== Gelbe Top-Navigation ===== */
+    nav.topbar{position:sticky;top:0;z-index:30;background:linear-gradient(90deg,#fff700,#fff);box-shadow:0 2px 6px rgba(0,0,0,.08)}
     .nav-row{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:var(--container);margin:0 auto}
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{height:42px}
@@ -25,19 +25,23 @@
     .call-button{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#fff;background:linear-gradient(90deg,#d32f2f,#f44336);padding:8px 12px;border-radius:10px;text-decoration:none;box-shadow:var(--shadow);transition:.2s}
     .call-button:hover{filter:brightness(.96);transform:translateY(-1px)}
 
-    header{position:relative;isolation:isolate}
-    .hero{position:relative;max-width:var(--container);margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08);}
-    .hero img{width:100%}
-    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15) 35%,rgba(0,0,0,0));}
-    .hero-content{position:absolute;inset:auto 0 0 0;padding:20px 20px 24px;color:#fff;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
-    .hero-title{font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:.2px}
-    .hero-cta{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:var(--shadow);border:1px solid transparent}
-    .btn.yellow{background:linear-gradient(90deg,#fff700,#fff);color:#000;border-color:#efe99a}
-    .btn.red{background:linear-gradient(90deg,#d32f2f,#f44336);color:#fff;border-color:#d32f2f}
+    /* ===== Schwarze Sub-Navigation (schmal) ===== */
+    .subnav{background:#0f172a;color:#e5e7eb;border-bottom:1px solid #1f2937}
+    .subnav-inner{max-width:var(--container);margin:0 auto;padding:6px 16px;display:flex;gap:6px;align-items:center;overflow-x:auto;white-space:nowrap}
+    .subnav-inner::-webkit-scrollbar{display:none}
+    .subnav-inner{scrollbar-width:none}
+    .subnav a{display:inline-block;color:#e5e7eb;text-decoration:none;font-size:14px;padding:6px 10px;border-radius:8px}
+    .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
+    .subnav a.active{background:rgba(255,255,255,.10);color:#fff;border:1px solid #334155}
 
-    /* ===== Bereich unter dem Header ===== */
-    section{max-width:var(--container);margin:28px auto;padding:0 16px}
+    /* ===== Headerbild (Hero) ===== */
+    header{position:relative;isolation:isolate}
+    .hero{position:relative;max-width:var(--container);margin:8px auto 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    .hero img{width:100%}
+    /* Kein dunkles Overlay mehr, damit das Bild klar sichtbar ist */
+
+    /* ===== Inhalt ===== */
+    section{max-width:var(--container);margin:20px auto 28px;padding:0 16px}
 
     /* Pannen-Box */
     .pannen-box{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 4px 14px rgba(0,0,0,.06);padding:16px}
@@ -54,8 +58,8 @@
 
     @media (min-width:900px){ .pannen-box{grid-template-columns:420px 1fr;align-items:center;padding:20px} }
 
-    /* ===== 3 Feature-Boxen – SCHWARZ & einheitliche Größe ===== */
-    .features-3{margin-top:22px;display:grid;grid-template-columns:1fr;gap:16px}
+    /* 3 Feature-Boxen – schwarz & gleich groß */
+    .features-3{margin-top:16px;display:grid;grid-template-columns:1fr;gap:16px}
     .feature-card--dark{background:#0f172a;color:#fff;border:1px solid #1f2937;border-radius:var(--radius);padding:22px;box-shadow:0 12px 28px rgba(2,6,23,.35);text-decoration:none;display:flex;flex-direction:column;min-height:190px;transition:transform .2s, box-shadow .2s, border-color .2s}
     .feature-card--dark:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(2,6,23,.45);border-color:#334155}
     .feature-card--dark h3{margin:0 0 6px;font-size:18px;color:#fff}
@@ -65,36 +69,56 @@
     @media (min-width:900px){ .features-3{grid-template-columns:repeat(3,1fr)} }
 
     /* Parkplätze CTA */
-    .map-cta{margin-top:22px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+    .map-cta{margin-top:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
     .map-cta h2{margin:0 0 8px;font-size:20px}
     .map-cta p{margin:0 12px 12px 0;color:var(--muted)}
 
     /* Footer */
-    footer{background:#eef2f6;margin-top:32px}
+    footer{background:#eef2f6;margin-top:24px}
     .footer-inner{max-width:var(--container);padding:18px 16px;margin:0 auto;font-size:14px;text-align:center;color:#4b5563}
     .footer-link{color:#4b5563;text-decoration:none}
 
     /* Mobile Call FAB (neutral) */
-    .call-fab{position:fixed;right:16px;bottom:16px;z-index:30;background:#1f2a37;color:#fff;border-radius:999px;padding:12px 16px;box-shadow:0 12px 28px rgba(0,0,0,.35);text-decoration:none;display:flex;align-items:center;gap:8px;font-weight:800}
+    .call-fab{position:fixed;right:16px;bottom:16px;z-index:50;background:#1f2a37;color:#fff;border-radius:999px;padding:12px 16px;box-shadow:0 12px 28px rgba(0,0,0,.35);text-decoration:none;display:flex;align-items:center;gap:8px;font-weight:800}
     @media (min-width:860px){.call-fab{display:none}}
   </style>
 </head>
 <body>
-  <!-- ===== Header (bleibt) ===== -->
-  <nav aria-label="Hauptnavigation">
+  <!-- Gelbe Topbar -->
+  <nav class="topbar" aria-label="Hauptnavigation">
     <div class="nav-row">
       <a class="brand" href="index.html" aria-label="Startseite">
         <img src="logo.png" alt="TruckTire24 Logo" />
       </a>
-      <div class="header-text">Einsatzgebiet: A7 Kirchheimer Dreieck · A5 Hattenbacher Dreieck · A49 Kassel–Ohmtal-Dreieck · Region Fulda/Bad Hersfeld</div>
+      <div class="header-text">Einsatzgebiet: A7 Kirchheimer Dreieck · A5 Hattenbacher Dreieck · A49 Kassel–Ohmtal‑Dreieck · Region Fulda/Bad Hersfeld</div>
       <a href="tel:+4915124104553" class="call-button" aria-label="Jetzt anrufen">📞 +49 151 24104553</a>
     </div>
   </nav>
 
-  
+  <!-- Schwarze, schmale Sub‑Navigation -->
+  <div class="subnav" aria-label="Seitennavigation">
+    <div class="subnav-inner">
+      <a href="index.html" class="active">🏠 Start</a>
+      <a href="notdienst.html">⚡ 24/7‑Notdienst</a>
+      <a href="vor-ort-service.html">🧰 Vor‑Ort‑Service</a>
+      <a href="flottenservice.html">🚚 Für Speditionen</a>
+      <a href="parkplaetze.html">🗺️ Parkplätze</a>
+      <a href="checkliste-panne.html">✅ Checkliste</a>
+      <a href="mailto:info@trucktire24h.com">✉️ Kontakt</a>
+      <a href="tel:+4915124104553">☎️ Anrufen</a>
+    </div>
+  </div>
 
+  <!-- Headerbild (wieder sichtbar, unter der schwarzen Subnav) -->
+  <header>
+    <div class="hero">
+      <img src="header.png" alt="LKW Headerbild" loading="lazy">
+    </div>
+  </header>
+
+  <!-- Inhalt -->
   <section>
-    <!-- Pannen-Box unter dem Header -->
+    <!-- Pannen-Box -->
     <div class="pannen-box" role="region" aria-labelledby="pannenbox-title">
       <div class="pannen-media">
         <img src="pannen-absicherung.png" alt="Pannenabsicherung am LKW" loading="lazy">
@@ -114,7 +138,7 @@
       <a class="feature-card--dark" href="notdienst.html">
         <h3>⚡ 24/7‑Notdienst</h3>
         <p>Schnelle Hilfe – auch nachts, an Wochenenden und Feiertagen.</p>
-        <span class="card-cta">Details →</span>
+        <span class="card-cta">Mehr erfahren →</span>
       </a>
       <a class="feature-card--dark" href="vor-ort-service.html">
         <h3>🧰 Vor‑Ort‑Service</h3>
@@ -124,7 +148,7 @@
       <a class="feature-card--dark" href="flottenservice.html">
         <h3>🚚 Für Speditionen & Flotten</h3>
         <p>Zuverlässiger Service für Ihre LKW‑Flotte in Hessen.</p>
-        <span class="card-cta">Zum Flottenservice →</span>
+        <span class="card-cta">Mehr erfahren →</span>
       </a>
     </div>
 
@@ -152,6 +176,7 @@
   </script>
 </body>
 </html>
+
 
 
 
