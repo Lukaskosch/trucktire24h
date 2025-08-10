@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>TruckTire24 – Mobiler LKW-Reifendienst</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <style>
     :root{
       --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
@@ -24,6 +24,7 @@
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{height:42px}
     .header-text{flex:1;min-width:0;text-align:center;font-size:12px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    /* Schwarzer Call-Button in der Topbar */
     .call-button{display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:8px 12px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
     .call-button--dark{color:#fff;background:var(--dark);border:1px solid var(--dark-border)}
     .call-button--dark:hover{opacity:.95}
@@ -74,6 +75,7 @@
     .btn-neutral:hover{background:#e8eef6}
     .btn-accent{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:800;background:var(--accent);color:#fff}
     .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:700;border:1px dashed #cdd6e1;background:#ffffff}
+    /* Schwarzer Call-Button in der Soforthilfe-Box */
     .btn-call--dark{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:800;background:var(--dark);color:#fff;border:1px solid var(--dark-border);box-shadow:0 2px 6px rgba(0,0,0,.08)}
     .btn-call--dark:hover{opacity:.95}
 
@@ -122,8 +124,9 @@
         <a href="notdienst.html">24/7‑Notdienst</a>
         <a href="vor-ort-service.html">Vor‑Ort‑Service</a>
         <a href="flottenservice.html">Für Speditionen</a>
-        <a href="parkplaetze.html">Parkplätze</a>
+        <a href="einsatzgebiet.html">Einsatzgebiet</a>
         <a href="checkliste-panne.html">Checkliste</a>
+        <a href="parkplaetze.html">Parkplätze</a>
         <a href="ueber-uns.html">Über uns</a>
         <a href="kontakt.html">Kontakt</a>
       </div>
@@ -150,7 +153,7 @@
     <!-- Pannen-Box -->
     <div class="pannen-box" role="region" aria-labelledby="pannenbox-title">
       <div class="pannen-media">
-        <img src="rep.jpg" alt="Pannenabsicherung am LKW" loading="lazy">
+        <img src="pannen-absicherung.png" alt="Pannenabsicherung am LKW" loading="lazy">
       </div>
       <div class="pannen-content">
         <h2 id="pannenbox-title" class="pannen-title">Soforthilfe bei LKW‑Reifenpannen – wir sind jederzeit für Sie erreichbar</h2>
@@ -181,6 +184,20 @@
       </a>
     </div>
 
+    <!-- Neue schwarze Boxen: Einsatzgebiet & Checkliste -->
+    <div class="features-3" style="margin-top:16px">
+      <a class="feature-card--dark" href="einsatzgebiet.html">
+        <h3>Einsatzgebiet</h3>
+        <p>Übersicht unserer Einsatzregionen und Einsatzstrecken.</p>
+        <span class="card-cta">Mehr erfahren</span>
+      </a>
+      <a class="feature-card--dark" href="checkliste-panne.html">
+        <h3>Checkliste</h3>
+        <p>Schritt‑für‑Schritt‑Anleitung für sicheres Verhalten bei einer Panne.</p>
+        <span class="card-cta">Mehr erfahren</span>
+      </a>
+    </div>
+
     <!-- Parkplätze & Rastplätze (CTA mit Bild links) -->
     <div class="map-cta" role="region" aria-labelledby="mapcta-title">
       <div class="map-media"><img src="parkplatzschild.png" alt="Parkplatzschild"></div>
@@ -189,15 +206,6 @@
         <p>Übersicht aller LKW‑Park‑ und Rastplätze in unserer Einsatzregion – mit interaktiver Karte und Suche.</p>
         <a href="parkplaetze.html" class="btn-neutral">Karte & Plätze anzeigen</a>
       </div>
-    </div>
-
-    <!-- Über uns – schwarze Box unter dem Parkplätze-CTA -->
-    <div class="features-3" style="margin-top:16px">
-      <a class="feature-card--dark" href="ueber-uns.html">
-        <h3>Über uns</h3>
-        <p>TruckTire24 steht für schnellen, zuverlässigen und fairen LKW‑Reifendienst in Hessen – 24/7 erreichbar.</p>
-        <span class="card-cta">Mehr erfahren</span>
-      </a>
     </div>
   </section>
 
@@ -218,7 +226,7 @@
       if(!scroller) return;
       const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
       if(!isTouch){
-        // Auf Desktop keine Drag-Logik -> verhindert Click-Schlucken
+        // Auf Desktop KEINE Drag-Logik -> verhindert Click-Schlucken
         return;
       }
       let startX=0, startLeft=0, moved=false;
@@ -234,8 +242,9 @@
       {title:'24/7‑Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
       {title:'Vor‑Ort‑Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
       {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW‑Flotte.'},
-      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW‑Park‑ und Rastplätzen in der Region.'},
+      {title:'Einsatzgebiet', url:'einsatzgebiet.html', snippet:'Alle Einsatzbereiche, Dreiecke und Regionen im Überblick.'},
       {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW‑Panne – Schritt für Schritt.'},
+      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW‑Park- und Rastplätzen in der Region.'},
       {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür TruckTire24 steht.'},
       {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
     ];
