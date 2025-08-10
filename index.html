@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>TruckTire24 – Mobiler LKW-Reifendienst</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <style>
     :root{
       --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
@@ -28,7 +28,7 @@
     .call-button--dark{color:#fff;background:var(--dark);border:1px solid var(--dark-border)}
     .call-button--dark:hover{opacity:.95}
 
-    /* ===== Sub‑Navigation – mobil wischbar + Lupe ===== */
+    /* ===== Sub‑Nav + Lupe ===== */
     .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
     .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
     .subnav-row{display:flex;align-items:center;gap:8px;padding:0 16px}
@@ -37,26 +37,22 @@
     .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto}
     .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
     .subnav a.active{background:rgba(255,255,255,.10);color:#fff;border-color:var(--dark-soft)}
-    .subnav:before,.subnav:after{content:"";position:absolute;top:0;bottom:0;width:24px;pointer-events:none}
-    .subnav:before{left:0;background:linear-gradient(90deg,rgba(15,23,42,1),rgba(15,23,42,0))}
-    .subnav:after{right:0;background:linear-gradient(270deg,rgba(15,23,42,1),rgba(15,23,42,0))}
-
-    /* Lupe-Button */
     .subnav-tools{display:flex;align-items:center;gap:8px}
     .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,.06);color:#e5e7eb;cursor:pointer}
     .icon-btn:hover{background:rgba(255,255,255,.12)}
     .icon-btn svg{width:18px;height:18px}
 
-    /* ===== Suchleiste (ein-/ausfahrbar) ===== */
-    .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:800;transition:margin .2s ease}
+    /* ===== Suche: muss ÜBER dem Header liegen ===== */
+    .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500}
     .search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px}
     .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 6px}
     .search-btn{border:none;background:var(--dark);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
     .search-btn:hover{opacity:.95}
-    .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);max-height:60vh;overflow:auto}
+    /* der Dropdown-Container bekommt extra hohen z-index */
+    .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600}
     .hidden{display:none}
 
-    /* Ein-/ausfahren Animation */
+    /* Collapsible Animation (wenn über Lupe ein-/ausfahren) */
     .collapsible{overflow:hidden;transition:max-height .25s ease, opacity .2s ease}
     .collapsed{max-height:0 !important;opacity:0}
 
@@ -67,8 +63,8 @@
     .result-item[aria-selected="true"], .result-item:hover{background:#f8fafc}
 
     /* ===== Headerbild ===== */
-    header{position:relative}
-    .hero{position:relative;max-width:var(--container);margin:10px auto 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    header{position:relative;z-index:0}
+    .hero{position:relative;max-width:var(--container);margin:10px auto 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08);z-index:0}
     .hero img{width:100%}
 
     /* ===== Inhalt ===== */
@@ -119,7 +115,7 @@
     </div>
   </nav>
 
-  <!-- Sub‑Navigation: mobil wischbar + Lupe rechts -->
+  <!-- Sub‑Navigation + Lupe -->
   <div class="subnav" aria-label="Seitennavigation">
     <div class="subnav-inner">
       <div class="subnav-row">
@@ -143,8 +139,8 @@
     </div>
   </div>
 
-  <!-- Suche unter der Subnav (ein-/ausfahrbar) -->
-  <div id="searchArea" class="search-wrap collapsible collapsed" role="search" aria-hidden="true">
+  <!-- Suche -->
+  <div id="searchArea" class="search-wrap" role="search">
     <div class="search-bar" id="searchCard" aria-expanded="false">
       <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchResults" autocomplete="off" />
       <button id="searchButton" class="search-btn" aria-label="Suche starten">Enter</button>
@@ -155,7 +151,7 @@
   <!-- Headerbild -->
   <header>
     <div class="hero">
-      <img src="header.png" alt="LKW Headerbild" loading="lazy">
+      <img src="header.png" alt="LKW Headerbild" loading="lazy" />
     </div>
   </header>
 
@@ -163,7 +159,7 @@
     <!-- Pannen-Box -->
     <div class="pannen-box" role="region" aria-labelledby="pannenbox-title">
       <div class="pannen-media">
-        <img src="rep.jpg" alt="Pannenabsicherung am LKW" loading="lazy">
+        <img src="pannen-absicherung.png" alt="Pannenabsicherung am LKW" loading="lazy" />
       </div>
       <div class="pannen-content">
         <h2 id="pannenbox-title" class="pannen-title">Soforthilfe bei LKW‑Reifenpannen – wir sind jederzeit für Sie erreichbar</h2>
@@ -175,7 +171,7 @@
       </div>
     </div>
 
-    <!-- 3 Feature‑Karten -->
+    <!-- Feature‑Karten (oben) -->
     <div class="features-3">
       <a class="feature-card--dark" href="notdienst.html">
         <h3>24/7‑Notdienst</h3>
@@ -212,8 +208,6 @@
         <span class="card-cta">Karte öffnen</span>
       </a>
     </div>
-
-    <!-- (Alter Parkplätze-CTA mit Bild wurde entfernt, wie gewünscht) -->
   </section>
 
   <footer>
@@ -227,7 +221,7 @@
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    // ===== Subnav: Drag/Wisch NUR auf Touch aktiv (Desktop klickt normal) =====
+    // ===== Subnav: Drag/Wisch nur auf Touch =====
     (function(){
       const scroller = document.getElementById('subnavScroll');
       if(!scroller) return;
@@ -240,37 +234,27 @@
       scroller.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
     })();
 
-    // ===== Lupe: Suchleiste ein-/ausfahren =====
+    // ===== Lupe: Suchleiste toggeln =====
     (function(){
       const btn = document.getElementById('toggleSearch');
       const area = document.getElementById('searchArea');
       const input = document.getElementById('siteSearch');
       if(!btn || !area) return;
-      function setMaxHeight(open){
+      let open = true; // standardmäßig offen
+      function update(){
+        btn.setAttribute('aria-expanded', String(open));
+        area.setAttribute('aria-hidden', String(!open));
         if(open){
-          area.classList.remove('collapsed');
           area.style.maxHeight = area.scrollHeight + 'px';
-          btn.setAttribute('aria-expanded','true');
-          area.setAttribute('aria-hidden','false');
-          setTimeout(()=>{ input?.focus(); }, 150);
-        } else {
-          area.style.maxHeight = area.scrollHeight + 'px'; // set current height to allow transition
-          // next tick collapse
-          requestAnimationFrame(()=>{
-            area.style.maxHeight = '0px';
-            btn.setAttribute('aria-expanded','false');
-            area.setAttribute('aria-hidden','true');
-          });
+          setTimeout(()=> input?.focus(), 120);
+        }else{
+          area.style.maxHeight = '0px';
         }
       }
-      // initial state
-      area.classList.add('collapsed');
-      area.style.maxHeight = '0px';
-
-      btn.addEventListener('click', ()=>{
-        const open = btn.getAttribute('aria-expanded') !== 'true';
-        setMaxHeight(open);
-      });
+      // init for animation
+      area.classList.add('collapsible');
+      area.style.maxHeight = area.scrollHeight + 'px';
+      btn.addEventListener('click', ()=>{ open = !open; update(); });
     })();
 
     // ===== Client‑Side Suche mit Vorschlägen (ohne Dateinamen) =====
@@ -326,14 +310,13 @@
     let t=null; input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search, 80); });
     btnSearch.addEventListener('click', search);
 
-    // Tastatur-Navigation der Vorschläge
+    // Tastatur-Navigation
     input.addEventListener('keydown', (e)=>{
       const items = [...resultsBox.querySelectorAll('.result-item')];
       const open = !resultsBox.classList.contains('hidden');
       if(e.key==='Enter'){ search(); }
       else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex = (activeIndex+1) % items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
       else if(open && e.key==='ArrowUp'){ e.preventDefault(); activeIndex = (activeIndex-1+items.length)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
-      else if(open && e.key==='Tab' && activeIndex>=0){ items[activeIndex].focus?.(); }
     });
 
     // Klick außerhalb schließt Dropdown
