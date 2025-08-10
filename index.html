@@ -19,15 +19,15 @@
     a{color:inherit;text-decoration:none}
 
     /* ===== Gelbe Topbar ===== */
-    nav.topbar{position:sticky;top:0;z-index:100;background:linear-gradient(90deg,#fff700,#fff);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+    nav.topbar{position:sticky;top:0;z-index:1000;background:linear-gradient(90deg,#fff700,#fff);box-shadow:0 2px 6px rgba(0,0,0,.08)}
     .nav-row{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:var(--container);margin:0 auto}
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{height:42px}
     .header-text{flex:1;min-width:0;text-align:center;font-size:12px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .call-button{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#fff;background:linear-gradient(90deg,#d32f2f,#f44336);padding:8px 12px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08);border:1px solid #d32f2f}
 
-    /* ===== Schwarze Sub‑Navigation – mobil wischbar, ohne Icons ===== */
-    .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:90}
+    /* ===== Schwarze Sub‑Navigation – mobil wischbar ===== */
+    .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
     .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
     .subnav-scroll{display:flex;gap:8px;padding:0 16px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain}
     .subnav-scroll::-webkit-scrollbar{display:none}
@@ -38,32 +38,24 @@
     .subnav:before{left:0;background:linear-gradient(90deg,rgba(15,23,42,1),rgba(15,23,42,0))}
     .subnav:after{right:0;background:linear-gradient(270deg,rgba(15,23,42,1),rgba(15,23,42,0))}
 
-    /* ===== Headerbild ===== */
-    header{position:relative}
-    .hero{position:relative;max-width:var(--container);margin:10px auto 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08)}
-    .hero img{width:100%}
-
-    /* ===== Suchleiste – über dem Header (Overlay) ===== */
-    .search-wrap{position:relative;}
-    .search-overlay{position:absolute;left:50%;transform:translateX(-50%);top:14px;z-index:120;max-width:var(--container);width:calc(100% - 32px);padding:0 16px;}
-    .search-card{background:rgba(255,255,255,.96);backdrop-filter:saturate(180%) blur(6px);border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,.18);border-radius:14px;padding:10px}
-    .search-row{display:flex;align-items:center;gap:10px}
-    .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 2px}
-    .search-input::placeholder{color:#9aa3af}
-    .kbd{border:1px solid #e5e7eb;border-bottom-width:2px;border-radius:8px;padding:4px 8px;font-size:12px;color:#4b5563;background:#f8fafc}
-    .search-results{position:absolute;left:0;right:0;margin-top:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);max-height:60vh;overflow:auto}
+    /* ===== Suchleiste – direkt unter Subnav ===== */
+    .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:800}
+    .search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px}
+    .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 6px}
+    .search-btn{border:none;background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    .search-btn:hover{opacity:.95}
+    .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);max-height:60vh;overflow:auto}
+    .hidden{display:none}
     .result-item{display:block;padding:10px 12px;border-bottom:1px solid #f1f5f9}
     .result-item:last-child{border-bottom:none}
     .result-title{font-weight:700;font-size:14px}
     .result-snippet{font-size:13px;color:#6b7280;margin-top:3px}
-    .result-item[aria-selected="true"], .result-item:hover{background:#f1f5f9}
-    .badge{display:inline-block;font-size:11px;border:1px solid #e5e7eb;padding:2px 6px;border-radius:999px;margin-left:6px;color:#475569}
-    .hidden{display:none}
+    .result-item[aria-selected="true"], .result-item:hover{background:#f8fafc}
 
-    @media (max-width:640px){
-      .search-card{padding:8px}
-      .kbd{display:none}
-    }
+    /* ===== Headerbild ===== */
+    header{position:relative}
+    .hero{position:relative;max-width:var(--container);margin:10px auto 0;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    .hero img{width:100%}
 
     /* ===== Inhalt ===== */
     section{max-width:var(--container);margin:28px auto;padding:0 16px}
@@ -118,7 +110,7 @@
     </div>
   </nav>
 
-  <!-- Sub‑Navigation -->
+  <!-- Sub‑Navigation: mobil wischbar -->
   <div class="subnav" aria-label="Seitennavigation">
     <div class="subnav-inner">
       <div class="subnav-scroll" id="subnavScroll" tabindex="0">
@@ -134,24 +126,19 @@
     </div>
   </div>
 
-  <!-- Headerbild + Suchleiste als Overlay -->
-  <header class="search-wrap">
+  <!-- Suche unter der Subnav -->
+  <div class="search-wrap" role="search">
+    <div class="search-bar" id="searchCard" aria-expanded="false">
+      <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchResults" autocomplete="off" />
+      <button id="searchButton" class="search-btn" aria-label="Suche starten">Enter</button>
+    </div>
+    <div id="searchResults" class="search-dropdown hidden" role="listbox" aria-label="Suchvorschläge"></div>
+  </div>
+
+  <!-- Headerbild -->
+  <header>
     <div class="hero">
       <img src="header.png" alt="LKW Headerbild" loading="lazy">
-    </div>
-
-    <!-- Suche (immer sichtbar über dem Header) -->
-    <div class="search-overlay" role="search">
-      <div class="search-card" aria-expanded="false" id="searchCard">
-        <div class="search-row">
-          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16a6.471 6.471 0 0 0 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-          <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchList" aria-activedescendant="" autocomplete="off" />
-          <span class="kbd" aria-hidden="true">Enter</span>
-        </div>
-        <div id="searchResults" class="search-results hidden" role="listbox" aria-label="Suchvorschläge">
-          <!-- Ergebnisse werden per JS eingefügt -->
-        </div>
-      </div>
     </div>
   </header>
 
@@ -221,126 +208,97 @@
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    // Drag-to-scroll zusätzlich zum nativen Wischen
+    // ===== Subnav: Drag/Wisch mit Klick‑Schutz =====
     (function(){
       const scroller = document.getElementById('subnavScroll');
       if(!scroller) return;
-      let isDown=false, startX=0, startLeft=0;
-      scroller.addEventListener('pointerdown', (e)=>{
-        isDown=true; startX=e.clientX; startLeft=scroller.scrollLeft; scroller.setPointerCapture(e.pointerId);
-      });
-      scroller.addEventListener('pointermove', (e)=>{
-        if(!isDown) return; scroller.scrollLeft = startLeft - (e.clientX - startX);
-      });
-      ['pointerup','pointercancel','pointerleave'].forEach(type=> scroller.addEventListener(type, ()=>{ isDown=false; }));
+      let isDown=false, startX=0, startLeft=0, moved=false;
+      const start = x=>{ isDown=true; startX=x; startLeft=scroller.scrollLeft; moved=false; };
+      const move = x=>{ if(!isDown) return; const dx = x - startX; if(Math.abs(dx)>5) moved=true; scroller.scrollLeft = startLeft - dx; };
+      const end = ()=>{ isDown=false; setTimeout(()=>{ moved=false; },0); };
+
+      scroller.addEventListener('pointerdown', e=>{ scroller.setPointerCapture(e.pointerId); start(e.clientX); });
+      scroller.addEventListener('pointermove', e=> move(e.clientX));
+      scroller.addEventListener('pointerup', end);
+      scroller.addEventListener('pointercancel', end);
+      scroller.addEventListener('pointerleave', end);
+
+      // Touch/Mouse Fallbacks
+      scroller.addEventListener('mousedown', e=> start(e.clientX));
+      window.addEventListener('mousemove', e=> move(e.clientX));
+      window.addEventListener('mouseup', end);
+      scroller.addEventListener('touchstart', e=> start(e.touches[0].clientX), {passive:true});
+      scroller.addEventListener('touchmove', e=> move(e.touches[0].clientX), {passive:true});
+      scroller.addEventListener('touchend', end);
+
+      // Klick verhindern, wenn es ein Drag war
+      scroller.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); e.stopPropagation(); } }, true);
     })();
 
-    // ===== Client‑Side Seitensuche mit Vorschlägen (nur lokale Seiten) =====
-    // Index deiner Seiten – Titel, URL, optionale Tags & Snippets
+    // ===== Client‑Side Suche mit Vorschlägen (ohne Dateinamen) =====
     const SITE_INDEX = [
-      {title:'Start', url:'index.html', tags:['home','startseite'], snippet:'Soforthilfe bei LKW‑Reifenpannen, 24/7 erreichbar.'},
-      {title:'24/7‑Notdienst', url:'notdienst.html', tags:['notdienst','panne','nacht','wochenende'], snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
-      {title:'Vor‑Ort‑Service', url:'vor-ort-service.html', tags:['montage','mobil','werkstatt'], snippet:'Reifenmontage und Service direkt am Einsatzort.'},
-      {title:'Für Speditionen', url:'flottenservice.html', tags:['flotte','spedition','unternehmen'], snippet:'Planbarer Service und Konditionen für Ihre LKW‑Flotte.'},
-      {title:'Parkplätze', url:'parkplaetze.html', tags:['karte','rastplatz','parkplatz'], snippet:'Interaktive Karte mit LKW‑Park‑ und Rastplätzen in der Region.'},
-      {title:'Checkliste Panne', url:'checkliste-panne.html', tags:['sicherheit','checkliste','pannenhilfe'], snippet:'Sicheres Verhalten bei einer LKW‑Panne – Schritt für Schritt.'},
-      {title:'Über uns', url:'ueber-uns.html', tags:['team','unternehmen','wer wir sind'], snippet:'Wer wir sind und wofür TruckTire24 steht.'},
-      {title:'Kontakt', url:'kontakt.html', tags:['telefon','whatsapp','mail'], snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
+      {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW‑Reifenpannen, 24/7 erreichbar.'},
+      {title:'24/7‑Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
+      {title:'Vor‑Ort‑Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
+      {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW‑Flotte.'},
+      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW‑Park‑ und Rastplätzen in der Region.'},
+      {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW‑Panne – Schritt für Schritt.'},
+      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür TruckTire24 steht.'},
+      {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
     ];
 
     const input = document.getElementById('siteSearch');
     const resultsBox = document.getElementById('searchResults');
     const card = document.getElementById('searchCard');
+    const btn = document.getElementById('searchButton');
 
-    // einfache, schnelle Suche mit Scoring (Titel > Tags > URL/Snippet)
     function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,''); }
     function score(item, q){
-      const t = normalize(item.title);
-      const u = normalize(item.url);
-      const sn = normalize(item.snippet);
-      const tg = normalize((item.tags||[]).join(' '));
-      let s = 0;
-      if(t.includes(q)) s += 8;
-      if(t.startsWith(q)) s += 6;
-      if(tg.includes(q)) s += 4;
-      if(u.includes(q)) s += 2;
-      if(sn.includes(q)) s += 1;
-      return s;
+      const t = normalize(item.title); const sn = normalize(item.snippet);
+      let s = 0; if(t.includes(q)) s+=8; if(t.startsWith(q)) s+=6; if(sn.includes(q)) s+=2; return s;
     }
+    function highlight(text, q){ if(!q) return text; const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); return text.replace(new RegExp('('+esc+')','ig'), '<mark>$1</mark>'); }
 
-    function highlight(text, q){
-      if(!q) return text;
-      const esc = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-      return text.replace(new RegExp('('+esc+')','ig'), '<mark>$1</mark>');
-    }
-
-    function renderResults(items, q){
+    let activeIndex = -1;
+    function render(items, rawQ){
       resultsBox.innerHTML = '';
       if(items.length===0){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const q = rawQ.trim();
       const frag = document.createDocumentFragment();
-      items.slice(0,7).forEach((it, i)=>{
-        const a = document.createElement('a');
-        a.href = it.url;
-        a.className = 'result-item';
-        a.setAttribute('role','option');
-        a.id = 'res-'+i;
-        a.innerHTML = `
-          <div class="result-title">${highlight(it.title, q)}<span class="badge">${new URL(it.url, location.href).pathname.replace('/','')}</span></div>
-          <div class="result-snippet">${highlight(it.snippet||'', q)}</div>
-        `;
+      items.slice(0,8).forEach((it,i)=>{
+        const a = document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
+        a.innerHTML = `<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
         frag.appendChild(a);
       });
       resultsBox.appendChild(frag);
       resultsBox.classList.remove('hidden');
       card.setAttribute('aria-expanded','true');
-    }
-
-    let activeIndex = -1; // Tastaturfokus in der Liste
-    function moveActive(delta){
-      const items = [...resultsBox.querySelectorAll('.result-item')];
-      if(items.length===0) return;
-      activeIndex = (activeIndex + delta + items.length) % items.length;
-      items.forEach((el,i)=> el.setAttribute('aria-selected', i===activeIndex ? 'true':'false'));
-      const active = items[activeIndex];
-      if(active) active.scrollIntoView({block:'nearest'});
-      input.setAttribute('aria-activedescendant', active ? active.id : '');
-    }
-
-    function performSearch(){
-      const q = normalize(input.value.trim());
       activeIndex = -1;
-      if(q.length===0){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
-      const ranked = SITE_INDEX
-        .map(it=>({it, s: score(it,q)}))
-        .filter(x=>x.s>0)
-        .sort((a,b)=> b.s - a.s)
-        .map(x=>x.it);
-      renderResults(ranked, input.value.trim());
     }
 
-    // Debounce
-    let t = null;
-    input.addEventListener('input', ()=>{ clearTimeout(t); t = setTimeout(performSearch, 80); });
-    input.addEventListener('focus', performSearch);
+    function search(){
+      const q = normalize(input.value.trim());
+      if(!q){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const ranked = SITE_INDEX.map(it=>({it,s:score(it,q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).map(x=>x.it);
+      render(ranked, input.value);
+    }
 
-    // Keyboard controls
+    // Debounce Input
+    let t=null; input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search, 80); });
+    btn.addEventListener('click', search);
+
+    // Tastatur-Navigation der Vorschläge
     input.addEventListener('keydown', (e)=>{
+      const items = [...resultsBox.querySelectorAll('.result-item')];
       const open = !resultsBox.classList.contains('hidden');
-      if(e.key==='ArrowDown'){ e.preventDefault(); if(!open) performSearch(); moveActive(1); }
-      else if(e.key==='ArrowUp'){ e.preventDefault(); moveActive(-1); }
-      else if(e.key==='Enter'){
-        const items = [...resultsBox.querySelectorAll('.result-item')];
-        if(open && activeIndex>=0 && items[activeIndex]){ e.preventDefault(); location.href = items[activeIndex].href; }
-      } else if(e.key==='Escape'){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); }
+      if(e.key==='Enter'){ search(); }
+      else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex = (activeIndex+1) % items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+      else if(open && e.key==='ArrowUp'){ e.preventDefault(); activeIndex = (activeIndex-1+items.length)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+      else if(open && e.key==='Tab' && activeIndex>=0){ items[activeIndex].focus?.(); }
     });
 
-    // Klick außerhalb schließt Vorschläge
-    document.addEventListener('click', (e)=>{
-      if(!card.contains(e.target)){
-        resultsBox.classList.add('hidden');
-        card.setAttribute('aria-expanded','false');
-      }
-    });
+    // Klick außerhalb schließt Dropdown
+    document.addEventListener('click', (e)=>{ if(!document.querySelector('.search-wrap').contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
   </script>
 </body>
 </html>
