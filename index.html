@@ -42,19 +42,15 @@
     .icon-btn:hover{background:rgba(255,255,255,.12)}
     .icon-btn svg{width:18px;height:18px}
 
-    /* ===== Suche: muss ÜBER dem Header liegen ===== */
-    .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500}
+    /* ===== Suche (geschlossen, über Header zeichnen) ===== */
+    .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500;display:none}
+    .search-wrap.open{display:block}
     .search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px}
     .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 6px}
     .search-btn{border:none;background:var(--dark);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
     .search-btn:hover{opacity:.95}
-    /* der Dropdown-Container bekommt extra hohen z-index */
     .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600}
     .hidden{display:none}
-
-    /* Collapsible Animation (wenn über Lupe ein-/ausfahren) */
-    .collapsible{overflow:hidden;transition:max-height .25s ease, opacity .2s ease}
-    .collapsed{max-height:0 !important;opacity:0}
 
     .result-item{display:block;padding:10px 12px;border-bottom:1px solid #f1f5f9}
     .result-item:last-child{border-bottom:none}
@@ -115,7 +111,7 @@
     </div>
   </nav>
 
-  <!-- Sub‑Navigation + Lupe -->
+  <!-- Sub‑Navigation + Lupe rechts -->
   <div class="subnav" aria-label="Seitennavigation">
     <div class="subnav-inner">
       <div class="subnav-row">
@@ -139,8 +135,8 @@
     </div>
   </div>
 
-  <!-- Suche -->
-  <div id="searchArea" class="search-wrap" role="search">
+  <!-- Suche (standardmäßig geschlossen) -->
+  <div id="searchArea" class="search-wrap" role="search" aria-hidden="true">
     <div class="search-bar" id="searchCard" aria-expanded="false">
       <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchResults" autocomplete="off" />
       <button id="searchButton" class="search-btn" aria-label="Suche starten">Enter</button>
@@ -190,7 +186,7 @@
       </a>
     </div>
 
-    <!-- Einheitliche schwarze Boxen: Einsatzgebiet, Checkliste, Parkplätze & Rastplätze -->
+    <!-- Einheitliche schwarze Boxen -->
     <div class="features-3" style="margin-top:16px">
       <a class="feature-card--dark" href="einsatzgebiet.html">
         <h3>Einsatzgebiet</h3>
@@ -221,7 +217,7 @@
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    // ===== Subnav: Drag/Wisch nur auf Touch =====
+    // ===== Subnav: Drag/Wisch nur Touch (Desktop klickbar) =====
     (function(){
       const scroller = document.getElementById('subnavScroll');
       if(!scroller) return;
@@ -234,27 +230,19 @@
       scroller.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
     })();
 
-    // ===== Lupe: Suchleiste toggeln =====
+    // ===== Lupe: Suchleiste toggeln (standardmäßig geschlossen) =====
     (function(){
       const btn = document.getElementById('toggleSearch');
       const area = document.getElementById('searchArea');
       const input = document.getElementById('siteSearch');
       if(!btn || !area) return;
-      let open = true; // standardmäßig offen
-      function update(){
-        btn.setAttribute('aria-expanded', String(open));
+      btn.addEventListener('click', ()=>{
+        const open = !area.classList.contains('open');
+        area.classList.toggle('open', open);
         area.setAttribute('aria-hidden', String(!open));
-        if(open){
-          area.style.maxHeight = area.scrollHeight + 'px';
-          setTimeout(()=> input?.focus(), 120);
-        }else{
-          area.style.maxHeight = '0px';
-        }
-      }
-      // init for animation
-      area.classList.add('collapsible');
-      area.style.maxHeight = area.scrollHeight + 'px';
-      btn.addEventListener('click', ()=>{ open = !open; update(); });
+        btn.setAttribute('aria-expanded', String(open));
+        if(open){ setTimeout(()=> input?.focus(), 120); }
+      });
     })();
 
     // ===== Client‑Side Suche mit Vorschlägen (ohne Dateinamen) =====
@@ -310,21 +298,29 @@
     let t=null; input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search, 80); });
     btnSearch.addEventListener('click', search);
 
-    // Tastatur-Navigation
+    // Enter = 1. Treffer öffnen, falls vorhanden; sonst nur suchen
     input.addEventListener('keydown', (e)=>{
       const items = [...resultsBox.querySelectorAll('.result-item')];
       const open = !resultsBox.classList.contains('hidden');
-      if(e.key==='Enter'){ search(); }
+      if(e.key==='Enter'){
+        if(open && items.length>0){ e.preventDefault(); location.href = items[0].getAttribute('href'); }
+        else { search(); }
+      }
       else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex = (activeIndex+1) % items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
       else if(open && e.key==='ArrowUp'){ e.preventDefault(); activeIndex = (activeIndex-1+items.length)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
     });
 
-    // Klick außerhalb schließt Dropdown
-    document.addEventListener('click', (e)=>{ if(!document.querySelector('.search-wrap').contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
+    // Klick außerhalb schließt NUR das Dropdown (nicht die Leiste)
+    document.addEventListener('click', (e)=>{
+      const wrap = document.querySelector('.search-wrap');
+      if(wrap && !wrap.contains(e.target)){
+        resultsBox.classList.add('hidden');
+        card.setAttribute('aria-expanded','false');
+      }
+    });
   </script>
 </body>
 </html>
-
 
 
 
