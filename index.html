@@ -24,7 +24,6 @@
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{height:42px}
     .header-text{flex:1;min-width:0;text-align:center;font-size:12px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    /* Alt: .call-button rot —> jetzt dunkles Design */
     .call-button{display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:8px 12px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
     .call-button--dark{color:#fff;background:var(--dark);border:1px solid var(--dark-border)}
     .call-button--dark:hover{opacity:.95}
@@ -32,7 +31,7 @@
     /* ===== Schwarze Sub‑Navigation – mobil wischbar ===== */
     .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
     .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
-    .subnav-scroll{display:flex;gap:8px;padding:0 16px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain}
+    .subnav-scroll{display:flex;gap:8px;padding:0 16px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none}
     .subnav-scroll::-webkit-scrollbar{display:none}
     .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto;pointer-events:auto}
     .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
@@ -75,7 +74,6 @@
     .btn-neutral:hover{background:#e8eef6}
     .btn-accent{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:800;background:var(--accent);color:#fff}
     .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:700;border:1px dashed #cdd6e1;background:#ffffff}
-    /* Neuer: Schwarzer Call-Button in der Soforthilfe-Box */
     .btn-call--dark{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-weight:800;background:var(--dark);color:#fff;border:1px solid var(--dark-border);box-shadow:0 2px 6px rgba(0,0,0,.08)}
     .btn-call--dark:hover{opacity:.95}
 
@@ -214,31 +212,20 @@
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    // ===== Subnav: Drag/Wisch mit Klick‑Schutz =====
+    // ===== Subnav: Nur auf Touch-Geräten Drag/Wisch aktivieren (Desktop bleibt klickbar) =====
     (function(){
       const scroller = document.getElementById('subnavScroll');
       if(!scroller) return;
-      let isDown=false, startX=0, startLeft=0, moved=false;
-      const start = x=>{ isDown=true; startX=x; startLeft=scroller.scrollLeft; moved=false; };
-      const move = x=>{ if(!isDown) return; const dx = x - startX; if(Math.abs(dx)>5) moved=true; scroller.scrollLeft = startLeft - dx; };
-      const end = ()=>{ isDown=false; setTimeout(()=>{ moved=false; },0); };
-
-      scroller.addEventListener('pointerdown', e=>{ scroller.setPointerCapture(e.pointerId); start(e.clientX); });
-      scroller.addEventListener('pointermove', e=> move(e.clientX));
-      scroller.addEventListener('pointerup', end);
-      scroller.addEventListener('pointercancel', end);
-      scroller.addEventListener('pointerleave', end);
-
-      // Touch/Mouse Fallbacks
-      scroller.addEventListener('mousedown', e=> start(e.clientX));
-      window.addEventListener('mousemove', e=> move(e.clientX));
-      window.addEventListener('mouseup', end);
-      scroller.addEventListener('touchstart', e=> start(e.touches[0].clientX), {passive:true});
-      scroller.addEventListener('touchmove', e=> move(e.touches[0].clientX), {passive:true});
-      scroller.addEventListener('touchend', end);
-
-      // Klick verhindern, wenn es ein Drag war
-      scroller.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); e.stopPropagation(); } }, true);
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      if(!isTouch){
+        // Auf Desktop keine Drag-Logik -> verhindert Click-Schlucken
+        return;
+      }
+      let startX=0, startLeft=0, moved=false;
+      scroller.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; startLeft=scroller.scrollLeft; moved=false; }, {passive:true});
+      scroller.addEventListener('touchmove', e=>{ const dx=e.touches[0].clientX-startX; scroller.scrollLeft=startLeft-dx; if(Math.abs(dx)>12) moved=true; }, {passive:true});
+      scroller.addEventListener('touchend', ()=>{ setTimeout(()=>moved=false,0); }, {passive:true});
+      scroller.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
     })();
 
     // ===== Client‑Side Suche mit Vorschlägen (ohne Dateinamen) =====
