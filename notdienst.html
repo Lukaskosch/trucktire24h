@@ -63,6 +63,11 @@
     .page-hero p{margin:0;color:var(--muted);line-height:1.6}
     .hero-cta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
 
+    /* NEW: square hero image like start page */
+    .hero-flex{display:flex;gap:24px;align-items:center;flex-wrap:nowrap}
+    .hero-image{display:block;width:100%;max-width:500px;aspect-ratio:1/1;object-fit:cover;border-radius:12px;box-shadow:var(--shadow);flex:0 0 500px}
+    @media (max-width:920px){.hero-flex{flex-direction:column}.hero-image{flex:0 0 auto;max-width:420px;margin-inline:auto}}
+
     .btn{display:inline-block;padding:12px 20px;font-weight:800;border-radius:999px;box-shadow:0 6px 16px rgba(15,23,42,.08);transition:.2s}
     .btn.red{background:#d32f2f;border:1px solid #d32f2f;color:#fff}
     .btn.yellow{background:linear-gradient(90deg,#ffe24d,#fff700);border:1px solid #ffef8a;color:#111}
@@ -144,11 +149,16 @@
   <!-- Seiten-Hero (hell) -->
   <header class="page-hero">
     <div class="container">
-      <h1>24/7‑Notdienst für LKW‑Reifen</h1>
-      <p>Tag & Nacht erreichbar – wir kommen direkt zu Ihnen an Autobahn, Bundesstraße oder Betriebshof. Reparatur oder Montage vor Ort, sichere Absicherung und schnelle Wiederfahrt.</p>
-      <div class="hero-cta">
-        <a href="tel:+4915124104553" class="btn call-button--dark"> Sofort anrufen</a>
-        <a href="mailto:info@trucktire24h.com?subject=Notdienst%20Anfrage" class="btn call-button--dark">✉️ Nicht dringend? E‑Mail senden</a>
+      <div class="hero-flex">
+        <img src="notdienst-hero-500.jpg" width="500" height="500" alt="24/7‑Notdienst LKW‑Reifen – TruckTire24" class="hero-image" loading="eager" decoding="async">
+        <div class="hero-text">
+          <h1>24/7‑Notdienst für LKW‑Reifen</h1>
+          <p>Tag & Nacht erreichbar – wir kommen direkt zu Ihnen an Autobahn, Bundesstraße oder Betriebshof. Reparatur oder Montage vor Ort, sichere Absicherung und schnelle Wiederfahrt.</p>
+          <div class="hero-cta">
+            <a href="tel:+4915124104553" class="btn call-button--dark"> 📞 Sofort anrufen</a>
+            <a href="mailto:info@trucktire24h.com?subject=Notdienst%20Anfrage" class="btn call-button--dark">✉️ Nicht dringend? E‑Mail senden</a>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -356,6 +366,7 @@
   </script>
 </body>
 </html>
+
 
 
 
