@@ -104,22 +104,31 @@
       margin-top:16px;
     }
     .icon-card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px;
+      background:transparent;      /* kein weißer Kasten mehr */
+      border:none;
+      border-radius:0;
+      box-shadow:none;
+      padding:0;                   /* kein Innenabstand um Bild/Text */
+      display:flex;
+      flex-direction:column;
+      align-items:center;
       text-align:center;
     }
-    .icon-card img{
-      width:110px;               /* zeigt die 500x500 PNGs klein an */
-      height:110px;
-      object-fit:contain;
+    .icon-card .img-wrap{
+      width:100%;
+      aspect-ratio:1/1;            /* Quadrat */
+      border-radius:var(--radius); /* runde Ecken am Bild selbst */
+      overflow:hidden;             /* Bild schneidet sauber ab */
+    }
+    .icon-card .img-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;            /* füllt komplett aus, kein Rand */
       display:block;
-      margin:8px auto 0;
     }
     .icon-card figcaption{
-      margin-top:10px;
+      margin-top:10px;             /* Text unter dem Bild */
+      padding:0;
       font-weight:800;
       letter-spacing:.2px;
       color:var(--text);
@@ -242,22 +251,30 @@
     <!-- Icon-Leiste: Leistungsversprechen (unter den 6 Boxen) -->
     <div class="icon-grid" role="group" aria-label="Leistungsversprechen">
       <figure class="icon-card">
-        <img src="icon-247.png" alt="24/7 erreichbar" width="500" height="500" loading="lazy" decoding="async">
+        <div class="img-wrap">
+          <img src="icon-247.png" alt="24/7 erreichbar" width="500" height="500" loading="lazy" decoding="async">
+        </div>
         <figcaption>24/7 erreichbar</figcaption>
       </figure>
 
       <figure class="icon-card">
-        <img src="icon-schnell.png" alt="Schnell vor Ort" width="500" height="500" loading="lazy" decoding="async">
+        <div class="img-wrap">
+          <img src="icon-schnell.png" alt="Schnell vor Ort" width="500" height="500" loading="lazy" decoding="async">
+        </div>
         <figcaption>Schnell vor Ort</figcaption>
       </figure>
 
       <figure class="icon-card">
-        <img src="icon-mobil.png" alt="Fachgerecht &amp; mobil" width="500" height="500" loading="lazy" decoding="async">
+        <div class="img-wrap">
+          <img src="icon-mobil.png" alt="Fachgerecht &amp; mobil" width="500" height="500" loading="lazy" decoding="async">
+        </div>
         <figcaption>Fachgerecht &amp; mobil</figcaption>
       </figure>
 
       <figure class="icon-card">
-        <img src="icon-fair.png" alt="Fair &amp; transparent" width="500" height="500" loading="lazy" decoding="async">
+        <div class="img-wrap">
+          <img src="icon-fair.png" alt="Fair &amp; transparent" width="500" height="500" loading="lazy" decoding="async">
+        </div>
         <figcaption>Fair &amp; transparent</figcaption>
       </figure>
     </div>
