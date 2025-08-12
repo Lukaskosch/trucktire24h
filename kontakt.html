@@ -6,6 +6,8 @@
   <title>Kontakt – TruckTire24</title>
   <meta name="description" content="Kontakt zu TruckTire24 – 24/7-Notdienst für LKW-Reifen in Hessen. Telefon, E‑Mail oder Formular. Standort: Niederaula, Kernregion A4 · A5 · A7 · A49." />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <style>
     :root{
       --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
@@ -76,7 +78,11 @@
     .hint{font-size:12px;color:#6b7280;margin-top:4px}
     .success{background:#e8f5e9;border:1px solid #c8e6c9;color:#1b5e20;padding:10px 12px;border-radius:10px;margin-top:12px;display:none}
 
-    iframe.map{border:0;width:100%;height:320px;border-radius:12px}
+    .muted{color:var(--muted)}
+
+    /* Leaflet Map */
+    #map{border:1px solid var(--border);box-shadow:var(--shadow);border-radius:12px;width:100%;height:360px}
+    .legend{background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);padding:8px 10px;border-radius:10px;font-size:13px}
 
     /* Footer */
     footer{background:#eef2f6;margin-top:32px;text-align:center;border-top:1px solid var(--border)}
@@ -92,7 +98,7 @@
         <img src="logo.png" alt="TruckTire24 Logo" />
       </a>
       <div class="header-text">Kontakt · 24/7 erreichbar in der Kernregion A4 · A5 · A7 · A49</div>
-      <a href="tel:+4915124104553" class="call-button call-button--dark" aria-label="Jetzt anrufen">+49 151 24104553</a>
+      <a href="tel:+4915124104553" class="call-button call-button--dark" aria-label="Jetzt anrufen">CALL NOW</a>
     </div>
   </nav>
 
@@ -166,7 +172,9 @@
       <aside class="card" aria-labelledby="kontakt-standort">
         <h2 id="kontakt-standort">Standort & Einsatzgebiet</h2>
         <p class="muted">Niederaula (Hessen) – Kernregion ca. 60 km Umkreis rund um A4, A5, A7, A49.</p>
-        <iframe class="map" title="Karte: Niederaula" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- Leaflet Map ersetzt die alte Google-Map -->
+        <div id="map" role="region" aria-label="Karte: ca. 60 km Radius um Niederaula"></div>
+        <div class="muted" style="margin-top:8px">Hinweis: Der Kreis ist eine ungefähre Visualisierung (Luftlinie). Reale Fahrzeiten variieren je nach Verkehr & Streckenführung.</div>
       </aside>
     </div>
   </main>
@@ -178,6 +186,9 @@
       <div>© <span id="year"></span> TruckTire24. Alle Rechte vorbehalten.</div>
     </div>
   </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
@@ -285,6 +296,37 @@
         const mailto = 'mailto:info@trucktire24h.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         window.location.href = mailto;
       });
+    })();
+
+    // ===== Leaflet Karte: 60 km Radius um Niederaula =====
+    (function(){
+      const el = document.getElementById('map');
+      if(!el || !window.L) return;
+      const center = [50.7602, 9.6062]; // Niederaula
+      const radiusMeters = 60000;       // 60 km
+      const map = L.map('map', { scrollWheelZoom: true, attributionControl: true }).setView(center, 10);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap-Mitwirkende'
+      }).addTo(map);
+      const circle = L.circle(center, {
+        radius: radiusMeters,
+        color: '#0d47a1',      // Rand (dunkelblau)
+        weight: 2,
+        fillColor: '#64b5f6',  // Füllung (hellblau)
+        fillOpacity: 0.15
+      }).addTo(map);
+      L.marker(center).addTo(map).bindPopup('<strong>Niederaula</strong><br>Einsatz‑Zentrum');
+      map.fitBounds(circle.getBounds(), { padding: [20, 20] });
+
+      // kleine Legende
+      const legend = L.control({ position: 'bottomleft' });
+      legend.onAdd = function(){
+        const div = L.DomUtil.create('div','legend');
+        div.innerHTML = '<strong>Einsatzgebiet</strong><div>≈ 60 km Radius ab Niederaula</div>';
+        return div;
+      };
+      legend.addTo(map);
     })();
   </script>
 </body>
