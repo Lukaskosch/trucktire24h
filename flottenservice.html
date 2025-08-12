@@ -33,7 +33,7 @@
     .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
     .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
     .subnav-row{display:flex;align-items:center;gap:8px;padding:0 16px}
-    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
+    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-beavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
     .subnav-scroll::-webkit-scrollbar{display:none}
     .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto}
     .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
@@ -62,6 +62,11 @@
     .page-hero h1{font-size:clamp(28px,4vw,36px);margin:0 0 6px;line-height:1.15}
     .page-hero p{margin:0;color:var(--muted);line-height:1.6}
     .hero-cta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+
+    /* NEW – Bild links neben Titel/Intro */
+    .hero-flex{display:flex;gap:24px;align-items:center;flex-wrap:nowrap}
+    .hero-image{display:block;width:100%;max-width:500px;aspect-ratio:1/1;object-fit:cover;border-radius:12px;box-shadow:var(--shadow);flex:0 0 500px}
+    @media (max-width:920px){.hero-flex{flex-direction:column}.hero-image{flex:0 0 auto;max-width:420px;margin-inline:auto}}
 
     /* Buttons */
     .btn{display:inline-block;padding:12px 20px;font-weight:800;border-radius:999px;box-shadow:0 6px 16px rgba(15,23,42,.08);transition:.2s}
@@ -162,11 +167,16 @@
   <!-- Seiten‑Hero -->
   <header class="page-hero">
     <div class="container">
-      <h1>Für Speditionen & Flotten</h1>
-      <p>Mobil, schnell, zuverlässig: Wir halten Ihre LKW‑Flotte rollend – mit 24/7‑Notdienst, Vor‑Ort‑Montage und planbaren Flottenchecks. Transparente Preise und kurze Reaktionszeiten in unserer Einsatzregion rund um A4, A5, A7 und A49.</p>
-      <div class="hero-cta">
-        <a href="mailto:info@trucktire24h.com?subject=Flottenanfrage" class="btn yellow">✉️ Flottenanfrage senden</a>
-        <a href="tel:+4915124104553" class="btn call-button--dark">📞 24/7 Notruf</a>
+      <div class="hero-flex">
+        <img src="flotten-hero-500.png" width="500" height="500" alt="LKW‑Flottenservice – TruckTire24" class="hero-image" loading="eager" decoding="async">
+        <div class="hero-text">
+          <h1>Für Speditionen & Flotten</h1>
+          <p>Mobil, schnell, zuverlässig: Wir halten Ihre LKW‑Flotte rollend – mit 24/7‑Notdienst, Vor‑Ort‑Montage und planbaren Flottenchecks. Transparente Preise und kurze Reaktionszeiten in unserer Einsatzregion rund um A4, A5, A7 und A49.</p>
+          <div class="hero-cta">
+            <a href="mailto:info@trucktire24h.com?subject=Flottenanfrage" class="btn yellow">✉️ Flottenanfrage senden</a>
+            <a href="tel:+4915124104553" class="btn call-button--dark">📞 24/7 Notruf</a>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -379,7 +389,7 @@
       const frag = document.createDocumentFragment();
       items.slice(0,8).forEach((it,i)=>{
         const a = document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
-        a.innerHTML = `<div class=\"result-title\">${highlight(it.title,q)}</div><div class=\"result-snippet\">${highlight(it.snippet||'',q)}</div>`;
+        a.innerHTML = `<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
         frag.appendChild(a);
       });
       resultsBox.appendChild(frag);
