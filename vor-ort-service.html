@@ -65,6 +65,11 @@
     .page-hero p{margin:0;color:var(--muted);line-height:1.6}
     .hero-cta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
 
+    /* NEW – Bild links neben Titel/Intro */
+    .hero-flex{display:flex;gap:24px;align-items:center;flex-wrap:nowrap}
+    .hero-image{display:block;width:100%;max-width:500px;aspect-ratio:1/1;object-fit:cover;border-radius:12px;box-shadow:var(--shadow);flex:0 0 500px}
+    @media (max-width:920px){.hero-flex{flex-direction:column}.hero-image{flex:0 0 auto;max-width:420px;margin-inline:auto}}
+
     /* Buttons */
     .btn{display:inline-block;padding:12px 20px;font-weight:800;border-radius:999px;box-shadow:0 6px 16px rgba(15,23,42,.08);transition:.2s}
     .btn.red{background:#d32f2f;border:1px solid #d32f2f;color:#fff}
@@ -155,11 +160,16 @@
   <!-- Seiten-Hero -->
   <header class="page-hero">
     <div class="container">
-      <h1>Vor‑Ort‑Service für LKW‑Reifen</h1>
-      <p>Wir kommen zu Ihnen: Montage, Reparatur, Auswuchten und Sicherheitscheck direkt am Hof, Lager oder Einsatzort – 24/7 in unserer Region rund um A4, A5, A7 und A49.</p>
-      <div class="hero-cta">
-        <a class="btn yellow" href="mailto:info@trucktire24h.com?subject=Vor-Ort-Service%20Anfrage">✉️ Anfrage senden</a>
-        <a class="btn red" href="tel:+4915124104553">📞 24/7 Notruf</a>
+      <div class="hero-flex">
+        <img src="vor-ort-hero-500.png" width="500" height="500" alt="Vor‑Ort‑Service LKW‑Reifen – TruckTire24" class="hero-image" loading="eager" decoding="async">
+        <div class="hero-text">
+          <h1>Vor‑Ort‑Service für LKW‑Reifen</h1>
+          <p>Wir kommen zu Ihnen: Montage, Reparatur, Auswuchten und Sicherheitscheck direkt am Hof, Lager oder Einsatzort – 24/7 in unserer Region rund um A4, A5, A7 und A49.</p>
+          <div class="hero-cta">
+            <a class="btn yellow" href="mailto:info@trucktire24h.com?subject=Vor-Ort-Service%20Anfrage">✉️ Anfrage senden</a>
+            <a class="btn red" href="tel:+4915124104553">📞 24/7 Notruf</a>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -295,7 +305,7 @@
       const frag = document.createDocumentFragment();
       items.slice(0,8).forEach((it,i)=>{
         const a = document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
-        a.innerHTML = `<div class=\"result-title\">${highlight(it.title,q)}</div><div class=\"result-snippet\">${highlight(it.snippet||'',q)}</div>`;
+        a.innerHTML = `<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
         frag.appendChild(a);
       });
       resultsBox.appendChild(frag);
@@ -363,3 +373,4 @@
   </script>
 </body>
 </html>
+
