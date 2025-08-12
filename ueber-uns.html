@@ -79,6 +79,33 @@
     .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);font-weight:700}
 
+    /* ===== Icon-Leiste wie auf Startseite (ohne weißen Rand) ===== */
+    .icon-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+      margin-top:16px;
+    }
+    .icon-card{
+      background:transparent;  /* kein weißer Kasten */
+      border:none;
+      border-radius:0;
+      box-shadow:none;
+      padding:0;
+      display:flex;flex-direction:column;align-items:center;text-align:center;
+    }
+    .icon-card .img-wrap{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:var(--radius);
+      overflow:hidden;
+    }
+    .icon-card .img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+    .icon-card figcaption{margin-top:10px;padding:0;font-weight:800;letter-spacing:.2px;color:var(--text)}
+    @media (max-width:900px){ .icon-grid{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:520px){ .icon-grid{grid-template-columns:1fr;} }
+
+    /* (Optional) alte Galerie-Styles dürfen bleiben, werden aber nicht mehr genutzt */
     .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
     .gallery img{width:100%;height:auto;border-radius:10px;display:block;box-shadow:var(--shadow)}
 
@@ -138,7 +165,7 @@
     <div class="container">
       <h1>Über uns – TruckTire24</h1>
       <p>TruckTire24 – Inhaber <strong>Max Mustermann</strong> – ist Ihr mobiler LKW-Reifen-Pannendienst in Hessen.
-  Ich biete schnelle und zuverlässige Hilfe bei LKW-Reifenpannen, einen 24-Stunden-Notdienst, professionelle Vor-Ort-Montage und transparente Leistungen – damit Ihre Fahrzeuge schnell wieder einsatzbereit sind.</p>
+      Ich biete schnelle und zuverlässige Hilfe bei LKW-Reifenpannen, einen 24-Stunden-Notdienst, professionelle Vor-Ort-Montage und transparente Leistungen – damit Ihre Fahrzeuge schnell wieder einsatzbereit sind.</p>
     </div>
   </header>
 
@@ -222,7 +249,7 @@
           <p>Zurzeit betreue ich meine Kunden persönlich und arbeite daran, ein leistungsstarkes Team aufzubauen. So kann ich den Service künftig noch schneller, effizienter und in einem erweiterten Einsatzgebiet anbieten.</p>
           <h4 style="margin:14px 0 6px;font-size:16px">Mein Ziel</h4>
           <p>Ihre Ausfallzeiten so gering wie möglich zu halten – ob auf Autobahnen, Landstraßen oder direkt bei Ihnen vor Ort.
-Ich sorge dafür, dass Sie schnell, sicher und wieder mobil sind.</p>
+          Ich sorge dafür, dass Sie schnell, sicher und wieder mobil sind.</p>
         </div>
       </div>
       <div class="card">
@@ -240,13 +267,34 @@ Ich sorge dafür, dass Sie schnell, sicher und wieder mobil sind.</p>
     </div>
   </section>
 
-  <!-- EINSATZBILDER -->
-  <section class="container">
-    <h2>Einsatzbilder</h2>
-    <div class="gallery">
-      <img src="bilderpanne1.png" alt="LKW‑Reifenpanne – abgesichert am Fahrbahnrand">
-      <img src="bilderpanne2.png" alt="Vor‑Ort‑Reifenmontage bei Nacht">
-      <img src="bilderpanne3.png" alt="Servicefahrzeug TruckTire24 im Einsatz">
+  <!-- ICON-LEISTE (ersetzt die früheren Einsatzbilder) -->
+  <section class="container" aria-label="Leistungsversprechen">
+    <h2>Wofür wir stehen</h2>
+    <div class="icon-grid">
+      <figure class="icon-card">
+        <div class="img-wrap">
+          <img src="icon-247.png" alt="24/7 erreichbar" width="500" height="500" loading="lazy" decoding="async">
+        </div>
+        <figcaption>24/7 erreichbar</figcaption>
+      </figure>
+      <figure class="icon-card">
+        <div class="img-wrap">
+          <img src="icon-schnell.png" alt="Schnell vor Ort" width="500" height="500" loading="lazy" decoding="async">
+        </div>
+        <figcaption>Schnell vor Ort</figcaption>
+      </figure>
+      <figure class="icon-card">
+        <div class="img-wrap">
+          <img src="icon-mobil.png" alt="Fachgerecht &amp; mobil" width="500" height="500" loading="lazy" decoding="async">
+        </div>
+        <figcaption>Fachgerecht &amp; mobil</figcaption>
+      </figure>
+      <figure class="icon-card">
+        <div class="img-wrap">
+          <img src="icon-fair.png" alt="Fair &amp; transparent" width="500" height="500" loading="lazy" decoding="async">
+        </div>
+        <figcaption>Fair &amp; transparent</figcaption>
+      </figure>
     </div>
   </section>
 
