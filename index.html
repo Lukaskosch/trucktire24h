@@ -37,6 +37,9 @@
     .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto}
     .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
     .subnav a.active{background:rgba(255,255,255,.10);color:#fff;border-color:var(--dark-soft)}
+    .subnav:before,.subnav:after{content:"";position:absolute;top:0;bottom:0;width:24px;pointer-events:none}
+    .subnav:before{left:0;background:linear-gradient(90deg,rgba(15,23,42,1),rgba(15,23,42,0))}
+    .subnav:after{right:0;background:linear-gradient(270deg,rgba(15,23,42,1),rgba(15,23,42,0))}
     .subnav-tools{display:flex;align-items:center;gap:8px}
     .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,.06);color:#e5e7eb;cursor:pointer}
     .icon-btn:hover{background:rgba(255,255,255,.12)}
@@ -92,6 +95,37 @@
     .card-cta{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-weight:700;border:1px solid #334155;padding:8px 12px;border-radius:10px;color:#e2e8f0;background:rgba(255,255,255,.02);text-decoration:none}
     .card-cta:hover{background:rgba(255,255,255,.06)}
     @media (min-width:900px){ .features-3{grid-template-columns:repeat(3,1fr)} }
+
+    /* ==== Icon-Leiste unter den 6 Boxen ==== */
+    .icon-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+      margin-top:16px;
+    }
+    .icon-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+      text-align:center;
+    }
+    .icon-card img{
+      width:110px;               /* zeigt die 500x500 PNGs klein an */
+      height:110px;
+      object-fit:contain;
+      display:block;
+      margin:8px auto 0;
+    }
+    .icon-card figcaption{
+      margin-top:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+      color:var(--text);
+    }
+    @media (max-width:900px){ .icon-grid{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:520px){ .icon-grid{grid-template-columns:1fr;} }
 
     /* Footer */
     footer{background:#eef2f6;margin-top:32px}
@@ -203,6 +237,29 @@
         <p>Interaktive Karte mit LKW‑Park- und Rastplätzen in unserer Region.</p>
         <span class="card-cta">Karte öffnen</span>
       </a>
+    </div>
+
+    <!-- Icon-Leiste: Leistungsversprechen (unter den 6 Boxen) -->
+    <div class="icon-grid" role="group" aria-label="Leistungsversprechen">
+      <figure class="icon-card">
+        <img src="icon-247.png" alt="24/7 erreichbar" width="500" height="500" loading="lazy" decoding="async">
+        <figcaption>24/7 erreichbar</figcaption>
+      </figure>
+
+      <figure class="icon-card">
+        <img src="icon-schnell.png" alt="Schnell vor Ort" width="500" height="500" loading="lazy" decoding="async">
+        <figcaption>Schnell vor Ort</figcaption>
+      </figure>
+
+      <figure class="icon-card">
+        <img src="icon-mobil.png" alt="Fachgerecht &amp; mobil" width="500" height="500" loading="lazy" decoding="async">
+        <figcaption>Fachgerecht &amp; mobil</figcaption>
+      </figure>
+
+      <figure class="icon-card">
+        <img src="icon-fair.png" alt="Fair &amp; transparent" width="500" height="500" loading="lazy" decoding="async">
+        <figcaption>Fair &amp; transparent</figcaption>
+      </figure>
     </div>
   </section>
 
