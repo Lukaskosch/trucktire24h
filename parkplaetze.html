@@ -35,7 +35,7 @@
     .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
     .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
     .subnav-row{display:flex;align-items:center;gap:8px;padding:0 16px}
-    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-beavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
+    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
     .subnav-scroll::-webkit-scrollbar{display:none}
     .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto}
     .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
@@ -551,19 +551,19 @@
 
       function readStored(){
         // 1) Offizielle API, falls vorhanden
-        try{ if(window.tt24GetConsent){ const c = window.tt24GetConsent(); if(c && typeof c==='object') return c; } }catch(_){}
+        try{ if(window.tt24GetConsent){ const c = window.tt24GetConsent(); if(c && typeof c==='object') return c; } }catch(_){}}
         // 2) LocalStorage (Standard in unseren Seiten)
-        try{ const raw = localStorage.getItem(KEY); if(raw){ return JSON.parse(raw); } }catch(_){}
+        try{ const raw = localStorage.getItem(KEY); if(raw){ return JSON.parse(raw); } }catch(_){}}
         // 3) Cookie‑Fallback (falls jemand per Cookie speichert)
         try{
           const m = document.cookie.match(/(?:^|;)\s*tt24Consent=([^;]+)/);
           if(m){ return JSON.parse(decodeURIComponent(m[1])); }
-        }catch(_){}
+        }catch(_){}}
         return null;
       }
       function hasMarketing(){ const c = readStored(); return !!(c && c.marketing); }
 
-     // Ab hier einfügen – kompletter, korrekter Abschluss der consentGate()-Funktion
+      // Ab hier einfügen – Ergänzung der consentGate()-Funktion
       function loadMap(){
         if(!iframe) return;
         const url = iframe.dataset.src || iframe.getAttribute('data-src');
