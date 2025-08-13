@@ -551,7 +551,7 @@
 
       function readStored(){
         // 1) Offizielle API, falls vorhanden
-        try{ if(window.tt24GetConsent){ const c = window.tt24GetConsent(); if(c && typeof c==='object') return c; } }catch(_){}}
+        try{ if(window.tt24GetConsent){ const c = window.tt24GetConsent(); if(c && typeof c==='object') return c; } }catch(_){}
         // 2) LocalStorage (Standard in unseren Seiten)
         try{ const raw = localStorage.getItem(KEY); if(raw){ return JSON.parse(raw); } }catch(_){}}
         // 3) Cookie‑Fallback (falls jemand per Cookie speichert)
