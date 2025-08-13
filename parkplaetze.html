@@ -563,11 +563,12 @@
       }
       function hasMarketing(){ const c = readStored(); return !!(c && c.marketing); }
 
+     // Ab hier einfügen – kompletter, korrekter Abschluss der consentGate()-Funktion
       function loadMap(){
         if(!iframe) return;
         const url = iframe.dataset.src || iframe.getAttribute('data-src');
         if(url && !iframe.src) iframe.src = url; // erst bei Zustimmung laden (lazy-init)
-         iframe.classList.remove('hidden');
+        iframe.classList.remove('hidden');
         box?.classList.add('hidden');
       }
       function hideMap(){
