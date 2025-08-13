@@ -566,4 +566,32 @@
       function loadMap(){
         if(!iframe) return;
         const url = iframe.dataset.src || iframe.getAttribute('data-src');
-        if(url && !iframe.src) iframe.src = url; // erst bei
+        if(url && !iframe.src) iframe.src = url; // erst bei Zustimmung laden (lazy-init)
+         iframe.classList.remove('hidden');
+        box?.classList.add('hidden');
+      }
+      function hideMap(){
+        if(!iframe) return;
+        iframe.classList.add('hidden');
+        // optional: iframe.removeAttribute('src'); // falls Entladen gewünscht
+        box?.classList.remove('hidden');
+      }
+      function apply(){
+        hasMarketing() ? loadMap() : hideMap();
+      }
+
+      // Initial anwenden
+      apply();
+
+      // Auf spätere Änderungen reagieren (z. B. nach Auswahl in cookie.html)
+      window.addEventListener('tt24ConsentChanged', apply);
+
+      // Button „Marketing erlauben & Karte laden“
+      document.getElementById('enable-marketing')?.addEventListener('click', function(){
+        let current = {};
+        try { current = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(_) { current = {}; }
+        const next = { necessary:true, analytics:!!current.analytics, marketing:true, ts:new Date().toISOString() };
+        localStorage.setItem(KEY, JSON.stringify(next));
+        window.dispatchEvent(new CustomEvent('tt24ConsentChanged', { detail: next }));
+      });
+    })(); // Ende IIFE consentGate
