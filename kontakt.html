@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <!-- Cookie‑Banner (muss auf jeder Seite eingebunden sein) -->
   <script src="assets/cookie-banner.js" defer></script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Kontakt – TruckTire24</title>
   <meta name="description" content="Kontakt zu TruckTire24 – 24/7-Notdienst für LKW-Reifen in Hessen. Telefon, E‑Mail oder Formular. Standort: Niederaula, Kernregion A4 · A5 · A7 · A49." />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
   <style>
     :root{
       --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
@@ -81,15 +82,34 @@
 
     .muted{color:var(--muted)}
 
-    /* Leaflet Map */
-    #map{border:1px solid var(--border);box-shadow:var(--shadow);border-radius:12px;width:100%;height:360px}
-    .legend{background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);padding:8px 10px;border-radius:10px;font-size:13px}
+    /* Karte */
+    .map-container iframe{width:100%;height:360px;border:none;border-radius:12px;box-shadow:var(--shadow)}
+
+    /* Platzhalter, wenn Marketing nicht erlaubt */
+    .map-consent{display:grid;place-items:center;gap:10px;border:1px dashed #cbd5e1;border-radius:12px;background:#ffffff;padding:18px;color:#334155;text-align:center;min-height:140px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:10px}
+    .mc-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .btn.primary{background:var(--dark);border:1px solid var(--dark-border);color:#fff}
+    .btn.ghost{background:#fff;border:1px dashed #cdd6e1;color:#183652}
 
     /* Footer */
     footer{background:#eef2f6;margin-top:32px;text-align:center;border-top:1px solid var(--border)}
     .footer-inner{max-width:var(--container);padding:18px 16px;margin:0 auto;font-size:14px;color:#4b5563}
     .footer-link{color:#4b5563;text-decoration:none}
+
+    /* Sofort ohne Flash: Wenn Marketing bereits erlaubt, Platzhalter ausblenden */
+    .marketing-ok #map-consent{display:none}
+    .marketing-ok #map-iframe{display:block}
   </style>
+
+  <!-- Verhindert Flicker: setzt Klasse, wenn Marketing schon erlaubt ist -->
+  <script>
+    (function(){
+      try{
+        var raw = localStorage.getItem('tt24Consent');
+        if(raw){ var c = JSON.parse(raw); if(c && c.marketing){ document.documentElement.classList.add('marketing-ok'); } }
+      }catch(_){/* ignore */}
+    })();
+  </script>
 </head>
 <body>
   <!-- Topbar -->
@@ -173,8 +193,23 @@
       <aside class="card" aria-labelledby="kontakt-standort">
         <h2 id="kontakt-standort">Standort & Einsatzgebiet</h2>
         <p class="muted">Niederaula (Hessen) – Kernregion ca. 60 km Umkreis rund um A4, A5, A7, A49.</p>
-        <!-- Leaflet Map ersetzt die alte Google-Map -->
-        <div id="map" role="region" aria-label="Karte: ca. 60 km Radius um Niederaula"></div>
+
+        <!-- Google‑Map mit Consent‑Gate -->
+        <div class="map-container">
+          <div id="map-consent" class="map-consent">
+            <div>Um die Karte (Google Maps) anzuzeigen, benötigen wir deine Zustimmung zu <strong>Marketing</strong>-Cookies/Diensten.</div>
+            <div class="mc-actions">
+              <button id="enable-marketing" class="btn primary" type="button">Marketing erlauben & Karte laden</button>
+              <a href="cookie.html" class="btn ghost">Cookie‑Einstellungen öffnen</a>
+            </div>
+          </div>
+          <iframe id="map-iframe"
+                  class="hidden"
+                  data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde"
+                  allowfullscreen
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
         <div class="muted" style="margin-top:8px">Hinweis: Der Kreis ist eine ungefähre Visualisierung (Luftlinie). Reale Fahrzeiten variieren je nach Verkehr & Streckenführung.</div>
       </aside>
     </div>
@@ -188,9 +223,6 @@
       <div>© <span id="year"></span> TruckTire24. Alle Rechte vorbehalten.</div>
     </div>
   </footer>
-
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
@@ -300,36 +332,59 @@
       });
     })();
 
-    // ===== Leaflet Karte: 60 km Radius um Niederaula =====
-    (function(){
-      const el = document.getElementById('map');
-      if(!el || !window.L) return;
-      const center = [50.7602, 9.6062]; // Niederaula
-      const radiusMeters = 60000;       // 60 km
-      const map = L.map('map', { scrollWheelZoom: true, attributionControl: true }).setView(center, 10);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap-Mitwirkende'
-      }).addTo(map);
-      const circle = L.circle(center, {
-        radius: radiusMeters,
-        color: '#0d47a1',      // Rand (dunkelblau)
-        weight: 2,
-        fillColor: '#64b5f6',  // Füllung (hellblau)
-        fillOpacity: 0.15
-      }).addTo(map);
-      L.marker(center).addTo(map).bindPopup('<strong>Niederaula</strong><br>Einsatz‑Zentrum');
-      map.fitBounds(circle.getBounds(), { padding: [20, 20] });
+    // ===== Consent‑Gate für Google Maps (wie auf der Parkplätze‑Seite) =====
+    (function consentGate(){
+      const KEY = 'tt24Consent';
+      const iframe = document.getElementById('map-iframe');
+      const box = document.getElementById('map-consent');
 
-      // kleine Legende
-      const legend = L.control({ position: 'bottomleft' });
-      legend.onAdd = function(){
-        const div = L.DomUtil.create('div','legend');
-        div.innerHTML = '<strong>Einsatzgebiet</strong><div>≈ 60 km Radius ab Niederaula</div>';
-        return div;
-      };
-      legend.addTo(map);
-    })();
+      function readStored(){
+        // 1) Offizielle API, falls vorhanden
+        try{ if(window.tt24GetConsent){ const c = window.tt24GetConsent(); if(c && typeof c==='object') return c; } }catch(_){ }
+        // 2) LocalStorage (Standard in unseren Seiten)
+        try{ const raw = localStorage.getItem(KEY); if(raw){ return JSON.parse(raw); } }catch(_){ }
+        // 3) Cookie‑Fallback (falls jemand per Cookie speichert)
+        try{
+          const m = document.cookie.match(/(?:^|;)\s*tt24Consent=([^;]+)/);
+          if(m){ return JSON.parse(decodeURIComponent(m[1])); }
+        }catch(_){ }
+        return null;
+      }
+      function hasMarketing(){ const c = readStored(); return !!(c && c.marketing); }
+
+      function loadMap(){
+        if(!iframe) return;
+        const url = iframe.dataset.src || iframe.getAttribute('data-src');
+        if(url && !iframe.src) iframe.src = url; // erst bei Zustimmung laden (lazy-init)
+        iframe.classList.remove('hidden');
+        box?.classList.add('hidden');
+      }
+      function hideMap(){
+        if(!iframe) return;
+        iframe.classList.add('hidden');
+        // optional: iframe.removeAttribute('src'); // falls Entladen gewünscht
+        box?.classList.remove('hidden');
+      }
+      function apply(){
+        hasMarketing() ? loadMap() : hideMap();
+      }
+
+      // Initial anwenden
+      apply();
+
+      // Auf spätere Änderungen reagieren (z. B. nach Auswahl in cookie.html)
+      window.addEventListener('tt24ConsentChanged', apply);
+
+      // Button „Marketing erlauben & Karte laden“
+      document.getElementById('enable-marketing')?.addEventListener('click', function(){
+        let current = {};
+        try { current = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(_) { current = {}; }
+        const next = { necessary:true, analytics:!!current.analytics, marketing:true, ts:new Date().toISOString() };
+        localStorage.setItem(KEY, JSON.stringify(next));
+        window.dispatchEvent(new CustomEvent('tt24ConsentChanged', { detail: next }));
+      });
+    })(); // Ende IIFE consentGate
   </script>
 </body>
 </html>
+
