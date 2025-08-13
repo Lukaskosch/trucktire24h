@@ -1,4 +1,4 @@
-// cookie-banner.js  (ins Root legen, neben index.html)
+
 // Auf JEDER Seite einbinden: <script src="cookie-banner.js" defer></script>
 (() => {
   const KEY = 'tt24Consent';
