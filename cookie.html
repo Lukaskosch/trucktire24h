@@ -11,6 +11,7 @@
       --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
       --shadow:0 6px 18px rgba(0,0,0,.08); --radius:14px; --container:900px;
       --accent:#335d92; --dark:#0f172a; --dark-border:#1f2937;
+      --focus:#2563eb;
     }
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif}
@@ -39,23 +40,29 @@
     input:checked + .slider{background:#22c55e}
     input:checked + .slider:before{transform:translateX(18px)}
     input:disabled + .slider{background:#cbd5e1;opacity:.7}
-    /* Footer (einfach) */
+    /* Fokus sichtbar */
+    .btn:focus-visible, .toggle:focus-visible, a:focus-visible { outline:3px solid var(--focus); outline-offset:3px; border-radius:10px; }
+    /* Footer */
     footer{margin:24px 0 12px;text-align:center;color:#4b5563;font-size:14px}
+    /* Screenreader-only */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="card">
-      <h1>Cookie-Einstellungen</h1>
+  <main class="wrap" role="main">
+    <div class="card" role="region" aria-labelledby="page-title">
+      <h1 id="page-title">Cookie-Einstellungen</h1>
       <p class="muted">Hier kannst du festlegen, welche optionalen Cookies/Dienste wir setzen dürfen. Notwendige Cookies sind für den Betrieb der Seite erforderlich.</p>
 
+      <noscript><p class="muted" role="alert">Hinweis: Ohne JavaScript können Einstellungen nicht gespeichert werden.</p></noscript>
+
       <div class="row" id="rows">
-        <div class="item" aria-live="polite">
+        <div class="item">
           <div>
-            <h3>Notwendig <span class="lock">immer aktiv</span></h3>
-            <p>Speichert deine Einwilligung & Seiteneinstellungen. Ohne diese funktioniert die Website nicht richtig.</p>
+            <h3>Notwendig <span class="lock" aria-label="immer aktiv">immer aktiv</span></h3>
+            <p>Speichert deine Einwilligung &amp; Seiteneinstellungen. Ohne diese funktioniert die Website nicht richtig.</p>
           </div>
-          <label class="toggle">
+          <label class="toggle" aria-label="Notwendig" role="switch" aria-checked="true" aria-readonly="true">
             <input type="checkbox" checked disabled />
             <span class="slider" aria-hidden="true"></span>
           </label>
@@ -64,9 +71,9 @@
         <div class="item">
           <div>
             <h3>Analyse</h3>
-            <p>Anonyme Statistik zur Nutzung (z. B. Seitenaufrufe). Wir setzen diese erst nach Zustimmung.</p>
+            <p>Anonyme Statistik zur Nutzung (z. B. Seitenaufrufe). Wir setzen diese erst nach Zustimmung.</p>
           </div>
-          <label class="toggle" aria-label="Analyse aktivieren/deaktivieren">
+          <label class="toggle" aria-label="Analyse aktivieren/deaktivieren" role="switch" aria-checked="false">
             <input type="checkbox" id="consent-analytics" />
             <span class="slider"></span>
           </label>
@@ -75,24 +82,24 @@
         <div class="item">
           <div>
             <h3>Marketing</h3>
-            <p>z. B. eingebettete Karten, Videos oder Remarketing-Tags. Wird erst nach Zustimmung geladen.</p>
+            <p>z. B. eingebettete Karten, Videos oder Remarketing-Tags. Wird erst nach Zustimmung geladen.</p>
           </div>
-          <label class="toggle" aria-label="Marketing aktivieren/deaktivieren">
+          <label class="toggle" aria-label="Marketing aktivieren/deaktivieren" role="switch" aria-checked="false">
             <input type="checkbox" id="consent-marketing" />
             <span class="slider"></span>
           </label>
         </div>
       </div>
 
-      <div class="actions">
-        <button class="btn primary" id="save">Auswahl speichern</button>
-        <button class="btn accent" id="acceptAll">Alle akzeptieren</button>
-        <button class="btn ghost" id="rejectAll">Nur notwendige</button>
+      <div class="actions" role="group" aria-label="Aktionen">
+        <button class="btn primary" id="save" type="button">Auswahl speichern</button>
+        <button class="btn accent" id="acceptAll" type="button">Alle akzeptieren</button>
+        <button class="btn ghost" id="rejectAll" type="button">Nur notwendige</button>
       </div>
 
       <div class="policy">
-        Mehr Details findest du in unserer <a href="impressum.html">Datenschutzerklärung</a>.
-        Du kannst deine Auswahl jederzeit hier oder über den Link „Cookie-Einstellungen“ im Footer ändern.
+        Mehr Details findest du in unserer <a href="impressum.html#datenschutz">Datenschutzerklärung</a>.
+        Du kannst deine Auswahl jederzeit hier oder über den Link „Cookie‑Einstellungen“ im Footer ändern.
       </div>
     </div>
     <footer>© Kosch</footer>
@@ -100,19 +107,33 @@
 
   <script>
     (function(){
-      const KEY = 'tt24Consent'; // muss mit dem Banner identisch sein
+      const KEY = 'tt24Consent'; // muss mit dem Banner übereinstimmen
       const qs = (s)=>document.querySelector(s);
       const analytics = qs('#consent-analytics');
       const marketing = qs('#consent-marketing');
 
+      // helpers
+      function sameOrigin(url){
+        try{ const u=new URL(document.referrer||'', location.href); return u.origin===location.origin; }catch(e){ return false; }
+      }
+
       function readConsent(){
-        try{ return JSON.parse(localStorage.getItem(KEY)) || {necessary:true, analytics:false, marketing:false}; }
-        catch(e){ return {necessary:true, analytics:false, marketing:false}; }
+        try{
+          const raw = localStorage.getItem(KEY);
+          return raw ? JSON.parse(raw) : {necessary:true, analytics:false, marketing:false};
+        }catch(e){
+          return {necessary:true, analytics:false, marketing:false};
+        }
       }
       function writeConsent(obj){
-        const state = {necessary:true, analytics:!!obj.analytics, marketing:!!obj.marketing, ts:new Date().toISOString()};
+        const state = {
+          necessary:true,
+          analytics:!!obj.analytics,
+          marketing:!!obj.marketing,
+          ts:new Date().toISOString()
+        };
         localStorage.setItem(KEY, JSON.stringify(state));
-        // Event senden wie beim Banner
+        // Event wie beim Banner
         window.dispatchEvent(new CustomEvent('tt24ConsentChanged', { detail: state }));
         return state;
       }
@@ -120,25 +141,40 @@
         const c = readConsent();
         analytics.checked = !!c.analytics;
         marketing.checked = !!c.marketing;
+        // ARIA aktualisieren
+        analytics.closest('.toggle')?.setAttribute('aria-checked', String(!!c.analytics));
+        marketing.closest('.toggle')?.setAttribute('aria-checked', String(!!c.marketing));
       }
       hydrate();
 
+      function storeAndConfirm(a,m,msg){
+        writeConsent({analytics:a, marketing:m});
+        alert(msg);
+        if (sameOrigin(document.referrer)) history.back();
+      }
+
+      // Events
+      analytics.addEventListener('change', ()=>{
+        analytics.closest('.toggle')?.setAttribute('aria-checked', String(analytics.checked));
+      });
+      marketing.addEventListener('change', ()=>{
+        marketing.closest('.toggle')?.setAttribute('aria-checked', String(marketing.checked));
+      });
+
       qs('#save').addEventListener('click', ()=>{
-        writeConsent({analytics:analytics.checked, marketing:marketing.checked});
-        alert('Deine Auswahl wurde gespeichert.');
-        if(document.referrer) history.back();
+        storeAndConfirm(analytics.checked, marketing.checked, 'Deine Auswahl wurde gespeichert.');
       });
       qs('#acceptAll').addEventListener('click', ()=>{
         analytics.checked = true; marketing.checked = true;
-        writeConsent({analytics:true, marketing:true});
-        alert('Alle optionalen Cookies akzeptiert.');
-        if(document.referrer) history.back();
+        analytics.closest('.toggle')?.setAttribute('aria-checked','true');
+        marketing.closest('.toggle')?.setAttribute('aria-checked','true');
+        storeAndConfirm(true, true, 'Alle optionalen Cookies akzeptiert.');
       });
       qs('#rejectAll').addEventListener('click', ()=>{
         analytics.checked = false; marketing.checked = false;
-        writeConsent({analytics:false, marketing:false});
-        alert('Nur notwendige Cookies aktiviert.');
-        if(document.referrer) history.back();
+        analytics.closest('.toggle')?.setAttribute('aria-checked','false');
+        marketing.closest('.toggle')?.setAttribute('aria-checked','false');
+        storeAndConfirm(false, false, 'Nur notwendige Cookies aktiviert.');
       });
     })();
   </script>
