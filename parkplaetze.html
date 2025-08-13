@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <!-- Cookie‑Banner (muss auf jeder Seite eingebunden sein) -->
   <script src="assets/cookie-banner.js" defer></script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>TruckTire24 – LKW‑Parkplätze & Rastplätze Karte</title>
@@ -75,6 +77,13 @@
     /* Karte */
     .map-container iframe{width:100%;height:460px;border:none;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 
+    /* Platzhalter, wenn Marketing nicht erlaubt */
+    .map-consent{display:grid;place-items:center;gap:10px;border:1px dashed #cbd5e1;border-radius:14px;background:#ffffff;padding:18px;color:#334155;text-align:center;min-height:140px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .mc-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:800;border:1px solid transparent;cursor:pointer}
+    .btn.primary{background:var(--dark);border-color:var(--dark-border);color:#fff}
+    .btn.ghost{background:#fff;border:1px dashed #cdd6e1;color:#183652}
+
     /* Schwarze Karten für Autobahngruppen (einheitlich) */
     .parking-sections{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:14px}
     @media (max-width:960px){.parking-sections{grid-template-columns:1fr}}
@@ -139,8 +148,6 @@
     <div class="container">
       <h1>🅿️ Parkplätze & Rastplätze im Einsatzgebiet suchen (A4 · A5 · A7 · A49)</h1>
       <p>Suche nach Name, Autobahn oder Ort und fokussiere die Karte auf den richtigen Parkplatz.</p>
-      
-      <!-- Lokale Parkplatz‑Suche -->
       <div class="parking-search">
         <div class="parking-search-row">
           <input id="parking-search" type="search" placeholder="z. B. Rimberg, A7, Hasselberg …" aria-label="Parkplätze durchsuchen">
@@ -152,9 +159,21 @@
   </header>
 
   <section class="container">
-    <!-- Karte -->
+    <!-- Karte (nur nach Marketing‑Consent) -->
     <div class="map-container">
-      <iframe id="map-iframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde" allowfullscreen loading="lazy"></iframe>
+      <div id="map-consent" class="map-consent">
+        <div>Um die Karte (Google Maps) anzuzeigen, benötigen wir deine Zustimmung zu <strong>Marketing</strong>-Cookies/Diensten.</div>
+        <div class="mc-actions">
+          <button id="enable-marketing" class="btn primary" type="button">Marketing erlauben & Karte laden</button>
+          <a href="cookie.html" class="btn ghost">Cookie‑Einstellungen öffnen</a>
+        </div>
+      </div>
+      <iframe id="map-iframe"
+              class="hidden"
+              data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48192.05346294326!2d9.6062!3d50.7602!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bda5f431b47761%3A0x3ef859c4c9c6e68b!2sNiederaula!5e0!3m2!1sde!2sde!4v1693673612345!5m2!1sde!2sde"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
     <!-- Autobahn‑Gruppen (schwarze Karten) -->
@@ -336,7 +355,7 @@
       const frag = document.createDocumentFragment();
       items.slice(0,8).forEach((it,i)=>{
         const a = document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
-        a.innerHTML = `<div class=\"result-title\">${highlight(it.title,q)}</div><div class=\"result-snippet\">${highlight(it.snippet||'',q)}</div>`;
+        a.innerHTML = `<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
         frag.appendChild(a);
       });
       resultsBox.appendChild(frag);
@@ -441,8 +460,8 @@
         const query = ('Rastplatz ' + label + ' ' + group).trim();
         url = 'https://www.google.com/maps?q=' + encodeURIComponent(query) + '&output=embed';
       }
-      const prev = iframe.src;
-      if(prev !== url){ iframe.src = url; history.replaceState(null, '', '#'+place); }
+      const prev = iframe.src || iframe.dataset.src;
+      if(prev !== url){ iframe.dataset.src = url; if(!iframe.classList.contains('hidden')) iframe.src = url; history.replaceState(null, '', '#'+place); }
       return false;
     }
     window.focusMap = focusMap;
@@ -507,6 +526,42 @@
       document.addEventListener('click', e=>{ if(!e.target.closest('.parking-search')) box.classList.add('hidden'); });
 
       const hash = location.hash.replace('#',''); if(hash){ setTimeout(()=> focusMap(null, hash), 50); }
+    })();
+
+    // ===== Consent‑Gate für Google Maps =====
+    (function consentGate(){
+      const KEY = 'tt24Consent';
+      const iframe = document.getElementById('map-iframe');
+      const box = document.getElementById('map-consent');
+
+      function hasMarketing(){
+        try{ return !!(window.tt24GetConsent && window.tt24GetConsent()?.marketing); }catch(_){ return false; }
+      }
+      function loadMap(){
+        if(iframe && iframe.dataset.src){ iframe.src = iframe.dataset.src; }
+        iframe?.classList.remove('hidden');
+        box?.classList.add('hidden');
+      }
+      function hideMap(){
+        if(iframe){ iframe.classList.add('hidden'); /* optional: iframe.src='' */ }
+        box?.classList.remove('hidden');
+      }
+      function apply(){ hasMarketing() ? loadMap() : hideMap(); }
+
+      // Initial anwenden
+      apply();
+
+      // Reagieren auf spätere Änderungen (z. B. nach cookie.html)
+      window.addEventListener('tt24ConsentChanged', apply);
+
+      // Button: Marketing sofort erlauben (explizite Nutzeraktion)
+      document.getElementById('enable-marketing')?.addEventListener('click', function(){
+        let current={};
+        try{ current = JSON.parse(localStorage.getItem(KEY)) || {}; }catch(_){ current={}; }
+        const next = { necessary:true, analytics:!!current.analytics, marketing:true, ts:new Date().toISOString() };
+        localStorage.setItem(KEY, JSON.stringify(next));
+        window.dispatchEvent(new CustomEvent('tt24ConsentChanged', { detail: next }));
+      });
     })();
   </script>
 </body>
