@@ -1,4 +1,5 @@
-// cookie-banner.js (im Root neben index.html)
+// cookie-banner.js  (ins Root legen, neben index.html)
+// Auf JEDER Seite einbinden: <script src="cookie-banner.js" defer></script>
 (() => {
   const KEY = 'tt24Consent';
 
@@ -21,8 +22,11 @@
   window.tt24GetConsent = function(){ return read(); };
   window.tt24OpenConsent = function(){ localStorage.removeItem(KEY); location.reload(); };
 
-  // Wenn schon entschieden, Banner nicht erneut zeigen
-  if (read()) return;
+  // Auf der Einstellungsseite keinen Banner zeigen
+  const IS_SETTINGS_PAGE = /(^|\/)cookie\.html(\?|#|$)/.test(location.pathname);
+
+  // Wenn schon entschieden ODER Einstellungsseite → Banner nicht anzeigen
+  if (read() || IS_SETTINGS_PAGE) return;
 
   // Styles (zum Design passend)
   const css = `
@@ -61,5 +65,22 @@
       <div class="tt24-actions">
         <a href="cookie.html" class="tt24-btn ghost">Einstellungen</a>
         <button type="button" id="tt24-reject" class="tt24-btn primary">Nur notwendige</button>
-        <button type="button"
+        <button type="button" id="tt24-accept" class="tt24-btn accent">Alle akzeptieren</button>
+      </div>
+    </div>
+  `;
+  document.body.append(overlay, modal);
+
+  const close = () => {
+    overlay.remove(); modal.remove();
+    document.getElementById('tt24-consent-style')?.remove();
+  };
+
+  modal.querySelector('#tt24-accept').addEventListener('click', () => {
+    write({ analytics:true, marketing:true }); close();
+  });
+  modal.querySelector('#tt24-reject').addEventListener('click', () => {
+    write({ analytics:false, marketing:false }); close();
+  });
+})();
 
