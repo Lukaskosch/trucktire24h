@@ -1,112 +1,148 @@
-<!-- cookie.html (ins Root legen) -->
+     cookie.html  (im Root, neben index.html)
+     ============================= -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cookie-Einstellungen – TruckTire24</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <meta name="robots" content="noindex,follow" />
   <style>
     :root{
       --bg:#f7f7f8; --text:#1f2937; --muted:#667085; --card:#ffffff; --border:#e5e7eb;
-      --shadow:0 6px 18px rgba(0,0,0,.08); --radius:14px; --container:820px;
-      --dark:#0f172a; --dark-border:#1f2937;
-      --yellow1:#ffe24d; --yellow2:#fff700; --yellowBorder:#ffef8a;
+      --shadow:0 6px 18px rgba(0,0,0,.08); --radius:14px; --container:900px;
+      --accent:#335d92; --dark:#0f172a; --dark-border:#1f2937;
     }
-    *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
-    a{color:inherit}
-    .wrap{max-width:var(--container);margin:32px auto;padding:0 16px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-    h1{margin:0 0 12px;font-size:clamp(24px,4vw,32px)}
-    p.muted{color:var(--muted);margin:0 0 14px}
-    .row{display:flex;flex-direction:column;gap:10px;margin:16px 0}
-    .opt{display:flex;align-items:flex-start;gap:12px;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff}
-    .opt input{margin-top:4px;transform:scale(1.15)}
-    .opt h3{margin:0 0 4px;font-size:16px}
-    .opt p{margin:0;color:var(--muted);font-size:14px}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .btn{appearance:none;cursor:pointer;border-radius:999px;border:1px solid transparent;padding:12px 18px;font-weight:800}
-    .btn.dark{background:var(--dark);border-color:var(--dark-border);color:#fff}
-    .btn.yellow{background:linear-gradient(90deg,var(--yellow1),var(--yellow2));border:1px solid var(--yellowBorder);color:#111}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--container);margin:36px auto;padding:0 16px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:22px}
+    h1{margin:0 0 6px;font-size:clamp(24px,3.8vw,32px)}
+    .muted{color:var(--muted)}
+    .row{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+    .item{display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:#fff}
+    .item h3{margin:0 0 4px;font-size:16px}
+    .item p{margin:0;font-size:13px;color:var(--muted)}
+    .lock{font-size:12px;color:#475569;border:1px solid #cbd5e1;border-radius:999px;padding:4px 8px;background:#f8fafc;margin-left:8px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:999px;font-weight:800;cursor:pointer;border:1px solid transparent;box-shadow:0 6px 16px rgba(15,23,42,.08)}
+    .btn.primary{background:var(--dark);border-color:var(--dark-border);color:#fff}
+    .btn.accent{background:linear-gradient(90deg,#ffe24d,#fff700);border:1px solid #ffef8a;color:#111}
     .btn.ghost{background:#fff;border:1px dashed #cdd6e1;color:#183652}
-    .note{margin-top:8px;color:var(--muted);font-size:13px}
-    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:#111827;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.25);display:none}
+    .policy{margin-top:16px;font-size:14px;color:var(--muted)}
+    .policy a{color:var(--text);text-decoration:underline}
+    /* Toggle */
+    .toggle{position:relative;width:46px;height:28px;flex:0 0 46px}
+    .toggle input{display:none}
+    .slider{position:absolute;inset:0;background:#e5e7eb;border-radius:999px;transition:.2s}
+    .slider:before{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:.2s}
+    input:checked + .slider{background:#22c55e}
+    input:checked + .slider:before{transform:translateX(18px)}
+    input:disabled + .slider{background:#cbd5e1;opacity:.7}
+    /* Footer (einfach) */
+    footer{margin:24px 0 12px;text-align:center;color:#4b5563;font-size:14px}
   </style>
-  <!-- Banner-Script kann auf dieser Seite ebenfalls eingebunden sein;
-       es zeigt dank Erkennung (cookie.html) keinen Banner an -->
-  <script src="cookie-banner.js" defer></script>
 </head>
 <body>
   <main class="wrap">
     <div class="card">
       <h1>Cookie-Einstellungen</h1>
-      <p class="muted">Hier kannst du optionale Dienste aktivieren oder deaktivieren. Notwendige Cookies sind immer aktiv.</p>
+      <p class="muted">Hier kannst du festlegen, welche optionalen Cookies/Dienste wir setzen dürfen. Notwendige Cookies sind für den Betrieb der Seite erforderlich.</p>
 
-      <div class="row">
-        <label class="opt">
-          <input type="checkbox" id="opt-analytics">
+      <div class="row" id="rows">
+        <div class="item" aria-live="polite">
           <div>
-            <h3>Analyse (z. B. Besucherstatistiken)</h3>
-            <p>Hilft uns zu verstehen, wie die Seite genutzt wird.</p>
+            <h3>Notwendig <span class="lock">immer aktiv</span></h3>
+            <p>Speichert deine Einwilligung & Seiteneinstellungen. Ohne diese funktioniert die Website nicht richtig.</p>
           </div>
-        </label>
+          <label class="toggle">
+            <input type="checkbox" checked disabled />
+            <span class="slider" aria-hidden="true"></span>
+          </label>
+        </div>
 
-        <label class="opt">
-          <input type="checkbox" id="opt-marketing">
+        <div class="item">
+          <div>
+            <h3>Analyse</h3>
+            <p>Anonyme Statistik zur Nutzung (z. B. Seitenaufrufe). Wir setzen diese erst nach Zustimmung.</p>
+          </div>
+          <label class="toggle" aria-label="Analyse aktivieren/deaktivieren">
+            <input type="checkbox" id="consent-analytics" />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="item">
           <div>
             <h3>Marketing</h3>
-            <p>Zur Anzeige relevanter Inhalte und Angebote.</p>
+            <p>z. B. eingebettete Karten, Videos oder Remarketing-Tags. Wird erst nach Zustimmung geladen.</p>
           </div>
-        </label>
+          <label class="toggle" aria-label="Marketing aktivieren/deaktivieren">
+            <input type="checkbox" id="consent-marketing" />
+            <span class="slider"></span>
+          </label>
+        </div>
       </div>
 
       <div class="actions">
-        <button class="btn dark" id="save">Speichern</button>
-        <button class="btn yellow" id="acceptAll">Alle akzeptieren</button>
-        <button class="btn ghost" id="onlyNecessary">Nur notwendige</button>
-        <a class="btn ghost" href="index.html" role="button">Zurück zur Startseite</a>
+        <button class="btn primary" id="save">Auswahl speichern</button>
+        <button class="btn accent" id="acceptAll">Alle akzeptieren</button>
+        <button class="btn ghost" id="rejectAll">Nur notwendige</button>
       </div>
 
-      <div class="note">Du kannst diese Auswahl jederzeit über den Link „Cookie-Einstellungen“ im Footer ändern.</div>
+      <div class="policy">
+        Mehr Details findest du in unserer <a href="impressum.html">Datenschutzerklärung</a>.
+        Du kannst deine Auswahl jederzeit hier oder über den Link „Cookie-Einstellungen“ im Footer ändern.
+      </div>
     </div>
+    <footer>© TruckTire24</footer>
   </main>
-
-  <div id="toast" class="toast" role="status" aria-live="polite">Einstellungen gespeichert.</div>
 
   <script>
     (function(){
-      const KEY='tt24Consent';
-      const get=()=>{ try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null;} };
-      const set=(o)=>{ const s={necessary:true,analytics:!!o.analytics,marketing:!!o.marketing,ts:new Date().toISOString()}; localStorage.setItem(KEY,JSON.stringify(s)); window.dispatchEvent(new CustomEvent('tt24ConsentChanged',{detail:s})); return s; };
-      const toast=(msg)=>{ const t=document.getElementById('toast'); t.textContent=msg||'Gespeichert.'; t.style.display='block'; setTimeout(()=>t.style.display='none',1600); };
+      const KEY = 'tt24Consent'; // muss mit dem Banner identisch sein
+      const qs = (s)=>document.querySelector(s);
+      const analytics = qs('#consent-analytics');
+      const marketing = qs('#consent-marketing');
 
-      const c=get()||{necessary:true,analytics:false,marketing:false};
-      document.getElementById('opt-analytics').checked = !!c.analytics;
-      document.getElementById('opt-marketing').checked = !!c.marketing;
+      function readConsent(){
+        try{ return JSON.parse(localStorage.getItem(KEY)) || {necessary:true, analytics:false, marketing:false}; }
+        catch(e){ return {necessary:true, analytics:false, marketing:false}; }
+      }
+      function writeConsent(obj){
+        const state = {necessary:true, analytics:!!obj.analytics, marketing:!!obj.marketing, ts:new Date().toISOString()};
+        localStorage.setItem(KEY, JSON.stringify(state));
+        // Event senden wie beim Banner
+        window.dispatchEvent(new CustomEvent('tt24ConsentChanged', { detail: state }));
+        return state;
+      }
+      function hydrate(){
+        const c = readConsent();
+        analytics.checked = !!c.analytics;
+        marketing.checked = !!c.marketing;
+      }
+      hydrate();
 
-      document.getElementById('save').addEventListener('click', ()=>{
-        set({
-          analytics: document.getElementById('opt-analytics').checked,
-          marketing: document.getElementById('opt-marketing').checked
-        });
-        toast('Einstellungen gespeichert.');
+      qs('#save').addEventListener('click', ()=>{
+        writeConsent({analytics:analytics.checked, marketing:marketing.checked});
+        alert('Deine Auswahl wurde gespeichert.');
+        if(document.referrer) history.back();
       });
-
-      document.getElementById('acceptAll').addEventListener('click', ()=>{
-        set({analytics:true,marketing:true});
-        document.getElementById('opt-analytics').checked = true;
-        document.getElementById('opt-marketing').checked = true;
-        toast('Alle akzeptiert.');
+      qs('#acceptAll').addEventListener('click', ()=>{
+        analytics.checked = true; marketing.checked = true;
+        writeConsent({analytics:true, marketing:true});
+        alert('Alle optionalen Cookies akzeptiert.');
+        if(document.referrer) history.back();
       });
-
-      document.getElementById('onlyNecessary').addEventListener('click', ()=>{
-        set({analytics:false,marketing:false});
-        document.getElementById('opt-analytics').checked = false;
-        document.getElementById('opt-marketing').checked = false;
-        toast('Nur notwendige aktiv.');
+      qs('#rejectAll').addEventListener('click', ()=>{
+        analytics.checked = false; marketing.checked = false;
+        writeConsent({analytics:false, marketing:false});
+        alert('Nur notwendige Cookies aktiviert.');
+        if(document.referrer) history.back();
       });
     })();
   </script>
 </body>
 </html>
-
