@@ -1,4 +1,4 @@
-// assets/cookie-banner.js
+// cookie-banner.js (im Root neben index.html)
 (() => {
   const KEY = 'tt24Consent';
 
@@ -6,16 +6,25 @@
     try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; }
   };
   const write = (obj) => {
-    const state = {necessary:true, analytics:!!obj.analytics, marketing:!!obj.marketing, ts:new Date().toISOString()};
+    const state = {
+      necessary: true,
+      analytics: !!obj.analytics,
+      marketing: !!obj.marketing,
+      ts: new Date().toISOString()
+    };
     localStorage.setItem(KEY, JSON.stringify(state));
-    window.dispatchEvent(new CustomEvent('tt24ConsentChanged', {detail:state}));
+    window.dispatchEvent(new CustomEvent('tt24ConsentChanged', { detail: state }));
     return state;
   };
 
-  // Wenn schon entschieden, nicht erneut zeigen
+  // 👉 Helfer IMMER bereitstellen (auch wenn schon entschieden wurde)
+  window.tt24GetConsent = function(){ return read(); };
+  window.tt24OpenConsent = function(){ localStorage.removeItem(KEY); location.reload(); };
+
+  // Wenn schon entschieden, Banner nicht erneut zeigen
   if (read()) return;
 
-  // Styles injizieren (an Design angepasst)
+  // Styles (zum Design passend)
   const css = `
   #tt24-overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);backdrop-filter:saturate(160%) blur(2px);z-index:9998}
   #tt24-modal{position:fixed;inset:0;display:grid;place-items:center;z-index:9999}
@@ -34,7 +43,7 @@
   style.textContent = css;
   document.head.appendChild(style);
 
-  // Markup einfügen
+  // Markup
   const overlay = document.createElement('div');
   overlay.id = 'tt24-overlay';
   const modal = document.createElement('div');
@@ -52,30 +61,5 @@
       <div class="tt24-actions">
         <a href="cookie.html" class="tt24-btn ghost">Einstellungen</a>
         <button type="button" id="tt24-reject" class="tt24-btn primary">Nur notwendige</button>
-        <button type="button" id="tt24-accept" class="tt24-btn accent">Alle akzeptieren</button>
-      </div>
-    </div>
-  `;
-  document.body.append(overlay, modal);
+        <button type="button"
 
-  const close = () => {
-    overlay.remove(); modal.remove();
-    const s = document.getElementById('tt24-consent-style');
-    if (s) s.remove();
-  };
-
-  modal.querySelector('#tt24-accept').addEventListener('click', () => {
-    write({analytics:true, marketing:true}); close();
-  });
-  modal.querySelector('#tt24-reject').addEventListener('click', () => {
-    write({analytics:false, marketing:false}); close();
-  });
-
-  // Helfer global bereitstellen
-  window.tt24GetConsent = function(){
-    try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; }
-  };
-  window.tt24OpenConsent = function(){
-    localStorage.removeItem(KEY); location.reload();
-  };
-})();
