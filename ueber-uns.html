@@ -54,8 +54,18 @@
     .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 6px}
     .search-btn{border:none;background:var(--dark);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
     .search-btn:hover{opacity:.95}
-    .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600}
+    .search-dropdown{
+      position:absolute;left:16px;right:16px;top:calc(100% + 8px);
+      background:#fff;border:1px solid var(--border);border-radius:12px;
+      box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600;
+      min-width:280px;
+    }
     .hidden{display:none}
+    .result-item{display:block;padding:12px 14px;border-bottom:1px solid #f1f5f9}
+    .result-item:last-child{border-bottom:none}
+    .result-title{font-weight:700;font-size:14px;line-height:1.35}
+    .result-snippet{font-size:13px;color:#6b7280;margin-top:4px;line-height:1.45}
+    .result-item[aria-selected="true"], .result-item:hover{background:#f8fafc}
 
     /* ===== Seiteninhalt ===== */
     header.page-hero{background:linear-gradient(180deg,#ffffff,#fefbe7);border-bottom:1px solid var(--border)}
@@ -80,27 +90,10 @@
     .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);font-weight:700}
 
-    /* ===== Icon-Leiste wie auf Startseite (ohne weißen Rand) ===== */
-    .icon-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:16px;
-      margin-top:16px;
-    }
-    .icon-card{
-      background:transparent;
-      border:none;
-      border-radius:0;
-      box-shadow:none;
-      padding:0;
-      display:flex;flex-direction:column;align-items:center;text-align:center;
-    }
-    .icon-card .img-wrap{
-      width:100%;
-      aspect-ratio:1/1;
-      border-radius:var(--radius);
-      overflow:hidden;
-    }
+    /* ===== Icon-Leiste ===== */
+    .icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+    .icon-card{background:transparent;border:none;border-radius:0;box-shadow:none;padding:0;display:flex;flex-direction:column;align-items:center;text-align:center}
+    .icon-card .img-wrap{width:100%;aspect-ratio:1/1;border-radius:var(--radius);overflow:hidden}
     .icon-card .img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
     .icon-card figcaption{margin-top:10px;padding:0;font-weight:800;letter-spacing:.2px;color:var(--text)}
     @media (max-width:900px){ .icon-grid{grid-template-columns:repeat(2,1fr);} }
@@ -185,7 +178,7 @@
     </div>
   </section>
 
-  <!-- 3 BOXEN: Mission / Werte / Warum wir -->
+  <!-- 3 BOXEN -->
   <section class="container">
     <div class="grid cols-3">
       <div class="card">
@@ -225,7 +218,7 @@
     </div>
   </section>
 
-  <!-- WARUM WIR DIE RICHTIGE WAHL SIND -->
+  <!-- WARUM WIR -->
   <section class="container">
     <h2>Warum ich der richtige Partner im Notfall bin</h2>
     <div class="card">
@@ -416,7 +409,7 @@
     document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
   </script>
 
-  <!-- Strukturierte Daten (AboutPage + LocalBusiness) -->
+  <!-- Strukturierte Daten -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -439,6 +432,7 @@
   </script>
 </body>
 </html>
+
 
 
 
