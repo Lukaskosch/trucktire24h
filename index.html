@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
-  
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Kosch mobiler Reifenservice · 24h LKW-Notdienst</title>
   <meta name="description" content="Kosch mobiler Reifenservice – 24h LKW-Notdienst. Schnelle Hilfe vor Ort für LKW & Nutzfahrzeuge: Reifenreparatur, Reifenwechsel, Notdienst rund um die Uhr." />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="canonical" href="https://kosch-service.com/" />
   <script src="assets/cookie-banner.js" defer></script>
   <style>
     :root{
@@ -252,7 +252,7 @@
       </a>
     </div>
 
-    <!-- Icon-Leiste: Leistungsversprechen (unter den 6 Boxen) -->
+    <!-- Icon-Leiste: Leistungsversprechen -->
     <div class="icon-grid" role="group" aria-label="Leistungsversprechen">
       <figure class="icon-card">
         <div class="img-wrap">
@@ -319,7 +319,7 @@
         const open = !area.classList.contains('open');
         area.classList.toggle('open', open);
         area.setAttribute('aria-hidden', String(!open));
-        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-expanded", String(open));
         if(open){ setTimeout(()=> input?.focus(), 120); }
       });
     })();
@@ -398,8 +398,43 @@
       }
     });
   </script>
+
+  <!-- Strukturierte Daten -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"Kosch mobiler Reifenservice",
+    "url":"https://kosch-service.com/",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://kosch-service.com/?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"Kosch mobiler Reifenservice",
+    "url":"https://kosch-service.com/",
+    "telephone":"+49 151 24104553",
+    "email":"info@kosch-service.com",
+    "address":{
+      "@type":"PostalAddress",
+      "streetAddress":"Vorm Dorf 12",
+      "postalCode":"36272",
+      "addressLocality":"Niederaula",
+      "addressCountry":"DE"
+    },
+    "areaServed":["Hessen","A3","A4","A5","A7","A45","A49","A66"],
+    "description":"Mobiler LKW-Reifenservice in Hessen: 24h LKW-Notdienst, schnelle Hilfe bei Reifenpannen, Vor-Ort-Montage."
+  }
+  </script>
 </body>
 </html>
+
 
 
 
