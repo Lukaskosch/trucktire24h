@@ -319,7 +319,7 @@
         const open = !area.classList.contains('open');
         area.classList.toggle('open', open);
         area.setAttribute('aria-hidden', String(!open));
-        btn.setAttribute('aria-expanded", String(open));
+        btn.setAttribute('aria-expanded', String(open));
         if(open){ setTimeout(()=> input?.focus(), 120); }
       });
     })();
