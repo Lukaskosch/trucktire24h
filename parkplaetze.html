@@ -55,8 +55,19 @@
     .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 6px}
     .search-btn{border:none;background:var(--dark);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
     .search-btn:hover{opacity:.95}
-    .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600}
+    .search-dropdown{
+      position:absolute;left:16px;right:16px;top:calc(100% + 8px);
+      background:#fff;border:1px solid var(--border);border-radius:12px;
+      box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600;
+      min-width:280px; /* gegen „gequetscht“ */
+    }
     .hidden{display:none}
+    /* Ergebnis-Styles wie auf den anderen Seiten */
+    .result-item{display:block;padding:12px 14px;border-bottom:1px solid #f1f5f9;text-decoration:none}
+    .result-item:last-child{border-bottom:none}
+    .result-title{font-weight:700;font-size:14px;line-height:1.35}
+    .result-snippet{font-size:13px;color:#6b7280;margin-top:4px;line-height:1.45}
+    .result-item[aria-selected="true"], .result-item:hover{background:#f8fafc}
 
     /* ===== Seite ===== */
     .container{max-width:var(--container);margin:0 auto;padding:28px 16px}
@@ -147,15 +158,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Suche -->
-<div id="searchArea" class="search-wrap" role="search" aria-hidden="true">
-  <div class="search-bar" id="searchCard" aria-expanded="false">
-    <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchResults" autocomplete="off" />
-    <button id="searchButton" class="search-btn" aria-label="Suche starten">Enter</button>
-  </div>
-  <div id="searchResults" class="search-dropdown hidden" role="listbox" aria-label="Suchvorschläge"></div>
-</div>
 
   <!-- Globale Suche (standardmäßig geschlossen) -->
   <div id="searchArea" class="search-wrap" role="search" aria-hidden="true">
@@ -465,7 +467,7 @@
         'uttrichshausen-ost':'https://www.google.com/maps?q=Rastplatz%20Uttrichshausen%20Ost%20A7&output=embed',
         'lohmuehle':'https://www.google.com/maps?q=Rastplatz%20Lohm%C3%BChle%20A7&output=embed',
         'grossenmoor-west':'https://www.google.com/maps?q=Rastplatz%20Gro%C3%9Fenmoor%20West%20A7&output=embed',
-        'grossenmoor-ost':'https://www.google.com/maps?q=Rastplatz%20Gro%C3%9Fenmoor%20Ost%20A7&output=embed',
+        'grossenmoor-ost':'https://www.google.com/maps?q=Rastplatz%20Gro%C3%9F enmoor%20Ost%20A7&output=embed',
         'dornbusch':'https://www.google.com/maps?q=Rastplatz%20Dornbusch%20A7&output=embed',
         'richtgraben':'https://www.google.com/maps?q=QJ62%2BF6%20Niederaula&output=embed',
         'holzhausen-ost':'https://www.google.com/maps?q=Rastplatz%20Holzhausen%20Ost%20A49&output=embed',
@@ -558,11 +560,8 @@
       const box = document.getElementById('map-consent');
 
       function readStored(){
-        // 1) Offizielle API, falls vorhanden
         try{ if(window.tt24GetConsent){ const c = window.tt24GetConsent(); if(c && typeof c==='object') return c; } }catch(_){}
-        // 2) LocalStorage (Standard in unseren Seiten)
         try{ const raw = localStorage.getItem(KEY); if(raw){ return JSON.parse(raw); } }catch(_){}
-        // 3) Cookie-Fallback (falls jemand per Cookie speichert)
         try{
           const m = document.cookie.match(/(?:^|;)\s*tt24Consent=([^;]+)/);
           if(m){ return JSON.parse(decodeURIComponent(m[1])); }
@@ -574,27 +573,20 @@
       function loadMap(){
         if(!iframe) return;
         const url = iframe.dataset.src || iframe.getAttribute('data-src');
-        if(url && !iframe.src) iframe.src = url; // erst bei Zustimmung laden (lazy-init)
+        if(url && !iframe.src) iframe.src = url;
         iframe.classList.remove('hidden');
         box?.classList.add('hidden');
       }
       function hideMap(){
         if(!iframe) return;
         iframe.classList.add('hidden');
-        // optional: iframe.removeAttribute('src'); // falls Entladen gewünscht
         box?.classList.remove('hidden');
       }
-      function apply(){
-        hasMarketing() ? loadMap() : hideMap();
-      }
+      function apply(){ hasMarketing() ? loadMap() : hideMap(); }
 
-      // Initial anwenden
       apply();
-
-      // Auf spätere Änderungen reagieren (z. B. nach Auswahl in cookie.html)
       window.addEventListener('tt24ConsentChanged', apply);
 
-      // Button „Marketing erlauben & Karte laden“
       document.getElementById('enable-marketing')?.addEventListener('click', function(){
         let current = {};
         try { current = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(_) { current = {}; }
@@ -602,7 +594,7 @@
         localStorage.setItem(KEY, JSON.stringify(next));
         window.dispatchEvent(new CustomEvent('tt24ConsentChanged', { detail: next }));
       });
-    })(); // Ende IIFE consentGate
+    })();
   </script>
 </body>
 </html>
