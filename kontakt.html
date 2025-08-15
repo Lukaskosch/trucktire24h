@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- Cookie‑Banner (auf jeder Seite einbinden) -->
+  <!-- Cookie-Banner (auf jeder Seite einbinden) -->
   <script src="assets/cookie-banner.js" defer></script>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Kontakt – Kosch LKW-Pannenservice</title>
-  <meta name="description" content="Kontakt zu Kosch LKW-Pannenservice – 24/7-Notdienst für LKW-Reifen in Hessen. Telefon, E‑Mail oder Formular. Standort: Niederaula, Kernregion A4 · A5 · A7 · A49." />
+  <title>Kontakt – Kosch mobiler Reifenservice · 24h LKW-Notdienst</title>
+  <meta name="description" content="Kontakt zu Kosch mobilem Reifenservice – 24h LKW-Notdienst für LKW-Reifen in Hessen. Telefon, E-Mail oder Formular. Standort: Niederaula, Kernregion A4 · A5 · A7 · A49." />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <!-- Leaflet CSS (behalten) -->
@@ -100,7 +100,7 @@
   <nav class="topbar" aria-label="Hauptnavigation">
     <div class="nav-row">
       <a class="brand" href="index.html" aria-label="Startseite">
-        <img src="logo.png" alt="TruckTire24 Logo" />
+        <img src="logo.png" alt="Kosch mobiler Reifenservice Logo" />
       </a>
       <div class="header-text">Kontakt · 24/7 erreichbar in der Kernregion A4 · A5 · A7 · A49</div>
       <a href="tel:+4915124104553" class="call-button call-button--dark" aria-label="Jetzt anrufen">CALL NOW</a>
@@ -147,13 +147,13 @@
       <section class="card" aria-labelledby="kontakt-direkt">
         <h2 id="kontakt-direkt">Direkter Kontakt</h2>
         <p><strong>Telefon:</strong> <a href="tel:+4915124104553">+49 151 24104553</a><br>
-           <strong>E‑Mail:</strong> <a href="mailto:info@trucktire24h.com">info@trucktire24h.com</a></p>
+           <strong>E-Mail:</strong> <a href="mailto:info@kosch-service.com">info@kosch-service.com</a></p>
         <h3 style="margin:14px 0 6px">Kontaktformular</h3>
         <form id="contact-form" novalidate>
           <label for="name">Name *</label>
           <input id="name" name="name" required autocomplete="name">
 
-          <label for="email">E‑Mail *</label>
+          <label for="email">E-Mail *</label>
           <input id="email" name="email" type="email" required autocomplete="email">
 
           <label for="message">Nachricht *</label>
@@ -170,14 +170,14 @@
             <a class="btn dark" href="tel:+4915124104553" role="button">📞 Jetzt anrufen</a>
           </div>
           <div class="hint">Felder mit * sind Pflichtfelder.</div>
-          <div id="form-success" class="success">Danke! Dein E‑Mail‑Programm öffnet sich gleich mit der vorbefüllten Nachricht.</div>
+          <div id="form-success" class="success">Danke! Dein E-Mail-Programm öffnet sich gleich mit der vorbefüllten Nachricht.</div>
         </form>
       </section>
 
       <aside class="card" aria-labelledby="kontakt-standort">
         <h2 id="kontakt-standort">Standort & Einsatzgebiet</h2>
         <p class="muted">Niederaula (Hessen) – Kernregion ca. 60 km Umkreis rund um A4, A5, A7, A49.</p>
-        <!-- Leaflet Map (bewusst ohne Cookie‑Gate, da keine Marketing‑Dienste) -->
+        <!-- Leaflet Map (bewusst ohne Cookie-Gate, da keine Marketing-Dienste) -->
         <div id="map" role="region" aria-label="Karte: ca. 60 km Radius um Niederaula"></div>
         <div class="muted" style="margin-top:8px">Hinweis: Der Kreis ist eine ungefähre Visualisierung (Luftlinie). Reale Fahrzeiten variieren je nach Verkehr & Streckenführung.</div>
       </aside>
@@ -186,10 +186,10 @@
 
   <footer>
     <div class="footer-inner">
-      <a href="index.html" class="footer-link">Kosch</a> ·
-      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
+      <a href="index.html" class="footer-link">Kosch mobiler Reifenservice</a> ·
+      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a> ·
       <a href="cookie.html" class="footer-link">Cookie-Einstellungen</a>
-      <div>© <span id="year"></span> Kosch. Alle Rechte vorbehalten.</div>
+      <div>© <span id="year"></span> Kosch mobiler Reifenservice. Alle Rechte vorbehalten.</div>
     </div>
   </footer>
 
@@ -225,7 +225,7 @@
       });
     })();
 
-    // Client-Side Suche mit Vorschlägen
+    // Client-Side Suche mit Vorschlägen – identisch zur Startseite
     const SITE_INDEX = [
       {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW-Reifenpannen, 24/7 erreichbar.'},
       {title:'24/7-Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
@@ -234,7 +234,7 @@
       {title:'Einsatzgebiet', url:'einsatzgebiet.html', snippet:'Alle Einsatzbereiche, Dreiecke und Regionen im Überblick.'},
       {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW-Panne – Schritt für Schritt.'},
       {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW-Park- und Rastplätzen in der Region.'},
-      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür Kosch LKW-Pannenservice steht.'},
+      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür Kosch mobiler Reifenservice steht.'},
       {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
     ];
 
@@ -282,7 +282,7 @@
     });
     document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
 
-    // Formular -> mailto-Fallback
+    // Formular -> mailto-Fallback (E-Mail vereinheitlicht)
     (function(){
       const form=document.getElementById('contact-form'); if(!form) return;
       form.addEventListener('submit', function(e){
@@ -299,7 +299,7 @@
           form.message.value.trim()
         ].join('\n');
         document.getElementById('form-success').style.display='block';
-        const mailto = 'mailto:info@trucktire24h.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        const mailto = 'mailto:info@kosch-service.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         window.location.href = mailto;
       });
     })();
@@ -322,7 +322,7 @@
         fillColor: '#64b5f6',  // Füllung (hellblau)
         fillOpacity: 0.15
       }).addTo(map);
-      L.marker(center).addTo(map).bindPopup('<strong>Niederaula</strong><br>Einsatz‑Zentrum');
+      L.marker(center).addTo(map).bindPopup('<strong>Niederaula</strong><br>Einsatz-Zentrum');
       map.fitBounds(circle.getBounds(), { padding: [20, 20] });
 
       // kleine Legende
@@ -337,4 +337,3 @@
   </script>
 </body>
 </html>
-
