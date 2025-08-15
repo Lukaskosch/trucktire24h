@@ -122,6 +122,17 @@
     footer{background:#eef2f6;margin-top:32px;text-align:center;border-top:1px solid var(--border)}
     .footer-inner{max-width:var(--container);padding:18px 16px;margin:0 auto;font-size:14px;color:#4b5563}
     .footer-link{color:#4b5563;text-decoration:none}
+
+      .footer-link {
+    color: #4b5563;
+    text-decoration: none;
+    transition: text-decoration 0.2s ease;
+  }
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+
+    
   </style>
 </head>
 <body>
@@ -243,14 +254,14 @@
     </div>
   </section>
 
-  <footer>
-    <div class="footer-inner">
-      Kosch mobiler Reifenservice &middot; 24h LKW-Notdienst ·
-      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a> ·
-      <a href="cookie.html" class="footer-link">Cookie-Einstellungen</a>
-      <div>© <span id="year"></span> Kosch mobiler Reifenservice. Alle Rechte vorbehalten.</div>
-    </div>
-  </footer>
+<footer>
+  <div class="footer-inner">
+    Kosch mobiler Reifenservice &middot; 24h LKW-Notdienst ·
+    <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a> ·
+    <a href="cookie.html" class="footer-link">Cookie-Einstellungen</a>
+    <div>© <span id="year"></span> Kosch mobiler Reifenservice. Alle Rechte vorbehalten.</div>
+  </div>
+</footer>
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
