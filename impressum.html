@@ -42,7 +42,7 @@
     .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,.06);color:#e5e7eb;cursor:pointer}
     .icon-btn svg{width:18px;height:18px}
 
-    /* Suche (global, standardmäßig zu; identisch zu den anderen Seiten) */
+    /* Suche (global, standardmäßig zu) */
     .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500;display:none}
     .search-wrap.open{display:block}
     .search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px}
@@ -75,24 +75,14 @@
     /* Footer */
     footer{background:#eef2f6;margin-top:32px;text-align:center;border-top:1px solid var(--border)}
     .footer-inner{max-width:var(--container);padding:18px 16px;margin:0 auto;font-size:14px;color:#4b5563}
-    .footer-link{color:#4b5563;text-decoration:none}
+    .footer-link{color:#4b5563;text-decoration:none;transition:text-decoration .2s ease}
+    .footer-link:hover{text-decoration:underline}
 
     /* List */
     ul.clean{list-style:none;margin:0;padding:0}
     ul.clean li{margin:6px 0}
     h3{margin:14px 0 6px}
-    small.code{font-family:ui-monospace, SFMono-Regular, Menlo, monospace;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:2px 6px}
-
-    .footer-link {
-    color:#4b5563;
-    text-decoration:none;
-    transition: text-decoration 0.2s ease;
-  }
-  .footer-link:hover {
-    text-decoration: underline;
-  }
-
-    
+    small.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:2px 6px}
   </style>
 </head>
 <body>
@@ -143,7 +133,7 @@
   <header class="page-hero">
     <div class="container">
       <h1>Impressum & Datenschutzerklärung</h1>
-      <p class="muted">Gültig für die Website <a href="https://kosch-service.com">kosch-service.com</a> – Stand: 14.08.2025</p>
+      <p class="muted">Gültig für die Webseite <a href="https://kosch-service.com">kosch-service.com</a> – Stand: 14.05.2025</p>
     </div>
   </header>
 
@@ -186,7 +176,7 @@
       <!-- DATENSCHUTZ -->
       <section class="card" id="datenschutz" aria-labelledby="ds-title">
         <h2 id="ds-title">Datenschutzerklärung</h2>
-        <p>Wir informieren nach Art.&nbsp;13/14 DSGVO über Art, Umfang und Zwecke der Verarbeitung personenbezogener Daten bei Nutzung dieser Website.</p>
+        <p>Wir informieren nach Art.&nbsp;13/14 DSGVO über Art, Umfang und Zwecke der Verarbeitung personenbezogener Daten bei Nutzung dieser Webseite.</p>
 
         <h3>1. Verantwortlicher</h3>
         <p>Kosch mobiler Reifenservice, Inhaber: Lukas Kosch<br>
@@ -194,7 +184,11 @@
            E-Mail: <a href="mailto:info@kosch-service.com">info@kosch-service.com</a>, Tel.: <a href="tel:+4915124104553">+49&nbsp;151&nbsp;24104553</a></p>
 
         <h3>2. Hosting & Server-Logs</h3>
-        <p>Die Website wird über <strong>GitHub Pages</strong> ausgeliefert (GitHub, Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA), einem Unternehmen der <strong>Microsoft Corporation</strong> (One Microsoft Way, Redmond, WA 98052, USA). Die Domain wurde bei Microsoft registriert. Beim Aufruf werden automatisch Server-Logfiles verarbeitet (z.&nbsp;B. IP-Adresse, Datum/Uhrzeit, aufgerufene URL, Referrer-URL, User-Agent, Statuscode). Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an technischer Bereitstellung & Sicherheit). Löschung nach den Anbietervorgaben.</p>
+        <p>Die Webseite wird über <strong>GitHub Pages</strong> ausgeliefert (GitHub, Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA), einem Unternehmen der <strong>Microsoft Corporation</strong> (One Microsoft Way, Redmond, WA 98052, USA). Die Domain wurde bei Microsoft registriert. Beim Aufruf werden automatisch Server-Logfiles verarbeitet (z.&nbsp;B. IP-Adresse, Datum/Uhrzeit, aufgerufene URL, Referrer-URL, User-Agent, Statuscode). Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an technischer Bereitstellung & Sicherheit). Löschung nach den Anbietervorgaben.</p>
+        <p><strong>Datenschutz der Anbieter:</strong><br>
+          GitHub: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a><br>
+          Microsoft: <a href="https://privacy.microsoft.com/de-de/privacystatement" target="_blank" rel="noopener noreferrer">Microsoft Datenschutzerklärung</a>
+        </p>
 
         <h3>3. Kontaktaufnahme (Telefon/E-Mail/Formular)</h3>
         <p>Bei Kontaktaufnahme verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage und etwaiger Anschlussfragen. Rechtsgrundlagen: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO (Vertrag/Anbahnung) und ggf. lit.&nbsp;f DSGVO (berechtigtes Interesse an effizienter Kommunikation). Speicherdauer: bis zur abschließenden Bearbeitung bzw. entsprechend gesetzlicher Aufbewahrungspflichten.</p>
@@ -208,9 +202,13 @@
         <h3>6. Karten-Dienste</h3>
         <ul class="clean">
           <li><strong>Google&nbsp;Maps (nur nach Einwilligung)</strong><br>
-              Auf <code>parkplaetze.html</code> binden wir Google&nbsp;Maps erst nach Ihrer Zustimmung zur Kategorie „Marketing“ ein. Anbieter: Google Ireland Ltd. Dabei können technische Daten (z.&nbsp;B. IP-Adresse, Geräte-/Browser-Infos) an Google übermittelt werden; es ist eine Drittlandübermittlung (u.&nbsp;a. USA) möglich. Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO, §&nbsp;25 Abs.&nbsp;1 TTDSG (Einwilligung). Widerruf jederzeit über <a href="cookie.html">Cookie-Einstellungen</a>.</li>
+              Auf <code>parkplaetze.html</code> binden wir Google&nbsp;Maps erst nach Ihrer Zustimmung zur Kategorie „Marketing“ ein. Anbieter: Google Ireland Ltd. Dabei können technische Daten (z.&nbsp;B. IP-Adresse, Geräte-/Browser-Infos) an Google übermittelt werden; es ist eine Drittlandübermittlung (u.&nbsp;a. USA) möglich. Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO, §&nbsp;25 Abs.&nbsp;1 TTDSG (Einwilligung). Widerruf jederzeit über <a href="cookie.html">Cookie-Einstellungen</a>.
+              <p style="margin:.4rem 0 0 0;">Datenschutz: <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer">Google Datenschutzerklärung</a></p>
+          </li>
           <li><strong>Leaflet / OpenStreetMap</strong><br>
-              Auf <code>kontakt.html</code> nutzen wir Leaflet mit OSM-Kacheln. Keine Cookies; der OSM-Server erhält Ihre IP-Adresse und Browser-Daten zur Kachel­auslieferung. Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an nutzerfreundlicher Standortdarstellung).</li>
+              Auf <code>kontakt.html</code> nutzen wir Leaflet mit OSM-Kacheln. Keine Cookies; der OSM-Server erhält Ihre IP-Adresse und Browser-Daten zur Kachelauslieferung. Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an nutzerfreundlicher Standortdarstellung).
+              <p style="margin:.4rem 0 0 0;">Datenschutz: <a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer">OSM Foundation Privacy Policy</a></p>
+          </li>
         </ul>
 
         <h3>7. Empfänger / Auftragsverarbeiter</h3>
@@ -240,13 +238,13 @@
   </main>
 
   <footer>
-  <div class="footer-inner">
-    Kosch mobiler Reifenservice &middot; 24h LKW-Notdienst ·
-    <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a> ·
-    <a href="cookie.html" class="footer-link">Cookie-Einstellungen</a>
-    <div>© <span id="year"></span> Kosch mobiler Reifenservice. Alle Rechte vorbehalten.</div>
-  </div>
-</footer>
+    <div class="footer-inner">
+      Kosch mobiler Reifenservice &middot; 24h LKW-Notdienst ·
+      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a> ·
+      <a href="cookie.html" class="footer-link">Cookie-Einstellungen</a>
+      <div>© <span id="year"></span> Kosch mobiler Reifenservice. Alle Rechte vorbehalten.</div>
+    </div>
+  </footer>
 
   <script>
     (function(){var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
@@ -279,7 +277,7 @@
       });
     })();
 
-    // Client-Side Suche mit Vorschlägen (identisch zu den anderen Seiten)
+    // Client-Side Suche mit Vorschlägen
     const SITE_INDEX = [
       {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW-Reifenpannen, 24/7 erreichbar.'},
       {title:'24/7-Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
