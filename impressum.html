@@ -82,6 +82,17 @@
     ul.clean li{margin:6px 0}
     h3{margin:14px 0 6px}
     small.code{font-family:ui-monospace, SFMono-Regular, Menlo, monospace;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:2px 6px}
+
+    .footer-link {
+    color:#4b5563;
+    text-decoration:none;
+    transition: text-decoration 0.2s ease;
+  }
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+
+    
   </style>
 </head>
 <body>
@@ -229,13 +240,13 @@
   </main>
 
   <footer>
-    <div class="footer-inner">
-      Kosch mobiler Reifenservice &middot; 24h LKW-Notdienst ·
-      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a> ·
-      <a href="cookie.html" class="footer-link">Cookie-Einstellungen</a>
-      <div>© <span id="year"></span> Kosch mobiler Reifenservice. Alle Rechte vorbehalten.</div>
-    </div>
-  </footer>
+  <div class="footer-inner">
+    Kosch mobiler Reifenservice &middot; 24h LKW-Notdienst ·
+    <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a> ·
+    <a href="cookie.html" class="footer-link">Cookie-Einstellungen</a>
+    <div>© <span id="year"></span> Kosch mobiler Reifenservice. Alle Rechte vorbehalten.</div>
+  </div>
+</footer>
 
   <script>
     (function(){var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
