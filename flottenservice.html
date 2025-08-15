@@ -4,8 +4,8 @@
   <script src="assets/cookie-banner.js" defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Für Speditionen & Flotten – Kosch LKW-Pannenservice</title>
-  <meta name="description" content="Mobil, schnell, zuverlässig: LKW‑Reifenservice für Speditionen & Flotten in Hessen – 24/7‑Notdienst, Vor‑Ort‑Montage, regelmäßige Flottenchecks und transparente Abrechnung." />
+  <title>Für Speditionen & Flotten – Kosch mobiler Reifenservice · 24h LKW-Notdienst</title>
+  <meta name="description" content="Mobil, schnell, zuverlässig: Kosch mobiler Reifenservice – 24h LKW-Notdienst für Speditionen & Flotten in Hessen. Vor-Ort-Montage, regelmäßige Flottenchecks und transparente Abrechnung." />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
     :root{
@@ -30,11 +30,11 @@
     .call-button--dark{color:#fff;background:var(--dark);border:1px solid var(--dark-border)}
     .call-button--dark:hover{opacity:.95}
 
-    /* ===== Sub‑Navigation – mobil wischbar + Lupe ===== */
+    /* ===== Sub-Navigation – mobil wischbar + Lupe ===== */
     .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
     .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
     .subnav-row{display:flex;align-items:center;gap:8px;padding:0 16px}
-    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-beavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
+    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
     .subnav-scroll::-webkit-scrollbar{display:none}
     .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto}
     .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
@@ -56,8 +56,13 @@
     .search-btn:hover{opacity:.95}
     .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600}
     .hidden{display:none}
+    .result-item{display:block;padding:10px 12px;border-bottom:1px solid #f1f5f9}
+    .result-item:last-child{border-bottom:none}
+    .result-title{font-weight:700;font-size:14px}
+    .result-snippet{font-size:13px;color:#6b7280;margin-top:3px}
+    .result-item[aria-selected="true"], .result-item:hover{background:#f8fafc}
 
-    /* ===== Seiten‑Hero (neutral hell) ===== */
+    /* ===== Seiten-Hero (neutral hell) ===== */
     header.page-hero{background:linear-gradient(180deg,#f7f9fc,#fff);border-bottom:1px solid var(--border)}
     .container{max-width:var(--container);margin:0 auto;padding:28px 16px}
     .page-hero h1{font-size:clamp(28px,4vw,36px);margin:0 0 6px;line-height:1.15}
@@ -125,21 +130,21 @@
   <nav class="topbar" aria-label="Hauptnavigation">
     <div class="nav-row">
       <a class="brand" href="index.html" aria-label="Startseite">
-        <img src="logo.png" alt="TruckTire24 Logo" />
+        <img src="logo.png" alt="Kosch mobiler Reifenservice Logo" />
       </a>
-      <div class="header-text">Einsatzgebiet: A7 Kirchheimer Dreieck · A5 Hattenbacher Dreieck · A49 Kassel–Ohmtal‑Dreieck · Region Fulda/Bad Hersfeld</div>
+      <div class="header-text">Einsatzgebiet: A7 Kirchheimer Dreieck · A5 Hattenbacher Dreieck · A49 Kassel–Ohmtal-Dreieck · Region Fulda/Bad Hersfeld</div>
       <a href="tel:+4915124104553" class="call-button call-button--dark" aria-label="Jetzt anrufen">CALL NOW</a>
     </div>
   </nav>
 
-  <!-- Sub‑Navigation + Lupe rechts -->
+  <!-- Sub-Navigation + Lupe rechts -->
   <div class="subnav" aria-label="Seitennavigation">
     <div class="subnav-inner">
       <div class="subnav-row">
         <div class="subnav-scroll" id="subnavScroll" tabindex="0">
           <a href="index.html">Start</a>
-          <a href="notdienst.html">24/7‑Notdienst</a>
-          <a href="vor-ort-service.html">Vor‑Ort‑Service</a>
+          <a href="notdienst.html">24/7-Notdienst</a>
+          <a href="vor-ort-service.html">Vor-Ort-Service</a>
           <a href="flottenservice.html" class="active">Für Speditionen</a>
           <a href="einsatzgebiet.html">Einsatzgebiet</a>
           <a href="checkliste-panne.html">Checkliste</a>
@@ -165,16 +170,16 @@
     <div id="searchResults" class="search-dropdown hidden" role="listbox" aria-label="Suchvorschläge"></div>
   </div>
 
-  <!-- Seiten‑Hero -->
+  <!-- Seiten-Hero -->
   <header class="page-hero">
     <div class="container">
       <div class="hero-flex">
-        <img src="flotten-hero-500.png" width="500" height="500" alt="LKW‑Flottenservice – TruckTire24" class="hero-image" loading="eager" decoding="async">
+        <img src="flotten-hero-500.png" width="500" height="500" alt="LKW-Flottenservice – Kosch mobiler Reifenservice" class="hero-image" loading="eager" decoding="async">
         <div class="hero-text">
           <h1>Für Speditionen & Flotten</h1>
-          <p>Mobil, schnell, zuverlässig: Wir halten Ihre LKW‑Flotte rollend – mit 24/7‑Notdienst, Vor‑Ort‑Montage und planbaren Flottenchecks. Transparente Preise und kurze Reaktionszeiten in unserer Einsatzregion rund um A4, A5, A7 und A49.</p>
+          <p>Mobil, schnell, zuverlässig: Wir halten Ihre LKW-Flotte rollend – mit 24/7-Notdienst, Vor-Ort-Montage und planbaren Flottenchecks. Transparente Preise und kurze Reaktionszeiten in unserer Einsatzregion rund um A4, A5, A7 und A49.</p>
           <div class="hero-cta">
-            <a href="mailto:info@trucktire24h.com?subject=Flottenanfrage" class="btn yellow">✉️ Flottenanfrage senden</a>
+            <a href="mailto:info@kosch-service.com?subject=Flottenanfrage" class="btn yellow">✉️ Flottenanfrage senden</a>
             <a href="tel:+4915124104553" class="btn call-button--dark">Sofort anrufen</a>
           </div>
         </div>
@@ -185,9 +190,9 @@
   <!-- USP -->
   <section class="container">
     <div class="grid cols-3">
-      <div class="card"><h3>24/7‑Pannenhilfe</h3><p class="muted">Tag & Nacht verfügbar – auch Wochenende & Feiertage.</p><ul class="clean"><li>Schnelle Anfahrt in der Region</li><li>Vor‑Ort‑Reparatur/Montage</li><li>Transparente Kommunikation</li></ul></div>
-      <div class="card"><h3>Planbare Flottenchecks</h3><p class="muted">Regelmäßige Sicht‑ & Profiltiefenkontrollen zur Ausfallprävention.</p><ul class="clean"><li>Protokoll je Fahrzeug/Achse</li><li>Frühzeitige Empfehlung Reifenwechsel</li><li>Terminabstimmung außerhalb Peak‑Zeiten</li></ul></div>
-      <div class="card"><h3>Faire Abrechnung</h3><p class="muted">Nachvollziehbare Leistungen und klare Dokumentation.</p><ul class="clean"><li>Positionsgenaue Fotodoku</li><li>Leistungsnachweis & Seriennummern</li><li>Digitale Übergabe per E‑Mail</li></ul></div>
+      <div class="card"><h3>24/7-Pannenhilfe</h3><p class="muted">Tag & Nacht verfügbar – auch Wochenende & Feiertage.</p><ul class="clean"><li>Schnelle Anfahrt in der Region</li><li>Vor-Ort-Reparatur/Montage</li><li>Transparente Kommunikation</li></ul></div>
+      <div class="card"><h3>Planbare Flottenchecks</h3><p class="muted">Regelmäßige Sicht- & Profiltiefenkontrollen zur Ausfallprävention.</p><ul class="clean"><li>Protokoll je Fahrzeug/Achse</li><li>Frühzeitige Empfehlung Reifenwechsel</li><li>Terminabstimmung außerhalb Peak-Zeiten</li></ul></div>
+      <div class="card"><h3>Faire Abrechnung</h3><p class="muted">Nachvollziehbare Leistungen und klare Dokumentation.</p><ul class="clean"><li>Positionsgenaue Fotodoku</li><li>Leistungsnachweis & Seriennummern</li><li>Digitale Übergabe per E-Mail</li></ul></div>
     </div>
   </section>
 
@@ -195,10 +200,10 @@
   <section class="container">
     <h2>Unsere Leistungen für Flotten</h2>
     <div class="grid cols-2" style="margin-top:16px">
-      <div class="card"><h3>Vor‑Ort‑Reifenservice</h3><ul class="clean"><li>Montage/Demontage aller gängigen LKW‑Reifendimensionen</li><li>Reparatur (z. B. Nagel, Durchstich) wenn technisch zulässig</li><li>Auswuchten & Kontrolle Luftdruck / Ventile</li></ul></div>
-      <div class="card"><h3>Flotten‑Inspektion & Protokoll</h3><ul class="clean"><li>Dokumentation je Achsposition (z. B. 1LA, 1LI, 1RI, 1RA …)</li><li>Profiltiefe, Beschädigungen, DOT, Luftdruck</li><li>Empfehlungen & Priorisierung (sofort / zeitnah / Planung)</li></ul></div>
-      <div class="card"><h3>24/7‑Pannen‑Notdienst</h3><ul class="clean"><li>Schnelle Hilfe auf Autobahn, Bundesstraße & Betriebshof</li><li>Absicherung & sichere Arbeitsweise vor Ort</li><li>Direkte Telefonhotline: <a href="tel:+4915124104553">+49 151 24104553</a></li></ul></div>
-      <div class="card"><h3>Transparente Preise</h3><ul class="clean"><li>Klare Anfahrts‑ und Montagepauschalen</li><li>Einheitliche Konditionen nach Rahmenvertrag</li><li>Kostenübersicht pro Einsatz/Einheit</li></ul></div>
+      <div class="card"><h3>Vor-Ort-Reifenservice</h3><ul class="clean"><li>Montage/Demontage aller gängigen LKW-Reifendimensionen</li><li>Reparatur (z. B. Nagel, Durchstich) wenn technisch zulässig</li><li>Auswuchten & Kontrolle Luftdruck / Ventile</li></ul></div>
+      <div class="card"><h3>Flotten-Inspektion & Protokoll</h3><ul class="clean"><li>Dokumentation je Achsposition (z. B. 1LA, 1LI, 1RI, 1RA …)</li><li>Profiltiefe, Beschädigungen, DOT, Luftdruck</li><li>Empfehlungen & Priorisierung (sofort / zeitnah / Planung)</li></ul></div>
+      <div class="card"><h3>24/7-Pannen-Notdienst</h3><ul class="clean"><li>Schnelle Hilfe auf Autobahn, Bundesstraße & Betriebshof</li><li>Absicherung & sichere Arbeitsweise vor Ort</li><li>Direkte Telefonhotline: <a href="tel:+4915124104553">+49 151 24104553</a></li></ul></div>
+      <div class="card"><h3>Transparente Preise</h3><ul class="clean"><li>Klare Anfahrts- und Montagepauschalen</li><li>Einheitliche Konditionen nach Rahmenvertrag</li><li>Kostenübersicht pro Einsatz/Einheit</li></ul></div>
     </div>
   </section>
 
@@ -247,7 +252,7 @@
       </div>
       <div class="row">
         <div>
-          <label for="email">E‑Mail *</label>
+          <label for="email">E-Mail *</label>
           <input id="email" name="email" type="email" autocomplete="email" required>
         </div>
         <div>
@@ -294,7 +299,7 @@
       </div>
 
       <div class="error" id="form-error">Bitte fülle alle Pflichtfelder korrekt aus.</div>
-      <div class="success" id="form-success">Vielen Dank! Dein E‑Mail‑Programm öffnet sich gleich mit deiner Anfrage.</div>
+      <div class="success" id="form-success">Vielen Dank! Dein E-Mail-Programm öffnet sich gleich mit deiner Anfrage.</div>
 
       <div class="form-actions">
         <button type="submit" class="btn yellow">Anfrage senden</button>
@@ -312,7 +317,7 @@
         <div class="muted">Kurzer Anruf genügt – wir klären Details zur Flottengröße & Einsatzgebieten.</div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="mailto:info@trucktire24h.com?subject=Rahmenvertrag%20Flotte" class="btn call-button--dark">✉️ E‑Mail</a>
+        <a href="mailto:info@kosch-service.com?subject=Rahmenvertrag%20Flotte" class="btn call-button--dark">✉️ E-Mail</a>
         <a href="tel:+4915124104553" class="btn call-button--dark">Sofort anrufen</a>
       </div>
     </div>
@@ -320,10 +325,10 @@
 
   <footer>
     <div class="footer-inner">
-      <a href="index.html" class="footer-link">Kosch</a> · 
-      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
+      <a href="index.html" class="footer-link">Kosch mobiler Reifenservice</a> · 
+      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a> ·
       <a href="cookie.html" class="footer-link">Cookie-Einstellungen</a>
-      <div>© <span id="year"></span> Kosch. Alle Rechte vorbehalten.</div>
+      <div>© <span id="year"></span> Kosch mobiler Reifenservice. Alle Rechte vorbehalten.</div>
     </div>
   </footer>
 
@@ -358,16 +363,16 @@
       });
     })();
 
-    // ===== Client‑Side Suche mit Vorschlägen (ohne Dateinamen) =====
+    // ===== Client-Side Suche mit Vorschlägen (ohne Dateinamen) – IDENTISCH zur Startseite =====
     const SITE_INDEX = [
-      {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW‑Reifenpannen, 24/7 erreichbar.'},
-      {title:'24/7‑Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
-      {title:'Vor‑Ort‑Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
-      {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW‑Flotte.'},
+      {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW-Reifenpannen, 24/7 erreichbar.'},
+      {title:'24/7-Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
+      {title:'Vor-Ort-Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
+      {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW-Flotte.'},
       {title:'Einsatzgebiet', url:'einsatzgebiet.html', snippet:'Alle Einsatzbereiche, Dreiecke und Regionen im Überblick.'},
-      {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW‑Panne – Schritt für Schritt.'},
-      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW‑Park- und Rastplätzen in der Region.'},
-      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür Kosch LKW-Pannenservice steht.'},
+      {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW-Panne – Schritt für Schritt.'},
+      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW-Park- und Rastplätzen in der Region.'},
+      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür Kosch mobiler Reifenservice steht.'},
       {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
     ];
 
@@ -403,7 +408,10 @@
     function search(){
       const q = normalize(input.value.trim());
       if(!q){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
-      const ranked = SITE_INDEX.map(it=>({it,s:score(it,q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).map(x=>x.it);
+      const ranked = SITE_INDEX.map(it=>({it,s:score(it,q)}))
+        .filter(x=>x.s>0)
+        .sort((a,b)=>b.s-a.s)
+        .map(x=>x.it);
       render(ranked, input.value);
     }
 
@@ -411,7 +419,7 @@
     let t=null; input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search, 80); });
     btnSearch.addEventListener('click', search);
 
-    // Enter = 1. Treffer öffnen
+    // Enter / Pfeile
     input.addEventListener('keydown', (e)=>{
       const items = [...resultsBox.querySelectorAll('.result-item')];
       const open = !resultsBox.classList.contains('hidden');
@@ -419,14 +427,30 @@
         if(open && items.length>0){ e.preventDefault(); location.href = items[0].getAttribute('href'); }
         else { search(); }
       }
-      else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex = (activeIndex+1) % items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
-      else if(open && e.key==='ArrowUp'){ e.preventDefault(); activeIndex = (activeIndex-1+items.length)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+      else if(open && e.key==='ArrowDown'){
+        e.preventDefault();
+        activeIndex = (activeIndex+1) % items.length;
+        items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false'));
+        items[activeIndex].scrollIntoView({block:'nearest'});
+      }
+      else if(open && e.key==='ArrowUp'){
+        e.preventDefault();
+        activeIndex = (activeIndex-1+items.length)%items.length;
+        items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false'));
+        items[activeIndex].scrollIntoView({block:'nearest'});
+      }
     });
 
     // Klick außerhalb schließt nur Dropdown
-    document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
+    document.addEventListener('click', (e)=>{
+      const wrap=document.getElementById('searchArea');
+      if(wrap && !wrap.contains(e.target)){
+        resultsBox.classList.add('hidden');
+        card.setAttribute('aria-expanded','false');
+      }
+    });
 
-    // Formular (mailto‑Fallback)
+    // Formular (mailto-Fallback) – an neue E-Mail angepasst
     (function(){
       const form = document.getElementById('fleet-form');
       if(!form) return;
@@ -441,7 +465,7 @@
         const body = [
           'Firma: ' + form.company.value.trim(),
           'Ansprechpartner: ' + form.contact.value.trim(),
-          'E‑Mail: ' + form.email.value.trim(),
+          'E-Mail: ' + form.email.value.trim(),
           'Telefon: ' + (form.phone.value.trim()||'-'),
           'Flottengröße: ' + (form.fleetSize.value||'-'),
           'Fahrzeugtypen: ' + (form.vehicleTypes.value.trim()||'-'),
@@ -451,7 +475,7 @@
           'Nachricht:',
           form.message.value.trim()
         ].join('\n');
-        const mailto = 'mailto:info@trucktire24h.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        const mailto = 'mailto:info@kosch-service.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         ok.style.display='block';
         window.location.href = mailto;
       });
@@ -460,8 +484,18 @@
 
   <!-- Schema.org -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Kosch LKW-Pannenservice","url":"https://trucktire24h.com/","telephone":"+49 151 24104553","areaServed":["A4","A5","A7","A49","Hessen"],"description":"Mobiler LKW‑Reifendienst für Speditionen & Flotten: 24/7‑Notdienst, Vor‑Ort‑Montage, Flottenchecks.","sameAs":[]}
+  {
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"Kosch mobiler Reifenservice",
+    "url":"https://kosch-service.com/",
+    "telephone":"+49 151 24104553",
+    "areaServed":["A4","A5","A7","A49","Hessen"],
+    "description":"Mobiler LKW-Reifendienst für Speditionen & Flotten: 24/7-Notdienst, Vor-Ort-Montage, Flottenchecks.",
+    "sameAs":[]
+  }
   </script>
 </body>
 </html>
+
 
