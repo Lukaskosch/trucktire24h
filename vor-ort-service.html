@@ -4,9 +4,10 @@
   <script src="assets/cookie-banner.js" defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Vor‑Ort‑Service – Kosch LKW-Pannenservice</title>
-  <meta name="description" content="Mobiler Vor‑Ort‑Service für LKW‑Reifen: Montage, Reparatur, Auswuchten und Kontrolle direkt an Ihrem Standort. 24/7 verfügbar im Raum A4, A5, A7, A49." />
+  <title>Vor-Ort-Service – Kosch mobiler Reifenservice · 24h LKW-Notdienst</title>
+  <meta name="description" content="Mobiler Vor-Ort-Service für LKW-Reifen: Montage, Reparatur, Auswuchten und Kontrolle direkt an Ihrem Standort. 24/7 verfügbar im Raum A4, A5, A7, A49." />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="canonical" href="https://kosch-service.com/vor-ort-service.html" />
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <style>
@@ -22,7 +23,7 @@
     img{max-width:100%;height:auto;display:block}
     a{color:inherit;text-decoration:none}
 
-    /* ===== Topbar ===== */
+    /* Topbar */
     nav.topbar{position:sticky;top:0;z-index:1000;background:linear-gradient(90deg,#fff700,#fff);box-shadow:0 2px 6px rgba(0,0,0,.08)}
     .nav-row{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:var(--container);margin:0 auto}
     .brand{display:flex;align-items:center;gap:10px}
@@ -32,11 +33,11 @@
     .call-button--dark{color:#fff;background:var(--dark);border:1px solid var(--dark-border)}
     .call-button--dark:hover{opacity:.95}
 
-    /* ===== Sub‑Navigation – mobil wischbar + Lupe ===== */
+    /* Subnav + Lupe */
     .subnav{position:relative;background:var(--dark);color:var(--dark-text);border-bottom:1px solid var(--dark-border);z-index:900}
     .subnav-inner{max-width:var(--container);margin:0 auto;padding:8px 0}
     .subnav-row{display:flex;align-items:center;gap:8px;padding:0 16px}
-    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
+    .subnav-scroll{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-beavior-x:contain;-webkit-user-select:none;user-select:none;flex:1}
     .subnav-scroll::-webkit-scrollbar{display:none}
     .subnav a{display:inline-block;color:var(--dark-text);font-size:14px;padding:8px 12px;border-radius:10px;border:1px solid transparent;flex:0 0 auto}
     .subnav a:hover{background:rgba(255,255,255,.06);color:#fff}
@@ -49,24 +50,33 @@
     .icon-btn:hover{background:rgba(255,255,255,.12)}
     .icon-btn svg{width:18px;height:18px}
 
-    /* ===== Suche (geschlossen; über Content) ===== */
+    /* Suche */
     .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500;display:none}
     .search-wrap.open{display:block}
     .search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px}
     .search-input{flex:1;border:none;background:transparent;outline:none;font-size:16px;padding:10px 6px}
     .search-btn{border:none;background:var(--dark);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
     .search-btn:hover{opacity:.95}
-    .search-dropdown{position:absolute;left:16px;right:16px;top:calc(100% + 8px);background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:1600}
+    .search-dropdown{
+      position:absolute;left:16px;right:16px;top:calc(100% + 8px);
+      background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);
+      max-height:60vh;overflow:auto;z-index:1600;padding:6px;
+    }
     .hidden{display:none}
+    .result-item{display:block;padding:12px 14px;border-radius:10px;margin:4px 0}
+    .result-item + .result-item{border-top:1px solid #f1f5f9}
+    .result-title{font-weight:700;font-size:15px;line-height:1.3}
+    .result-snippet{font-size:13.5px;color:#6b7280;margin-top:4px;line-height:1.45}
+    .result-item[aria-selected="true"], .result-item:hover{background:#f8fafc}
 
-    /* ===== Seiten-Hero ===== */
+    /* Seite */
     header.page-hero{background:linear-gradient(180deg,#f7f9fc,#fff);border-bottom:1px solid var(--border)}
     .container{max-width:var(--container);margin:0 auto;padding:28px 16px}
     .page-hero h1{font-size:clamp(28px,4vw,36px);margin:0 0 6px;line-height:1.15}
     .page-hero p{margin:0;color:var(--muted);line-height:1.6}
     .hero-cta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
 
-    /* NEW – Bild links neben Titel/Intro */
+    /* Bild links */
     .hero-flex{display:flex;gap:24px;align-items:center;flex-wrap:nowrap}
     .hero-image{display:block;width:100%;max-width:500px;aspect-ratio:1/1;object-fit:cover;border-radius:12px;box-shadow:var(--shadow);flex:0 0 500px}
     @media (max-width:920px){.hero-flex{flex-direction:column}.hero-image{flex:0 0 auto;max-width:420px;margin-inline:auto}}
@@ -76,6 +86,7 @@
     .btn.red{background:#d32f2f;border:1px solid #d32f2f;color:#fff}
     .btn.yellow{background:linear-gradient(90deg,#ffe24d,#fff700);border:1px solid #ffef8a;color:#111}
     .btn.yellow:hover{background:linear-gradient(90deg,#fff700,#ffe24d)}
+    .call-button--dark{background:var(--dark);color:#fff;border:1px solid var(--dark-border)}
 
     /* Grid + Cards */
     .grid{display:grid;gap:20px}
@@ -114,25 +125,25 @@
   </style>
 </head>
 <body>
-  <!-- Topbar (gelb) -->
+  <!-- Topbar -->
   <nav class="topbar" aria-label="Hauptnavigation">
     <div class="nav-row">
       <a class="brand" href="index.html" aria-label="Startseite">
-        <img src="logo.png" alt="TruckTire24 Logo" />
+        <img src="logo.png" alt="Kosch mobiler Reifenservice Logo" />
       </a>
-      <div class="header-text">Einsatzgebiet: A7 Kirchheimer Dreieck · A5 Hattenbacher Dreieck · A49 Kassel–Ohmtal‑Dreieck · Region Fulda/Bad Hersfeld</div>
+      <div class="header-text">Einsatzgebiet: A7 Kirchheimer Dreieck · A5 Hattenbacher Dreieck · A49 Kassel–Ohmtal-Dreieck · Region Fulda/Bad Hersfeld</div>
       <a href="tel:+4915124104553" class="call-button call-button--dark" aria-label="Jetzt anrufen">CALL NOW</a>
     </div>
   </nav>
 
-  <!-- Sub‑Navigation + Lupe rechts -->
+  <!-- Sub-Navigation + Lupe -->
   <div class="subnav" aria-label="Seitennavigation">
     <div class="subnav-inner">
       <div class="subnav-row">
         <div class="subnav-scroll" id="subnavScroll" tabindex="0">
           <a href="index.html">Start</a>
-          <a href="notdienst.html">24/7‑Notdienst</a>
-          <a href="vor-ort-service.html" class="active">Vor‑Ort‑Service</a>
+          <a href="notdienst.html">24/7-Notdienst</a>
+          <a href="vor-ort-service.html" class="active">Vor-Ort-Service</a>
           <a href="flottenservice.html">Für Speditionen</a>
           <a href="einsatzgebiet.html">Einsatzgebiet</a>
           <a href="checkliste-panne.html">Checkliste</a>
@@ -149,7 +160,7 @@
     </div>
   </div>
 
-  <!-- Suche (standardmäßig geschlossen) -->
+  <!-- Suche -->
   <div id="searchArea" class="search-wrap" role="search" aria-hidden="true">
     <div class="search-bar" id="searchCard" aria-expanded="false">
       <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchResults" autocomplete="off" />
@@ -162,12 +173,12 @@
   <header class="page-hero">
     <div class="container">
       <div class="hero-flex">
-        <img src="vor-ort-hero-500.png" width="500" height="500" alt="Vor‑Ort‑Service LKW‑Reifen – TruckTire24" class="hero-image" loading="eager" decoding="async">
+        <img src="vor-ort-hero-500.png" width="500" height="500" alt="Vor-Ort-Service LKW-Reifen – Kosch mobiler Reifenservice" class="hero-image" loading="eager" decoding="async">
         <div class="hero-text">
-          <h1>Vor‑Ort‑Service für LKW‑Reifen</h1>
+          <h1>Vor-Ort-Service für LKW-Reifen</h1>
           <p>Wir kommen zu Ihnen – Montage, Reparatur, Auswuchten und Sicherheitscheck direkt am Hof, im Lager oder am Einsatzort. 24/7 im Einsatz in unserer Region rund um die A4, A5, A7 und A49.</p>
           <div class="hero-cta">
-            <a class="btn yellow" href="mailto:info@trucktire24h.com?subject=Vor-Ort-Service%20Anfrage">✉️ Anfrage senden</a>
+            <a class="btn yellow" href="mailto:info@kosch-service.com?subject=Vor-Ort-Service%20Anfrage">✉️ Anfrage senden</a>
             <a class="btn call-button--dark" href="tel:+4915124104553">Sofort anrufen</a>  
           </div>
         </div>
@@ -189,14 +200,14 @@
     <div class="card" style="margin-top:12px">
       <div class="step"><div class="num">1</div><div class="txt"><h4>Termin/Anruf</h4><div class="muted">Kurz die Aufgabe, Standort und Reifendimension nennen.</div></div></div>
       <div class="step"><div class="num">2</div><div class="txt"><h4>Anfahrt</h4><div class="muted">Wir bringen Werkzeug & Material passend mit.</div></div></div>
-      <div class="step"><div class="num">3</div><div class="txt"><h4>Service vor Ort</h4><div class="muted">Sicher, fachgerecht und zügig</div></div></div>
+      <div class="step"><div class="num">3</div><div class="txt"><h4>Service vor Ort</h4><div class="muted">Sicher, fachgerecht und zügig.</div></div></div>
       <div class="step"><div class="num">4</div><div class="txt"><h4>Dokumentation</h4><div class="muted">Alle Unterlagen: Fotos, Notizen, Beleg und Rechnung – schnell und einfach per E-Mail.</div></div></div>
     </div>
   </section>
 
   <section class="container">
     <h2>Einsatzgebiet</h2>
-    <p class="muted">Kernregion: A4, A5, A7, A49 – u. a. Niederaula, Kirchheimer Dreieck, Hattenbacher Dreieck, Fulda, Bad Hersfeld, Alsfeld.</p>
+    <p class="muted">Kernregion: A4, A5, A7, A49 – u. a. Niederaula, Kirchheimer Dreieck, Hattenbacher Dreieck, Fulda, Bad Hersfeld, Alsfeld.</p>
     <div id="map" role="region" aria-label="Karte Einsatzgebiet 60 Kilometer um Niederaula"></div>
     <div class="muted" style="margin-top:8px">Hinweis: Der Kreis ist eine ungefähre Visualisierung (Luftlinie). Reale Fahrzeiten variieren je nach Verkehr & Streckenführung.</div>
   </section>
@@ -205,7 +216,7 @@
     <h2>Preise & Konditionen</h2>
     <div class="grid cols-2" style="margin-top:12px">
       <div class="card"><h3>Transparent & fair</h3><ul class="clean"><li>Anfahrt nach Entfernung/Zeitfenster</li><li>Montage/Reparatur pro Position</li><li>Material nach Bedarf (Ventile, Reifen etc.)</li></ul></div>
-      <div class="card"><h3>Rahmenkonditionen</h3><ul class="clean"><li>Einheitliche Preise nach Vereinbarung</li><li>Monatliche oder Einsatz‑Abrechnung</li><li>Digitale Belege, Rechnung & Fotodoku</li></ul></div>
+      <div class="card"><h3>Rahmenkonditionen</h3><ul class="clean"><li>Einheitliche Preise nach Vereinbarung</li><li>Monatliche oder Einsatz-Abrechnung</li><li>Digitale Belege, Rechnung & Fotodoku</li></ul></div>
     </div>
   </section>
 
@@ -214,7 +225,7 @@
     <div class="grid cols-2" style="margin-top:12px">
       <div class="card"><h3>Wie schnell seid ihr da?</h3><p class="muted">In der Kernregion oft 30–90 Minuten (Verkehr/Verfügbarkeit abhängig).</p></div>
       <div class="card"><h3>Arbeitet ihr auch nachts?</h3><p class="muted">Ja, 24/7 – inklusive Wochenende & Feiertage.</p></div>
-      <div class="card"><h3>Welche Reifendimensionen?</h3><p class="muted">Alle gängigen LKW‑Dimensionen. Bei Sondergrößen kurz vorher anfragen.</p></div>
+      <div class="card"><h3>Welche Reifendimensionen?</h3><p class="muted">Alle gängigen LKW-Dimensionen. Bei Sondergrößen kurz vorher anfragen.</p></div>
       <div class="card"><h3>Bezahlung & Beleg?</h3><p class="muted">Nach Vereinbarung – Beleg, Rechnung und Fotodoku direkt nach Abschluss per E-Mail.</p></div>
     </div>
   </section>
@@ -222,22 +233,22 @@
   <section class="container">
     <div class="card" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
       <div>
-        <h3 style="margin:0">Jetzt Vor‑Ort‑Service anfragen</h3>
+        <h3 style="margin:0">Jetzt Vor-Ort-Service anfragen</h3>
         <div class="muted">Kurze Beschreibung genügt – wir melden uns schnell.</div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn yellow" href="mailto:info@trucktire24h.com?subject=Vor-Ort-Service%20Anfrage">✉️ Anfrage senden</a>
-        <a class="btn btn call-button--dark" href="tel:+4915124104553">Sofort anrufen</a>
+        <a class="btn yellow" href="mailto:info@kosch-service.com?subject=Vor-Ort-Service%20Anfrage">✉️ Anfrage senden</a>
+        <a class="btn call-button--dark" href="tel:+4915124104553">Sofort anrufen</a>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="footer-inner">
-      <a href="index.html" class="footer-link">Kosch</a> · 
-      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a>
+      Kosch mobiler Reifenservice &middot; 24h LKW-Notdienst ·
+      <a href="impressum.html" class="footer-link">Impressum & Datenschutz</a> ·
       <a href="cookie.html" class="footer-link">Cookie-Einstellungen</a>
-      <div>© <span id="year"></span> Kosch. Alle Rechte vorbehalten.</div>
+      <div>© <span id="year"></span> Kosch mobiler Reifenservice. Alle Rechte vorbehalten.</div>
     </div>
   </footer>
 
@@ -246,7 +257,7 @@
   <script>
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    // ===== Subnav: Drag/Wisch nur Touch (Desktop klickbar) =====
+    // Touch-Scroll nur auf Touchgeräten
     (function(){
       const scroller = document.getElementById('subnavScroll');
       if(!scroller) return;
@@ -259,7 +270,7 @@
       scroller.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
     })();
 
-    // ===== Lupe: Suchleiste toggeln (standardmäßig geschlossen) =====
+    // Lupe: Suche toggeln
     (function(){
       const btn = document.getElementById('toggleSearch');
       const area = document.getElementById('searchArea');
@@ -274,16 +285,16 @@
       });
     })();
 
-    // ===== Client‑Side Suche mit Vorschlägen (ohne Dateinamen) =====
+    // Client-Side Suche (wie Startseite)
     const SITE_INDEX = [
-      {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW‑Reifenpannen, 24/7 erreichbar.'},
-      {title:'24/7‑Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
-      {title:'Vor‑Ort‑Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
-      {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW‑Flotte.'},
+      {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW-Reifenpannen, 24/7 erreichbar.'},
+      {title:'24/7-Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
+      {title:'Vor-Ort-Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
+      {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW-Flotte.'},
       {title:'Einsatzgebiet', url:'einsatzgebiet.html', snippet:'Alle Einsatzbereiche, Dreiecke und Regionen im Überblick.'},
-      {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW‑Panne – Schritt für Schritt.'},
-      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW‑Park- und Rastplätzen in der Region.'},
-      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür Kosch LKW-Pannenservice steht.'},
+      {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW-Panne – Schritt für Schritt.'},
+      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW-Park- und Rastplätzen in der Region.'},
+      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür Kosch mobiler Reifenservice steht.'},
       {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'}
     ];
 
@@ -327,7 +338,7 @@
     let t=null; input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search, 80); });
     btnSearch.addEventListener('click', search);
 
-    // Enter = 1. Treffer öffnen
+    // Enter/Arrows
     input.addEventListener('keydown', (e)=>{
       const items = [...resultsBox.querySelectorAll('.result-item')];
       const open = !resultsBox.classList.contains('hidden');
@@ -342,7 +353,7 @@
     // Klick außerhalb schließt nur Dropdown
     document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
 
-    // ===== Leaflet Karte =====
+    // Leaflet Karte
     const center = [50.7602, 9.6062]; // Niederaula
     const radiusMeters = 60000;
     const map = L.map('map', { scrollWheelZoom: true, attributionControl: true }).setView(center, 10);
@@ -357,7 +368,7 @@
       fillColor: '#64b5f6',
       fillOpacity: 0.15
     }).addTo(map);
-    L.marker(center).addTo(map).bindPopup('<strong>Niederaula</strong><br>Einsatz‑Zentrum');
+    L.marker(center).addTo(map).bindPopup('<strong>Niederaula</strong><br>Einsatz-Zentrum');
     map.fitBounds(circle.getBounds(), { padding: [20, 20] });
 
     const legend = L.control({ position: 'bottomleft' });
@@ -371,8 +382,18 @@
 
   <!-- Schema.org -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Kosch LKW-Pannenservice","url":"https://trucktire24h.com/","telephone":"+49 151 24104553","areaServed":["A4","A5","A7","A49","Hessen"],"description":"Mobiler Vor‑Ort‑Service für LKW‑Reifen: Montage, Reparatur, Auswuchten und Kontrolle direkt am Standort.","sameAs":[]}
+  {
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"Kosch mobiler Reifenservice",
+    "url":"https://kosch-service.com/vor-ort-service.html",
+    "telephone":"+49 151 24104553",
+    "email":"info@kosch-service.com",
+    "areaServed":["A4","A5","A7","A49","Hessen"],
+    "description":"Mobiler Vor-Ort-Service für LKW-Reifen: Montage, Reparatur, Auswuchten und Kontrolle direkt am Standort."
+  }
   </script>
 </body>
 </html>
+
 
