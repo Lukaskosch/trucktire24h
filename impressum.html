@@ -42,7 +42,7 @@
     .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid #334155;background:rgba(255,255,255,.06);color:#e5e7eb;cursor:pointer}
     .icon-btn svg{width:18px;height:18px}
 
-    /* Suche */
+    /* Suche (global, standardmäßig zu; identisch zu den anderen Seiten) */
     .search-wrap{max-width:var(--container);margin:8px auto 0;padding:0 16px;position:relative;z-index:1500;display:none}
     .search-wrap.open{display:block}
     .search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px}
@@ -117,6 +117,15 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Globale Suche (standardmäßig geschlossen) -->
+  <div id="searchArea" class="search-wrap" role="search" aria-hidden="true">
+    <div class="search-bar" id="searchCard" aria-expanded="false">
+      <input id="siteSearch" class="search-input" type="search" placeholder="Suche auf dieser Webseite…" aria-autocomplete="list" aria-controls="searchResults" autocomplete="off" />
+      <button id="searchButton" class="search-btn" aria-label="Suche starten">Enter</button>
+    </div>
+    <div id="searchResults" class="search-dropdown hidden" role="listbox" aria-label="Suchvorschläge"></div>
   </div>
 
   <!-- HERO -->
@@ -230,9 +239,96 @@
 
   <script>
     (function(){var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
+
+    // Subnav: nur Touch wischbar
+    (function(){
+      const scroller = document.getElementById('subnavScroll');
+      if(!scroller) return;
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      if(!isTouch) return;
+      let startX=0, startLeft=0, moved=false;
+      scroller.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; startLeft=scroller.scrollLeft; moved=false; }, {passive:true});
+      scroller.addEventListener('touchmove', e=>{ const dx=e.touches[0].clientX-startX; scroller.scrollLeft=startLeft-dx; if(Math.abs(dx)>12) moved=true; }, {passive:true});
+      scroller.addEventListener('touchend', ()=>{ setTimeout(()=>moved=false,0); }, {passive:true});
+      scroller.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; } }, true);
+    })();
+
+    // Lupe: Suchleiste toggeln
+    (function(){
+      const btn = document.getElementById('toggleSearch');
+      const area = document.getElementById('searchArea');
+      const input = document.getElementById('siteSearch');
+      if(!btn || !area) return;
+      btn.addEventListener('click', ()=>{
+        const open = !area.classList.contains('open');
+        area.classList.toggle('open', open);
+        area.setAttribute('aria-hidden', String(!open));
+        btn.setAttribute('aria-expanded', String(open));
+        if(open){ setTimeout(()=> input && input.focus(), 120); }
+      });
+    })();
+
+    // Client-Side Suche mit Vorschlägen (identisch zu den anderen Seiten)
+    const SITE_INDEX = [
+      {title:'Start', url:'index.html', snippet:'Soforthilfe bei LKW-Reifenpannen, 24/7 erreichbar.'},
+      {title:'24/7-Notdienst', url:'notdienst.html', snippet:'Rund um die Uhr Hilfe bei Reifenpannen – auch an Feiertagen.'},
+      {title:'Vor-Ort-Service', url:'vor-ort-service.html', snippet:'Reifenmontage und Service direkt am Einsatzort.'},
+      {title:'Für Speditionen', url:'flottenservice.html', snippet:'Planbarer Service und Konditionen für Ihre LKW-Flotte.'},
+      {title:'Einsatzgebiet', url:'einsatzgebiet.html', snippet:'Alle Einsatzbereiche, Dreiecke und Regionen im Überblick.'},
+      {title:'Checkliste Panne', url:'checkliste-panne.html', snippet:'Sicheres Verhalten bei einer LKW-Panne – Schritt für Schritt.'},
+      {title:'Parkplätze & Rastplätze', url:'parkplaetze.html', snippet:'Interaktive Karte mit LKW-Park- und Rastplätzen in der Region.'},
+      {title:'Über uns', url:'ueber-uns.html', snippet:'Wer wir sind und wofür Kosch mobiler Reifenservice steht.'},
+      {title:'Kontakt', url:'kontakt.html', snippet:'Kontaktformular und direkte Kontaktmöglichkeiten.'},
+      {title:'Impressum & Datenschutz', url:'impressum.html', snippet:'Rechtliche Angaben und Datenschutzhinweise.'}
+    ];
+
+    const input = document.getElementById('siteSearch');
+    const resultsBox = document.getElementById('searchResults');
+    const card = document.getElementById('searchCard');
+    const btnSearch = document.getElementById('searchButton');
+
+    function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,''); }
+    function score(item, q){ const t=normalize(item.title), sn=normalize(item.snippet); let s=0; if(t.includes(q)) s+=8; if(t.startsWith(q)) s+=6; if(sn.includes(q)) s+=2; return s; }
+    function highlight(text, q){ if(!q) return text; const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); return text.replace(new RegExp('('+esc+')','ig'), '<mark>$1</mark>'); }
+
+    let activeIndex=-1;
+    function render(items, rawQ){
+      resultsBox.innerHTML='';
+      if(items.length===0){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const q = rawQ.trim();
+      const frag=document.createDocumentFragment();
+      items.slice(0,8).forEach((it,i)=>{
+        const a=document.createElement('a'); a.href=it.url; a.className='result-item'; a.setAttribute('role','option'); a.id='res-'+i;
+        a.innerHTML=`<div class="result-title">${highlight(it.title,q)}</div><div class="result-snippet">${highlight(it.snippet||'',q)}</div>`;
+        frag.appendChild(a);
+      });
+      resultsBox.appendChild(frag);
+      resultsBox.classList.remove('hidden');
+      card.setAttribute('aria-expanded','true');
+      activeIndex=-1;
+    }
+    function search(){
+      const q=normalize(input.value.trim());
+      if(!q){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); return; }
+      const ranked=SITE_INDEX.map(it=>({it,s:score(it,q)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).map(x=>x.it);
+      render(ranked, input.value);
+    }
+    let t=null; input && input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(search,80); });
+    btnSearch && btnSearch.addEventListener('click', search);
+    input && input.addEventListener('keydown', (e)=>{
+      const items=[...resultsBox.querySelectorAll('.result-item')];
+      const open=!resultsBox.classList.contains('hidden');
+      if(e.key==='Enter'){
+        if(open && items.length>0){ e.preventDefault(); location.href=items[0].getAttribute('href'); }
+        else{ search(); }
+      } else if(open && e.key==='ArrowDown'){ e.preventDefault(); activeIndex=(activeIndex+1)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+        else if(open && e.key==='ArrowUp'){ e.preventDefault(); activeIndex=(activeIndex-1+items.length)%items.length; items.forEach((el,i)=>el.setAttribute('aria-selected', i===activeIndex?'true':'false')); items[activeIndex].scrollIntoView({block:'nearest'}); }
+    });
+    document.addEventListener('click', (e)=>{ const wrap=document.getElementById('searchArea'); if(wrap && !wrap.contains(e.target)){ resultsBox.classList.add('hidden'); card.setAttribute('aria-expanded','false'); } });
   </script>
 </body>
 </html>
+
 
 
 
