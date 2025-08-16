@@ -101,6 +101,15 @@
 /* optional: Marker explizit tiefschwarz */
 #prepareList li::marker, #faqList li::marker { color: #000; }
 
+    /* Häufige Kurzfragen: nur schwarze Bullets, Frage oben, Antwort darunter */
+#faqList { list-style: disc; padding-left: 1.2rem; margin: 0; }
+#faqList li { position: static; padding-left: 0; margin: 10px 0; }
+#faqList li::before { content: none !important; }   /* keine grünen Häkchen */
+#faqList li > strong { display: block; margin: 0 0 2px; } /* Frage in eigene Zeile */
+#faqList li { color: var(--text); }
+#faqList li strong { color: var(--text); }
+#faqList li::marker { color: #000; } /* optional: Marker tiefschwarz */
+
 
     /* Hinweisboxen */
     .note{border-left:4px solid var(--warn);background:#fff7ed;border:1px solid #fed7aa;padding:12px;border-radius:10px;color:#7c2d12}
