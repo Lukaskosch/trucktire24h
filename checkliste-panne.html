@@ -93,10 +93,14 @@
     ul.clean li{padding-left:24px;position:relative;margin:8px 0}
     ul.clean li::before{content:'✔';position:absolute;left:0;top:0;color:var(--ok);font-weight:700}
 
-    /* OVERRIDE: schwarze Bullets nur bei „Beim Anruf bereithalten“ */
-#prepareList { list-style: disc; padding-left: 1.2rem; margin: 0; }
-#prepareList li { position: static; padding-left: 0; }
-#prepareList li::before { content: none !important; }
+/* OVERRIDE: schwarze Bullets für „Beim Anruf bereithalten“ + „Häufige Kurzfragen“ */
+#prepareList, #faqList { list-style: disc; padding-left: 1.2rem; margin: 0; }
+#prepareList li, #faqList li { position: static; padding-left: 0; }
+#prepareList li::before, #faqList li::before { content: none !important; }
+
+/* optional: Marker explizit tiefschwarz */
+#prepareList li::marker, #faqList li::marker { color: #000; }
+
 
     /* Hinweisboxen */
     .note{border-left:4px solid var(--warn);background:#fff7ed;border:1px solid #fed7aa;padding:12px;border-radius:10px;color:#7c2d12}
